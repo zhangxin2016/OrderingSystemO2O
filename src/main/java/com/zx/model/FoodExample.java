@@ -304,62 +304,62 @@ public class FoodExample {
             return (Criteria) this;
         }
 
-        public Criteria andFpriceEqualTo(String value) {
+        public Criteria andFpriceEqualTo(Integer value) {
             addCriterion("fprice =", value, "fprice");
             return (Criteria) this;
         }
 
-        public Criteria andFpriceNotEqualTo(String value) {
+        public Criteria andFpriceNotEqualTo(Integer value) {
             addCriterion("fprice <>", value, "fprice");
             return (Criteria) this;
         }
 
-        public Criteria andFpriceGreaterThan(String value) {
+        public Criteria andFpriceGreaterThan(Integer value) {
             addCriterion("fprice >", value, "fprice");
             return (Criteria) this;
         }
 
-        public Criteria andFpriceGreaterThanOrEqualTo(String value) {
+        public Criteria andFpriceGreaterThanOrEqualTo(Integer value) {
             addCriterion("fprice >=", value, "fprice");
             return (Criteria) this;
         }
 
-        public Criteria andFpriceLessThan(String value) {
+        public Criteria andFpriceLessThan(Integer value) {
             addCriterion("fprice <", value, "fprice");
             return (Criteria) this;
         }
 
-        public Criteria andFpriceLessThanOrEqualTo(String value) {
+        public Criteria andFpriceLessThanOrEqualTo(Integer value) {
             addCriterion("fprice <=", value, "fprice");
             return (Criteria) this;
         }
 
-        public Criteria andFpriceLike(String value) {
+        public Criteria andFpriceLike(Integer value) {
             addCriterion("fprice like", value, "fprice");
             return (Criteria) this;
         }
 
-        public Criteria andFpriceNotLike(String value) {
+        public Criteria andFpriceNotLike(Integer value) {
             addCriterion("fprice not like", value, "fprice");
             return (Criteria) this;
         }
 
-        public Criteria andFpriceIn(List<String> values) {
+        public Criteria andFpriceIn(List<Integer> values) {
             addCriterion("fprice in", values, "fprice");
             return (Criteria) this;
         }
 
-        public Criteria andFpriceNotIn(List<String> values) {
+        public Criteria andFpriceNotIn(List<Integer> values) {
             addCriterion("fprice not in", values, "fprice");
             return (Criteria) this;
         }
 
-        public Criteria andFpriceBetween(String value1, String value2) {
+        public Criteria andFpriceBetween(Integer value1, Integer value2) {
             addCriterion("fprice between", value1, value2, "fprice");
             return (Criteria) this;
         }
 
-        public Criteria andFpriceNotBetween(String value1, String value2) {
+        public Criteria andFpriceNotBetween(Integer value1, Integer value2) {
             addCriterion("fprice not between", value1, value2, "fprice");
             return (Criteria) this;
         }

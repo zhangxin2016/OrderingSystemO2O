@@ -5,7 +5,7 @@
     <id column="fid" property="fid" jdbcType="INTEGER" />
     <result column="fname" property="fname" jdbcType="VARCHAR" />
     <result column="stid" property="stid" jdbcType="INTEGER" />
-    <result column="fprice" property="fprice" jdbcType="VARCHAR" />
+    <result column="fprice" property="fprice" jdbcType="INTEGER" />
     <result column="fcollection" property="fcollection" jdbcType="INTEGER" />
     <result column="fsalesvolume" property="fsalesvolume" jdbcType="INTEGER" />
     <result column="fstatus" property="fstatus" jdbcType="INTEGER" />
@@ -109,7 +109,7 @@
       fstatus, fpic, fdelete
       )
     values (#{fid,jdbcType=INTEGER}, #{fname,jdbcType=VARCHAR}, #{stid,jdbcType=INTEGER}, 
-      #{fprice,jdbcType=VARCHAR}, #{fcollection,jdbcType=INTEGER}, #{fsalesvolume,jdbcType=INTEGER}, 
+      #{fprice,jdbcType=INTEGER}, #{fcollection,jdbcType=INTEGER}, #{fsalesvolume,jdbcType=INTEGER},
       #{fstatus,jdbcType=INTEGER}, #{fpic,jdbcType=VARCHAR}, #{fdelete,jdbcType=INTEGER}
       )
   </insert>
@@ -155,7 +155,7 @@
         #{stid,jdbcType=INTEGER},
       </if>
       <if test="fprice != null" >
-        #{fprice,jdbcType=VARCHAR},
+        #{fprice,jdbcType=INTEGER},
       </if>
       <if test="fcollection != null" >
         #{fcollection,jdbcType=INTEGER},
@@ -193,7 +193,7 @@
         stid = #{record.stid,jdbcType=INTEGER},
       </if>
       <if test="record.fprice != null" >
-        fprice = #{record.fprice,jdbcType=VARCHAR},
+        fprice = #{record.fprice,jdbcType=INTEGER},
       </if>
       <if test="record.fcollection != null" >
         fcollection = #{record.fcollection,jdbcType=INTEGER},
@@ -220,7 +220,7 @@
     set fid = #{record.fid,jdbcType=INTEGER},
       fname = #{record.fname,jdbcType=VARCHAR},
       stid = #{record.stid,jdbcType=INTEGER},
-      fprice = #{record.fprice,jdbcType=VARCHAR},
+      fprice = #{record.fprice,jdbcType=INTEGER},
       fcollection = #{record.fcollection,jdbcType=INTEGER},
       fsalesvolume = #{record.fsalesvolume,jdbcType=INTEGER},
       fstatus = #{record.fstatus,jdbcType=INTEGER},
@@ -240,7 +240,7 @@
         stid = #{stid,jdbcType=INTEGER},
       </if>
       <if test="fprice != null" >
-        fprice = #{fprice,jdbcType=VARCHAR},
+        fprice = #{fprice,jdbcType=INTEGER},
       </if>
       <if test="fcollection != null" >
         fcollection = #{fcollection,jdbcType=INTEGER},
@@ -264,7 +264,7 @@
     update food
     set fname = #{fname,jdbcType=VARCHAR},
       stid = #{stid,jdbcType=INTEGER},
-      fprice = #{fprice,jdbcType=VARCHAR},
+      fprice = #{fprice,jdbcType=INTEGER},
       fcollection = #{fcollection,jdbcType=INTEGER},
       fsalesvolume = #{fsalesvolume,jdbcType=INTEGER},
       fstatus = #{fstatus,jdbcType=INTEGER},

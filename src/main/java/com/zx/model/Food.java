@@ -16,7 +16,7 @@ public class Food {
 
     private Integer stid;
 
-    private String fprice;
+    private Integer fprice;
 
     private Integer fcollection;
 

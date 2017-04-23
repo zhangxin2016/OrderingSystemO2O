@@ -14,9 +14,11 @@
     <meta name="description" content="DeathGhost.cn::H5 WEB前端设计开发!"/>
     <meta name="author" content="DeathGhost"/>
     <link href="<%=path %>style/style.css" rel="stylesheet" type="text/css"/>
-    <%--<script type="text/javascript" src="<%=path %>js/public.js"></script>--%>
+    <%--<script type="text/javascript" src="<%=path %>js/public.js"></script>
+    <script type="text/javascript" src="<%=path %>/js/jqpublic.js"></script>--%>
     <script type="text/javascript" src="<%=path %>js/jquery1.js"></script>
-    <script type="text/javascript" src="<%=path %>js/jqpublic.js"></script>
+
+    <script src="<%=path %>/js/jquery.js"></script>
     <script>
         $(function () {
             $('.title-list li').click(function () {
@@ -55,6 +57,27 @@
             });
         })
 
+        function addcart(fid){
+            $.ajax(
+                {
+                    type: "post",  //get或post
+                    async : false,  //可选，默认true  true或false
+                    url:  "<%=path %>/addFoodCart",   //请求的服务器地址
+                    //dataType: "text",
+                    dataType: "json",	//返回的数据类型
+                    data:
+                        {					//请求携带的参数，一个或者多个均可
+                            //$("#ajaxForm").serialize();  form实体提交
+                            foodId:fid,
+                            outcarnum:$("#"+fid).val()
+                        } ,
+                    success:function(data)
+                    {
+                        $("#cartUserCount").html(data);
+                    }
+                });
+
+        }
     </script>
     <style type="text/css">
         .gw_num{border: 1px solid #dbdbdb;width: 110px;line-height: 26px;overflow: hidden;}
@@ -70,12 +93,17 @@
     <section class="Topmenubg">
         <div class="Topnav">
             <div class="LeftNav">
-                <a href="register.html">注册</a>/<a href="login.html">登录</a><a href="#">QQ客服</a><a href="#">微信客服</a><a
-                    href="#">手机客户端</a>
+                <c:if test="${user.uname==null}">
+                    <a href="<%=basePath%>user/userBuyRegister.html">注册</a>
+                    |<a href="<%=basePath%>user/userBuylogin.html">登录</a>
+                </c:if>
+                <c:if test="${user.uname!=null}">
+                    欢迎您，${user.uname }<a href="<%=basePath%>Logout.html">退出</a>
+                </c:if>
             </div>
             <div class="RightNav">
                 <a href="user_center.html">用户中心</a> <a href="user_orderlist.html" target="_blank" title="我的订单">我的订单</a>
-                <a href="cart.html">购物车（0）</a> <a href="user_favorites.html" target="_blank" title="我的收藏">我的收藏</a> <a
+                <a href="cart.html">购物车</a><a id="cartUserCount"></a><a href="user_favorites.html" target="_blank" title="我的收藏">我的收藏</a> <a
                     href="#">商家入驻</a>
             </div>
         </div>
@@ -150,11 +178,11 @@
                 <div class="BuyNo">
                     <span>我要买：
                         <input type="button" class="jian" value="-" style="background: white"></input>
-                        <input type="text" class="num" required autofocus min="1" value="1"/>
+                        <input type="text" class="num" id="${food.fid }" name="shuliang" required autofocus min="1" value="1"/>
                         <input type="button" class="add" value="+" style="background: white"></input>
                         份</span>
                     <div class="Buybutton">
-                        <input name="" type="submit" value="加入购物车" class="BuyB">
+                        <input name="" type="button" value="加入购物车" onclick="addcart(${food.fid })" class="BuyB">
                         <a href="shop.html"><span class="Backhome">进入店铺首页</span></a>
                     </div>
                 </div>
