@@ -45,8 +45,10 @@ public class CartController {
             cartByFid = cartService.findCartByFid(foods.getFid());
             System.out.println("cart1===================="+cartByFid);
             //cartByFid.getNum();
-            cartByFid.setNum(num);
+            //cartByFid.getCtotal();
+            //cartByFid.setNum(num);
             cartByFid.setNum(num+cartByFid.getNum());
+            cartByFid.setCtotal(foods.getFprice()*num+cartByFid.getCtotal());
             cartService.updateCart(cartByFid);
             int count = cartService.findCountCart(user.getUid());
             response.getWriter().print(count);

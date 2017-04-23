@@ -15,8 +15,7 @@
     <result column="ctotal" property="ctotal"/>
     <result column="fid" property="fid"/>
     <result column="uid" property="uid"/>
-
-    <collection property="food" ofType="com.zx.model.Food">
+    <collection property="foods" ofType="com.zx.model.Food">
       <!-- id：食品唯一标识
       property:要将店铺的唯 一标识 映射到com.zx.model.Stores的哪个属性 -->
       <id column="fid" property="fid" />
@@ -255,10 +254,10 @@
     SELECT  cart.*, food.fname,food.fprice,food.fpic
     FROM
       cart,
-      goods
+      food
     WHERE
        cart.fid=food.fid
-    and cartdelete=0
+    and cdelete=0
     and cart.fid=#{cart.fid}
   </select>
   <select id="countCart" parameterType="Integer" resultType="Integer">

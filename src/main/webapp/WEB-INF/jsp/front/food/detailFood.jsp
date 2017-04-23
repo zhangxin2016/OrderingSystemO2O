@@ -18,7 +18,6 @@
     <script type="text/javascript" src="<%=path %>/js/jqpublic.js"></script>--%>
     <script type="text/javascript" src="<%=path %>js/jquery1.js"></script>
 
-    <script src="<%=path %>/js/jquery.js"></script>
     <script>
         $(function () {
             $('.title-list li').click(function () {
@@ -62,7 +61,7 @@
                 {
                     type: "post",  //get或post
                     async : false,  //可选，默认true  true或false
-                    url:  "<%=path %>/addFoodCart",   //请求的服务器地址
+                    url:  "<%=path %>/addFoodCart.html",   //请求的服务器地址
                     //dataType: "text",
                     dataType: "json",	//返回的数据类型
                     data:
