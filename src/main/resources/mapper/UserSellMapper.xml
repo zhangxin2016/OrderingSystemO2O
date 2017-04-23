@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zx.mapper.UserSellMapper" >
+  <resultMap id="BaseResultMap" type="com.zx.model.UserSell" >
+    <id column="usid" property="usid" jdbcType="INTEGER" />
+    <result column="usname" property="usname" jdbcType="VARCHAR" />
+    <result column="ustruename" property="ustruename" jdbcType="VARCHAR" />
+    <result column="uspassword" property="uspassword" jdbcType="VARCHAR" />
+    <result column="usphone" property="usphone" jdbcType="VARCHAR" />
+    <result column="usidcard" property="usidcard" jdbcType="VARCHAR" />
+    <result column="usaddress" property="usaddress" jdbcType="VARCHAR" />
+    <result column="usdel" property="usdel" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    usid, usname, ustruename, uspassword, usphone, usidcard, usaddress, usdel
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.zx.model.UserSellExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from user_sell
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from user_sell
+    where usid = #{usid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from user_sell
+    where usid = #{usid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.zx.model.UserSellExample" >
+    delete from user_sell
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.zx.model.UserSell" >
+    insert into user_sell (usid, usname, ustruename, 
+      uspassword, usphone, usidcard, 
+      usaddress, usdel)
+    values (#{usid,jdbcType=INTEGER}, #{usname,jdbcType=VARCHAR}, #{ustruename,jdbcType=VARCHAR}, 
+      #{uspassword,jdbcType=VARCHAR}, #{usphone,jdbcType=VARCHAR}, #{usidcard,jdbcType=VARCHAR},
+      #{usaddress,jdbcType=VARCHAR}, #{usdel,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zx.model.UserSell" >
+    insert into user_sell
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="usid != null" >
+        usid,
+      </if>
+      <if test="usname != null" >
+        usname,
+      </if>
+      <if test="ustruename != null" >
+        ustruename,
+      </if>
+      <if test="uspassword != null" >
+        uspassword,
+      </if>
+      <if test="usphone != null" >
+        usphone,
+      </if>
+      <if test="usidcard != null" >
+        usidcard,
+      </if>
+      <if test="usaddress != null" >
+        usaddress,
+      </if>
+      <if test="usdel != null" >
+        usdel,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="usid != null" >
+        #{usid,jdbcType=INTEGER},
+      </if>
+      <if test="usname != null" >
+        #{usname,jdbcType=VARCHAR},
+      </if>
+      <if test="ustruename != null" >
+        #{ustruename,jdbcType=VARCHAR},
+      </if>
+      <if test="uspassword != null" >
+        #{uspassword,jdbcType=VARCHAR},
+      </if>
+      <if test="usphone != null" >
+        #{usphone,jdbcType=VARCHAR},
+      </if>
+      <if test="usidcard != null" >
+        #{usidcard,jdbcType=VARCHAR},
+      </if>
+      <if test="usaddress != null" >
+        #{usaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="usdel != null" >
+        #{usdel,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.zx.model.UserSellExample" resultType="java.lang.Integer" >
+    select count(*) from user_sell
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update user_sell
+    <set >
+      <if test="record.usid != null" >
+        usid = #{record.usid,jdbcType=INTEGER},
+      </if>
+      <if test="record.usname != null" >
+        usname = #{record.usname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ustruename != null" >
+        ustruename = #{record.ustruename,jdbcType=VARCHAR},
+      </if>
+      <if test="record.uspassword != null" >
+        uspassword = #{record.uspassword,jdbcType=VARCHAR},
+      </if>
+      <if test="record.usphone != null" >
+        usphone = #{record.usphone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.usidcard != null" >
+        usidcard = #{record.usidcard,jdbcType=VARCHAR},
+      </if>
+      <if test="record.usaddress != null" >
+        usaddress = #{record.usaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.usdel != null" >
+        usdel = #{record.usdel,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update user_sell
+    set usid = #{record.usid,jdbcType=INTEGER},
+      usname = #{record.usname,jdbcType=VARCHAR},
+      ustruename = #{record.ustruename,jdbcType=VARCHAR},
+      uspassword = #{record.uspassword,jdbcType=VARCHAR},
+      usphone = #{record.usphone,jdbcType=VARCHAR},
+      usidcard = #{record.usidcard,jdbcType=VARCHAR},
+      usaddress = #{record.usaddress,jdbcType=VARCHAR},
+      usdel = #{record.usdel,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zx.model.UserSell" >
+    update user_sell
+    <set >
+      <if test="usname != null" >
+        usname = #{usname,jdbcType=VARCHAR},
+      </if>
+      <if test="ustruename != null" >
+        ustruename = #{ustruename,jdbcType=VARCHAR},
+      </if>
+      <if test="uspassword != null" >
+        uspassword = #{uspassword,jdbcType=VARCHAR},
+      </if>
+      <if test="usphone != null" >
+        usphone = #{usphone,jdbcType=VARCHAR},
+      </if>
+      <if test="usidcard != null" >
+        usidcard = #{usidcard,jdbcType=VARCHAR},
+      </if>
+      <if test="usaddress != null" >
+        usaddress = #{usaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="usdel != null" >
+        usdel = #{usdel,jdbcType=INTEGER},
+      </if>
+    </set>
+    where usid = #{usid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zx.model.UserSell" >
+    update user_sell
+    set usname = #{usname,jdbcType=VARCHAR},
+      ustruename = #{ustruename,jdbcType=VARCHAR},
+      uspassword = #{uspassword,jdbcType=VARCHAR},
+      usphone = #{usphone,jdbcType=VARCHAR},
+      usidcard = #{usidcard,jdbcType=VARCHAR},
+      usaddress = #{usaddress,jdbcType=VARCHAR},
+      usdel = #{usdel,jdbcType=INTEGER}
+    where usid = #{usid,jdbcType=INTEGER}
+  </update>
+  <!-- 登录验证 -->
+  <select id="getUserByNameAndPass" parameterType="com.zx.model.UserSell"
+          resultMap="BaseResultMap">
+    select * from user_sell
+    where
+    usname=#{usname} and uspassword=#{uspassword}
+  </select>
+
+  <!-- 验证用户注册信息 -->
+  <select id="checkRegister" parameterType="String" resultType="com.zx.model.UserSell">
+    select * from user_sell
+    <where>
+      usname=#{usname}
+    </where>
+  </select>
+</mapper>

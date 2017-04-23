@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zx.mapper.UserMapper1" >
+	<resultMap id="BaseResultMap" type="com.zx.model.UserBuy" >
+		<id column="uid" property="uid" jdbcType="INTEGER" />
+		<result column="uname" property="uname" jdbcType="VARCHAR" />
+		<result column="utruename" property="utruename" jdbcType="VARCHAR" />
+		<result column="upassword" property="upassword" jdbcType="VARCHAR" />
+		<result column="uidcard" property="uidcard" jdbcType="VARCHAR" />
+		<result column="uphone" property="uphone" jdbcType="VARCHAR" />
+		<result column="umail" property="umail" jdbcType="VARCHAR" />
+		<result column="upic" property="upic" jdbcType="VARCHAR" />
+		<result column="usex" property="usex" jdbcType="VARCHAR" />
+		<result column="uage" property="uage" jdbcType="INTEGER" />
+		<result column="udel" property="udel" jdbcType="INTEGER" />
+		<result column="ucredit" property="ucredit" jdbcType="INTEGER" />
+	</resultMap>
+<!-- 登录验证 -->
+  	<select id="getUserByNameAndPass" parameterType="com.zx.model.UserBuy"
+		resultMap="BaseResultMap">
+	   	select * from user_buy
+	   	where
+	   	uname=#{uname} and upassword=#{upassword}
+	</select>
+
+	<!-- 验证用户注册信息 -->
+	<select id="checkRegister" parameterType="String" resultType="com.zx.model.UserBuy">
+		select * from user_buy
+		<where>
+			uname=#{uname}
+		</where>
+	</select>
+	
+	<!-- 更新用户基本信息 -->
+	<update id="updateDetail" parameterType="com.zx.model.UserBuy">
+		update user_buy set
+        uname = #{uname},
+        usex = #{usex},
+        uage = #{uage}
+        where uid=#{uid}
+	</update>
+	
+	<!-- 更新手机 -->
+	<update id="updatePhone" parameterType="com.zx.model.UserBuy">
+		update user_buy set
+        
+        uphone = #{uphone}
+        
+        where uid=#{uid}
+	</update>
+	
+	<!-- 更新邮箱 -->
+	<update id="updateEmail" parameterType="com.zx.model.UserBuy">
+		update user_buy set
+        
+        umail = #{umail}
+       
+        where uid=#{uid}
+	</update>
+	
+	<!-- 更新密码 -->
+	<update id="updatePass" parameterType="com.zx.model.UserBuy">
+		update user_buy set
+       
+        upassword = #{upassword}
+        
+        where uid=#{uid}
+	</update>
+	
+	<select id="selectByFindStrs" resultType="Integer">
+			select uid from user_buy where LOCATE(#{uname}, uname)
+	</select>
+	
+</mapper>

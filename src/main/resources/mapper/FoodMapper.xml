@@ -1,0 +1,301 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zx.mapper.FoodMapper" >
+  <resultMap id="BaseResultMap" type="com.zx.model.Food" >
+    <id column="fid" property="fid" jdbcType="INTEGER" />
+    <result column="fname" property="fname" jdbcType="VARCHAR" />
+    <result column="stid" property="stid" jdbcType="INTEGER" />
+    <result column="fprice" property="fprice" jdbcType="VARCHAR" />
+    <result column="fcollection" property="fcollection" jdbcType="INTEGER" />
+    <result column="fsalesvolume" property="fsalesvolume" jdbcType="INTEGER" />
+    <result column="fstatus" property="fstatus" jdbcType="INTEGER" />
+    <result column="fpic" property="fpic" jdbcType="VARCHAR" />
+    <result column="fdelete" property="fdelete" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    fid, fname, stid, fprice, fcollection, fsalesvolume, fstatus, fpic, fdelete
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.zx.model.FoodExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from food
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from food
+    where fid = #{fid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from food
+    where fid = #{fid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.zx.model.FoodExample" >
+    delete from food
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.zx.model.Food" >
+    insert into food (fid, fname, stid, 
+      fprice, fcollection, fsalesvolume, 
+      fstatus, fpic, fdelete
+      )
+    values (#{fid,jdbcType=INTEGER}, #{fname,jdbcType=VARCHAR}, #{stid,jdbcType=INTEGER}, 
+      #{fprice,jdbcType=VARCHAR}, #{fcollection,jdbcType=INTEGER}, #{fsalesvolume,jdbcType=INTEGER}, 
+      #{fstatus,jdbcType=INTEGER}, #{fpic,jdbcType=VARCHAR}, #{fdelete,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.zx.model.Food" >
+    insert into food
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="fid != null" >
+        fid,
+      </if>
+      <if test="fname != null" >
+        fname,
+      </if>
+      <if test="stid != null" >
+        stid,
+      </if>
+      <if test="fprice != null" >
+        fprice,
+      </if>
+      <if test="fcollection != null" >
+        fcollection,
+      </if>
+      <if test="fsalesvolume != null" >
+        fsalesvolume,
+      </if>
+      <if test="fstatus != null" >
+        fstatus,
+      </if>
+      <if test="fpic != null" >
+        fpic,
+      </if>
+      <if test="fdelete != null" >
+        fdelete,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="fid != null" >
+        #{fid,jdbcType=INTEGER},
+      </if>
+      <if test="fname != null" >
+        #{fname,jdbcType=VARCHAR},
+      </if>
+      <if test="stid != null" >
+        #{stid,jdbcType=INTEGER},
+      </if>
+      <if test="fprice != null" >
+        #{fprice,jdbcType=VARCHAR},
+      </if>
+      <if test="fcollection != null" >
+        #{fcollection,jdbcType=INTEGER},
+      </if>
+      <if test="fsalesvolume != null" >
+        #{fsalesvolume,jdbcType=INTEGER},
+      </if>
+      <if test="fstatus != null" >
+        #{fstatus,jdbcType=INTEGER},
+      </if>
+      <if test="fpic != null" >
+        #{fpic,jdbcType=VARCHAR},
+      </if>
+      <if test="fdelete != null" >
+        #{fdelete,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.zx.model.FoodExample" resultType="java.lang.Integer" >
+    select count(*) from food
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update food
+    <set >
+      <if test="record.fid != null" >
+        fid = #{record.fid,jdbcType=INTEGER},
+      </if>
+      <if test="record.fname != null" >
+        fname = #{record.fname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.stid != null" >
+        stid = #{record.stid,jdbcType=INTEGER},
+      </if>
+      <if test="record.fprice != null" >
+        fprice = #{record.fprice,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fcollection != null" >
+        fcollection = #{record.fcollection,jdbcType=INTEGER},
+      </if>
+      <if test="record.fsalesvolume != null" >
+        fsalesvolume = #{record.fsalesvolume,jdbcType=INTEGER},
+      </if>
+      <if test="record.fstatus != null" >
+        fstatus = #{record.fstatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.fpic != null" >
+        fpic = #{record.fpic,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fdelete != null" >
+        fdelete = #{record.fdelete,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update food
+    set fid = #{record.fid,jdbcType=INTEGER},
+      fname = #{record.fname,jdbcType=VARCHAR},
+      stid = #{record.stid,jdbcType=INTEGER},
+      fprice = #{record.fprice,jdbcType=VARCHAR},
+      fcollection = #{record.fcollection,jdbcType=INTEGER},
+      fsalesvolume = #{record.fsalesvolume,jdbcType=INTEGER},
+      fstatus = #{record.fstatus,jdbcType=INTEGER},
+      fpic = #{record.fpic,jdbcType=VARCHAR},
+      fdelete = #{record.fdelete,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zx.model.Food" >
+    update food
+    <set >
+      <if test="fname != null" >
+        fname = #{fname,jdbcType=VARCHAR},
+      </if>
+      <if test="stid != null" >
+        stid = #{stid,jdbcType=INTEGER},
+      </if>
+      <if test="fprice != null" >
+        fprice = #{fprice,jdbcType=VARCHAR},
+      </if>
+      <if test="fcollection != null" >
+        fcollection = #{fcollection,jdbcType=INTEGER},
+      </if>
+      <if test="fsalesvolume != null" >
+        fsalesvolume = #{fsalesvolume,jdbcType=INTEGER},
+      </if>
+      <if test="fstatus != null" >
+        fstatus = #{fstatus,jdbcType=INTEGER},
+      </if>
+      <if test="fpic != null" >
+        fpic = #{fpic,jdbcType=VARCHAR},
+      </if>
+      <if test="fdelete != null" >
+        fdelete = #{fdelete,jdbcType=INTEGER},
+      </if>
+    </set>
+    where fid = #{fid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zx.model.Food" >
+    update food
+    set fname = #{fname,jdbcType=VARCHAR},
+      stid = #{stid,jdbcType=INTEGER},
+      fprice = #{fprice,jdbcType=VARCHAR},
+      fcollection = #{fcollection,jdbcType=INTEGER},
+      fsalesvolume = #{fsalesvolume,jdbcType=INTEGER},
+      fstatus = #{fstatus,jdbcType=INTEGER},
+      fpic = #{fpic,jdbcType=VARCHAR},
+      fdelete = #{fdelete,jdbcType=INTEGER}
+    where fid = #{fid,jdbcType=INTEGER}
+  </update>
+  <select id="findAll" parameterType="java.lang.String" resultType="Food">
+    SELECT * FROM food
+    WHERE fid LIKE #{keyWord} OR UPPER(fname) LIKE #{keyWord}
+  </select>
+  <!--滚动条：根据IP地址获取销售数量前3的食品-->
+  <select id="findAllBySalesvolume" parameterType="java.lang.Integer" resultType="Food">
+    SELECT * FROM food
+    WHERE  stid = #{stid}
+    ORDER BY fsalesvolume DESC limit 3
+  </select>
+  <!--- 首页下方三张图片：根据店铺ID获取收藏数量前3的食品-->
+  <select id="findAllByCollection" parameterType="java.lang.Integer" resultType="Food">
+    SELECT * FROM food
+    WHERE  stid = #{stid}
+    ORDER BY fcollection DESC limit 3
+  </select>
+  <select id="findAllByStid" parameterType="java.lang.Integer" resultType="Food">
+    SELECT * FROM food
+    WHERE  stid = #{stid}
+  </select>
+  <select id="findFoodById" parameterType="java.lang.Integer" resultType="Food">
+    SELECT
+    <include refid="Base_Column_List" />
+    from food
+    where fid = #{fid}
+  </select>
+</mapper>

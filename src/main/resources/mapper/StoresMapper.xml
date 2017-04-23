@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zx.mapper.StoresMapper" >
+  <resultMap id="BaseResultMap" type="com.zx.model.Stores" >
+    <id column="stid" property="stid" jdbcType="INTEGER" />
+    <result column="staddress" property="staddress" jdbcType="VARCHAR" />
+    <result column="stname" property="stname" jdbcType="VARCHAR" />
+    <result column="stdesc" property="stdesc" jdbcType="VARCHAR" />
+    <result column="stypeid" property="stypeid" jdbcType="INTEGER" />
+    <result column="stdelete" property="stdelete" jdbcType="INTEGER" />
+    <result column="usid" property="usid" jdbcType="INTEGER" />
+    <result column="uscoll" property="uscoll" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    stid, staddress, stname, stdesc, stypeid, stdelete, usid, uscoll
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.zx.model.StoresExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from stores
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from stores
+    where stid = #{stid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from stores
+    where stid = #{stid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.zx.model.StoresExample" >
+    delete from stores
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.zx.model.Stores" >
+    insert into stores (stid, staddress, stname, 
+      stdesc, stypeid, stdelete, 
+      usid, uscoll)
+    values (#{stid,jdbcType=INTEGER}, #{staddress,jdbcType=VARCHAR}, #{stname,jdbcType=VARCHAR}, 
+      #{stdesc,jdbcType=VARCHAR}, #{stypeid,jdbcType=INTEGER}, #{stdelete,jdbcType=INTEGER}, 
+      #{usid,jdbcType=INTEGER}, #{uscoll,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zx.model.Stores" >
+    insert into stores
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="stid != null" >
+        stid,
+      </if>
+      <if test="staddress != null" >
+        staddress,
+      </if>
+      <if test="stname != null" >
+        stname,
+      </if>
+      <if test="stdesc != null" >
+        stdesc,
+      </if>
+      <if test="stypeid != null" >
+        stypeid,
+      </if>
+      <if test="stdelete != null" >
+        stdelete,
+      </if>
+      <if test="usid != null" >
+        usid,
+      </if>
+      <if test="uscoll != null" >
+        uscoll,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="stid != null" >
+        #{stid,jdbcType=INTEGER},
+      </if>
+      <if test="staddress != null" >
+        #{staddress,jdbcType=VARCHAR},
+      </if>
+      <if test="stname != null" >
+        #{stname,jdbcType=VARCHAR},
+      </if>
+      <if test="stdesc != null" >
+        #{stdesc,jdbcType=VARCHAR},
+      </if>
+      <if test="stypeid != null" >
+        #{stypeid,jdbcType=INTEGER},
+      </if>
+      <if test="stdelete != null" >
+        #{stdelete,jdbcType=INTEGER},
+      </if>
+      <if test="usid != null" >
+        #{usid,jdbcType=INTEGER},
+      </if>
+      <if test="uscoll != null" >
+        #{uscoll,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.zx.model.StoresExample" resultType="java.lang.Integer" >
+    select count(*) from stores
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update stores
+    <set >
+      <if test="record.stid != null" >
+        stid = #{record.stid,jdbcType=INTEGER},
+      </if>
+      <if test="record.staddress != null" >
+        staddress = #{record.staddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.stname != null" >
+        stname = #{record.stname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.stdesc != null" >
+        stdesc = #{record.stdesc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.stypeid != null" >
+        stypeid = #{record.stypeid,jdbcType=INTEGER},
+      </if>
+      <if test="record.stdelete != null" >
+        stdelete = #{record.stdelete,jdbcType=INTEGER},
+      </if>
+      <if test="record.usid != null" >
+        usid = #{record.usid,jdbcType=INTEGER},
+      </if>
+      <if test="record.uscoll != null" >
+        uscoll = #{record.uscoll,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update stores
+    set stid = #{record.stid,jdbcType=INTEGER},
+      staddress = #{record.staddress,jdbcType=VARCHAR},
+      stname = #{record.stname,jdbcType=VARCHAR},
+      stdesc = #{record.stdesc,jdbcType=VARCHAR},
+      stypeid = #{record.stypeid,jdbcType=INTEGER},
+      stdelete = #{record.stdelete,jdbcType=INTEGER},
+      usid = #{record.usid,jdbcType=INTEGER},
+      uscoll = #{record.uscoll,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zx.model.Stores" >
+    update stores
+    <set >
+      <if test="staddress != null" >
+        staddress = #{staddress,jdbcType=VARCHAR},
+      </if>
+      <if test="stname != null" >
+        stname = #{stname,jdbcType=VARCHAR},
+      </if>
+      <if test="stdesc != null" >
+        stdesc = #{stdesc,jdbcType=VARCHAR},
+      </if>
+      <if test="stypeid != null" >
+        stypeid = #{stypeid,jdbcType=INTEGER},
+      </if>
+      <if test="stdelete != null" >
+        stdelete = #{stdelete,jdbcType=INTEGER},
+      </if>
+      <if test="usid != null" >
+        usid = #{usid,jdbcType=INTEGER},
+      </if>
+      <if test="uscoll != null" >
+        uscoll = #{uscoll,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where stid = #{stid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zx.model.Stores" >
+    update stores
+    set staddress = #{staddress,jdbcType=VARCHAR},
+      stname = #{stname,jdbcType=VARCHAR},
+      stdesc = #{stdesc,jdbcType=VARCHAR},
+      stypeid = #{stypeid,jdbcType=INTEGER},
+      stdelete = #{stdelete,jdbcType=INTEGER},
+      usid = #{usid,jdbcType=INTEGER},
+      uscoll = #{uscoll,jdbcType=VARCHAR}
+    where stid = #{stid,jdbcType=INTEGER}
+  </update>
+  <select id="selectStoresByAddress" parameterType="java.lang.String"  resultMap="BaseResultMap">
+      SELECT * from stores
+      WHERE staddress LIKE concat(concat('%',#{staddress}),'%')
+  </select>
+
+</mapper>
