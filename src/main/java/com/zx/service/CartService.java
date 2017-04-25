@@ -18,5 +18,9 @@ public interface CartService {
     public void updateCart(Cart cart) throws Exception;
     //根据用户获取购物车数量
     Integer findCountCart(Integer uid);
+    //根据用户获取购物车列表
+    List<Cart> findCartListByUid(Integer uid) throws Exception;
+    //根据购物车ID获取购物车信息
+    Cart findCartByCid(Integer cid)throws Exception;
 
 }

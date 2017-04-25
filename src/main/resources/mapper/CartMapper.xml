@@ -263,4 +263,25 @@
   <select id="countCart" parameterType="Integer" resultType="Integer">
     SELECT COUNT(1) FROM cart WHERE cdelete=0 AND uid=#{uid}
   </select>
+  <!-- 查询用户购物车信息 -->
+  <select id="findCartListByUid" resultMap="CartFoodResultMap">
+    SELECT  cart.*, food.fname,food.fprice,food.fpic
+    FROM
+      cart,
+      food
+    WHERE
+       cart.fid=food.fid
+    and cdelete=0
+    and uid=#{uid}
+  </select>
+  <select id="findCartByCid" parameterType="Integer" resultMap="CartFoodResultMap">
+    SELECT  cart.*, food.fname,food.fprice,food.fpic
+    FROM
+      cart,
+      food
+    WHERE
+       cart.fid=food.fid
+    and cdelete=0
+    and cid=#{cid}
+  </select>
 </mapper>

@@ -39,4 +39,14 @@ public class CartServiceImpl implements CartService {
     public Integer findCountCart(Integer uid) {
         return cartMapper.countCart(uid);
     }
+
+    @Override
+    public List<Cart> findCartListByUid(Integer uid) throws Exception {
+        return cartMapper.findCartListByUid(uid);
+    }
+
+    @Override
+    public Cart findCartByCid(Integer cid) throws Exception {
+        return cartMapper.findCartByCid(cid);
+    }
 }

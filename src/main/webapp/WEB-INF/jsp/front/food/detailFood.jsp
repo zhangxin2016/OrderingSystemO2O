@@ -18,6 +18,8 @@
     <script type="text/javascript" src="<%=path %>/js/jqpublic.js"></script>--%>
     <script type="text/javascript" src="<%=path %>js/jquery1.js"></script>
 
+    <script src="<%=path %>/js/jquery.js"></script>
+    <script src="<%=path %>/laydate/laydate.js"></script>
     <script>
         $(function () {
             $('.title-list li').click(function () {
@@ -73,6 +75,8 @@
                     success:function(data)
                     {
                         $("#cartUserCount").html(data);
+                        layer.msg('加入购物车成功', {icon: 1,time: 1000});
+                        return;
                     }
                 });
 
@@ -84,9 +88,8 @@
         .gw_num .num{display: block;float: left;text-align: center;width: 52px;font-style: normal;font-size: 14px;line-height: 24px;border: 0;}
         .gw_num em.add{float: right;border-right: 0;border-left: 1px solid #dbdbdb;}
     </style>
-
+    <script src="<%=path %>/layer/layer.js"></script>
 </head>
-
 <body>
 <header>
     <section class="Topmenubg">
@@ -181,7 +184,7 @@
                         <input type="button" class="add" value="+" style="background: white"></input>
                         份</span>
                     <div class="Buybutton">
-                        <input name="" type="button" value="加入购物车" onclick="addcart(${food.fid })" class="BuyB">
+                        <input name="" type="button" value="加入购物车" onclick="addcart(${food.fid })" class="BuyB" id="addcartlayer">
                         <a href="shop.html"><span class="Backhome">进入店铺首页</span></a>
                     </div>
                 </div>

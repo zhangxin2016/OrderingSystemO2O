@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zx.mapper.DetailorderMapper" >
+  <resultMap id="BaseResultMap" type="com.zx.model.Detailorder" >
+    <id column="doid" property="doid" jdbcType="INTEGER" />
+    <result column="oid" property="oid" jdbcType="INTEGER" />
+    <result column="fid" property="fid" jdbcType="INTEGER" />
+    <result column="donum" property="donum" jdbcType="INTEGER" />
+    <result column="dopri" property="dopri" jdbcType="INTEGER" />
+    <result column="dodate" property="dodate" jdbcType="DATE" />
+    <result column="dostatus" property="dostatus" jdbcType="INTEGER" />
+    <result column="adid" property="adid" jdbcType="INTEGER" />
+    <result column="dodelete" property="dodelete" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    doid, oid, fid, donum, dopri, dodate, dostatus, adid, dodelete
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.zx.model.DetailorderExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from detailorder
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from detailorder
+    where doid = #{doid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from detailorder
+    where doid = #{doid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.zx.model.DetailorderExample" >
+    delete from detailorder
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.zx.model.Detailorder" >
+    insert into detailorder (doid, oid, fid, 
+      donum, dopri, dodate, 
+      dostatus, adid, dodelete
+      )
+    values (#{doid,jdbcType=INTEGER}, #{oid,jdbcType=INTEGER}, #{fid,jdbcType=INTEGER}, 
+      #{donum,jdbcType=INTEGER}, #{dopri,jdbcType=INTEGER}, #{dodate,jdbcType=DATE}, 
+      #{dostatus,jdbcType=INTEGER}, #{adid,jdbcType=INTEGER}, #{dodelete,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.zx.model.Detailorder" >
+    insert into detailorder
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="doid != null" >
+        doid,
+      </if>
+      <if test="oid != null" >
+        oid,
+      </if>
+      <if test="fid != null" >
+        fid,
+      </if>
+      <if test="donum != null" >
+        donum,
+      </if>
+      <if test="dopri != null" >
+        dopri,
+      </if>
+      <if test="dodate != null" >
+        dodate,
+      </if>
+      <if test="dostatus != null" >
+        dostatus,
+      </if>
+      <if test="adid != null" >
+        adid,
+      </if>
+      <if test="dodelete != null" >
+        dodelete,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="doid != null" >
+        #{doid,jdbcType=INTEGER},
+      </if>
+      <if test="oid != null" >
+        #{oid,jdbcType=INTEGER},
+      </if>
+      <if test="fid != null" >
+        #{fid,jdbcType=INTEGER},
+      </if>
+      <if test="donum != null" >
+        #{donum,jdbcType=INTEGER},
+      </if>
+      <if test="dopri != null" >
+        #{dopri,jdbcType=INTEGER},
+      </if>
+      <if test="dodate != null" >
+        #{dodate,jdbcType=DATE},
+      </if>
+      <if test="dostatus != null" >
+        #{dostatus,jdbcType=INTEGER},
+      </if>
+      <if test="adid != null" >
+        #{adid,jdbcType=INTEGER},
+      </if>
+      <if test="dodelete != null" >
+        #{dodelete,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.zx.model.DetailorderExample" resultType="java.lang.Integer" >
+    select count(*) from detailorder
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update detailorder
+    <set >
+      <if test="record.doid != null" >
+        doid = #{record.doid,jdbcType=INTEGER},
+      </if>
+      <if test="record.oid != null" >
+        oid = #{record.oid,jdbcType=INTEGER},
+      </if>
+      <if test="record.fid != null" >
+        fid = #{record.fid,jdbcType=INTEGER},
+      </if>
+      <if test="record.donum != null" >
+        donum = #{record.donum,jdbcType=INTEGER},
+      </if>
+      <if test="record.dopri != null" >
+        dopri = #{record.dopri,jdbcType=INTEGER},
+      </if>
+      <if test="record.dodate != null" >
+        dodate = #{record.dodate,jdbcType=DATE},
+      </if>
+      <if test="record.dostatus != null" >
+        dostatus = #{record.dostatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.adid != null" >
+        adid = #{record.adid,jdbcType=INTEGER},
+      </if>
+      <if test="record.dodelete != null" >
+        dodelete = #{record.dodelete,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update detailorder
+    set doid = #{record.doid,jdbcType=INTEGER},
+      oid = #{record.oid,jdbcType=INTEGER},
+      fid = #{record.fid,jdbcType=INTEGER},
+      donum = #{record.donum,jdbcType=INTEGER},
+      dopri = #{record.dopri,jdbcType=INTEGER},
+      dodate = #{record.dodate,jdbcType=DATE},
+      dostatus = #{record.dostatus,jdbcType=INTEGER},
+      adid = #{record.adid,jdbcType=INTEGER},
+      dodelete = #{record.dodelete,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zx.model.Detailorder" >
+    update detailorder
+    <set >
+      <if test="oid != null" >
+        oid = #{oid,jdbcType=INTEGER},
+      </if>
+      <if test="fid != null" >
+        fid = #{fid,jdbcType=INTEGER},
+      </if>
+      <if test="donum != null" >
+        donum = #{donum,jdbcType=INTEGER},
+      </if>
+      <if test="dopri != null" >
+        dopri = #{dopri,jdbcType=INTEGER},
+      </if>
+      <if test="dodate != null" >
+        dodate = #{dodate,jdbcType=DATE},
+      </if>
+      <if test="dostatus != null" >
+        dostatus = #{dostatus,jdbcType=INTEGER},
+      </if>
+      <if test="adid != null" >
+        adid = #{adid,jdbcType=INTEGER},
+      </if>
+      <if test="dodelete != null" >
+        dodelete = #{dodelete,jdbcType=INTEGER},
+      </if>
+    </set>
+    where doid = #{doid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zx.model.Detailorder" >
+    update detailorder
+    set oid = #{oid,jdbcType=INTEGER},
+      fid = #{fid,jdbcType=INTEGER},
+      donum = #{donum,jdbcType=INTEGER},
+      dopri = #{dopri,jdbcType=INTEGER},
+      dodate = #{dodate,jdbcType=DATE},
+      dostatus = #{dostatus,jdbcType=INTEGER},
+      adid = #{adid,jdbcType=INTEGER},
+      dodelete = #{dodelete,jdbcType=INTEGER}
+    where doid = #{doid,jdbcType=INTEGER}
+  </update>
+</mapper>
