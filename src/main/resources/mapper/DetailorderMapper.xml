@@ -7,10 +7,11 @@
     <result column="fid" property="fid" jdbcType="INTEGER" />
     <result column="donum" property="donum" jdbcType="INTEGER" />
     <result column="dopri" property="dopri" jdbcType="INTEGER" />
-    <result column="dodate" property="dodate" jdbcType="DATE" />
+    <result column="dodate" property="dodate" jdbcType="TIMESTAMP" />
     <result column="dostatus" property="dostatus" jdbcType="INTEGER" />
     <result column="adid" property="adid" jdbcType="INTEGER" />
     <result column="dodelete" property="dodelete" jdbcType="INTEGER" />
+    <result column="domessage" property="domessage" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -71,7 +72,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    doid, oid, fid, donum, dopri, dodate, dostatus, adid, dodelete
+    doid, oid, fid, donum, dopri, dodate, dostatus, adid, dodelete, domessage
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.zx.model.DetailorderExample" >
     select
@@ -88,7 +89,7 @@
     </if>
   </select>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-    select 
+    select
     <include refid="Base_Column_List" />
     from detailorder
     where doid = #{doid,jdbcType=INTEGER}
@@ -104,14 +105,14 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.zx.model.Detailorder" >
-    insert into detailorder (doid, oid, fid, 
-      donum, dopri, dodate, 
-      dostatus, adid, dodelete
-      )
-    values (#{doid,jdbcType=INTEGER}, #{oid,jdbcType=INTEGER}, #{fid,jdbcType=INTEGER}, 
-      #{donum,jdbcType=INTEGER}, #{dopri,jdbcType=INTEGER}, #{dodate,jdbcType=DATE}, 
-      #{dostatus,jdbcType=INTEGER}, #{adid,jdbcType=INTEGER}, #{dodelete,jdbcType=INTEGER}
-      )
+    insert into detailorder (doid, oid, fid,
+      donum, dopri, dodate,
+      dostatus, adid, dodelete,
+      domessage)
+    values (#{doid,jdbcType=INTEGER}, #{oid,jdbcType=INTEGER}, #{fid,jdbcType=INTEGER},
+      #{donum,jdbcType=INTEGER}, #{dopri,jdbcType=INTEGER}, CURRENT_TIMESTAMP,
+      #{dostatus,jdbcType=INTEGER}, #{adid,jdbcType=INTEGER}, #{dodelete,jdbcType=INTEGER},
+      #{domessage,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.zx.model.Detailorder" >
     insert into detailorder
@@ -143,6 +144,9 @@
       <if test="dodelete != null" >
         dodelete,
       </if>
+      <if test="domessage != null" >
+        domessage,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="doid != null" >
@@ -161,7 +165,7 @@
         #{dopri,jdbcType=INTEGER},
       </if>
       <if test="dodate != null" >
-        #{dodate,jdbcType=DATE},
+        #{dodate,jdbcType=TIMESTAMP},
       </if>
       <if test="dostatus != null" >
         #{dostatus,jdbcType=INTEGER},
@@ -171,6 +175,9 @@
       </if>
       <if test="dodelete != null" >
         #{dodelete,jdbcType=INTEGER},
+      </if>
+      <if test="domessage != null" >
+        #{domessage,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -199,7 +206,7 @@
         dopri = #{record.dopri,jdbcType=INTEGER},
       </if>
       <if test="record.dodate != null" >
-        dodate = #{record.dodate,jdbcType=DATE},
+        dodate = #{record.dodate,jdbcType=TIMESTAMP},
       </if>
       <if test="record.dostatus != null" >
         dostatus = #{record.dostatus,jdbcType=INTEGER},
@@ -209,6 +216,9 @@
       </if>
       <if test="record.dodelete != null" >
         dodelete = #{record.dodelete,jdbcType=INTEGER},
+      </if>
+      <if test="record.domessage != null" >
+        domessage = #{record.domessage,jdbcType=VARCHAR},
       </if>
     </set>
     <if test="_parameter != null" >
@@ -222,10 +232,11 @@
       fid = #{record.fid,jdbcType=INTEGER},
       donum = #{record.donum,jdbcType=INTEGER},
       dopri = #{record.dopri,jdbcType=INTEGER},
-      dodate = #{record.dodate,jdbcType=DATE},
+      dodate = #{record.dodate,jdbcType=TIMESTAMP},
       dostatus = #{record.dostatus,jdbcType=INTEGER},
       adid = #{record.adid,jdbcType=INTEGER},
-      dodelete = #{record.dodelete,jdbcType=INTEGER}
+      dodelete = #{record.dodelete,jdbcType=INTEGER},
+      domessage = #{record.domessage,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -246,7 +257,7 @@
         dopri = #{dopri,jdbcType=INTEGER},
       </if>
       <if test="dodate != null" >
-        dodate = #{dodate,jdbcType=DATE},
+        dodate = #{dodate,jdbcType=TIMESTAMP},
       </if>
       <if test="dostatus != null" >
         dostatus = #{dostatus,jdbcType=INTEGER},
@@ -257,6 +268,9 @@
       <if test="dodelete != null" >
         dodelete = #{dodelete,jdbcType=INTEGER},
       </if>
+      <if test="domessage != null" >
+        domessage = #{domessage,jdbcType=VARCHAR},
+      </if>
     </set>
     where doid = #{doid,jdbcType=INTEGER}
   </update>
@@ -266,10 +280,11 @@
       fid = #{fid,jdbcType=INTEGER},
       donum = #{donum,jdbcType=INTEGER},
       dopri = #{dopri,jdbcType=INTEGER},
-      dodate = #{dodate,jdbcType=DATE},
+      dodate = #{dodate,jdbcType=TIMESTAMP},
       dostatus = #{dostatus,jdbcType=INTEGER},
       adid = #{adid,jdbcType=INTEGER},
-      dodelete = #{dodelete,jdbcType=INTEGER}
+      dodelete = #{dodelete,jdbcType=INTEGER},
+      domessage = #{domessage,jdbcType=VARCHAR}
     where doid = #{doid,jdbcType=INTEGER}
   </update>
 </mapper>

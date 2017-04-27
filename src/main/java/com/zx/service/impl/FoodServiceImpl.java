@@ -58,4 +58,9 @@ public class FoodServiceImpl implements FoodService {
         return foodMapper.findFoodById(id);
     }
 
+    @Override
+    public void updateFood(Integer id, Food food) throws Exception {
+        foodMapper.updateByPrimaryKeySelective(food);
+    }
+
 }

@@ -37,4 +37,6 @@ public interface CartMapper {
     List<Cart> findCartListByUid(Integer uid);
 
     Cart findCartByCid(int cid);
+
+    Integer deleteCartById(Integer cid);
 }

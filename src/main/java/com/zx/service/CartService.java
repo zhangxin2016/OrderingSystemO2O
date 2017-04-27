@@ -22,5 +22,6 @@ public interface CartService {
     List<Cart> findCartListByUid(Integer uid) throws Exception;
     //根据购物车ID获取购物车信息
     Cart findCartByCid(Integer cid)throws Exception;
-
+    //清空购物车
+    Integer deleteCart(Integer cid);
 }

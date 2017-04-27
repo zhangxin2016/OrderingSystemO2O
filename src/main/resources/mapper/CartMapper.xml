@@ -284,4 +284,10 @@
     and cdelete=0
     and cid=#{cid}
   </select>
+  <!--删除：根据主键ID删除-->
+  <update id="deleteCartById" parameterType="java.lang.Integer">
+    UPDATE cart SET cdelete = 1
+    WHERE cid = #{cid}
+  </update>
+
 </mapper>

@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.zx.mapper.OrderMapper" >
-  <resultMap id="BaseResultMap" type="com.zx.model.Order" >
-    <id column="oid" property="oid" jdbcType="INTEGER" />
-    <result column="onum" property="onum" jdbcType="INTEGER" />
-    <result column="otatal" property="otatal" jdbcType="INTEGER" />
+<mapper namespace="com.zx.mapper.AddressMapper" >
+  <resultMap id="BaseResultMap" type="com.zx.model.Address" >
+    <id column="adid" property="adid" jdbcType="INTEGER" />
+    <result column="adcon" property="adcon" jdbcType="VARCHAR" />
+    <result column="adtel" property="adtel" jdbcType="VARCHAR" />
+    <result column="adname" property="adname" jdbcType="VARCHAR" />
     <result column="uid" property="uid" jdbcType="INTEGER" />
-    <result column="odate" property="odate" jdbcType="TIMESTAMP" />
-    <result column="odelete" property="odelete" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -68,117 +67,104 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    oid, onum, otatal, uid, odate, odelete
+    adid, adcon, adtel, adname, uid
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.zx.model.OrderExample" >
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.zx.model.AddressExample" >
     select
     <if test="distinct" >
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from orders
+    from address
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
     <if test="orderByClause != null" >
-      orders by ${orderByClause}
+      order by ${orderByClause}
     </if>
   </select>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-    select
+    select 
     <include refid="Base_Column_List" />
-    from orders
-    where oid = #{oid,jdbcType=INTEGER}
+    from address
+    where adid = #{adid,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from orders
-    where oid = #{oid,jdbcType=INTEGER}
+    delete from address
+    where adid = #{adid,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="com.zx.model.OrderExample" >
-    delete from orders
+  <delete id="deleteByExample" parameterType="com.zx.model.AddressExample" >
+    delete from address
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.zx.model.Order" >
-    <selectKey keyProperty="oid" order="AFTER" resultType="java.lang.Integer">
-      SELECT LAST_INSERT_ID()
-    </selectKey>
-    insert into orders (oid, onum, otatal,
-      uid, odate, odelete)
-    values (#{oid,jdbcType=INTEGER}, #{onum,jdbcType=INTEGER}, #{otatal,jdbcType=INTEGER},
-      #{uid,jdbcType=INTEGER}, #{odate,jdbcType=TIMESTAMP}, #{odelete,jdbcType=INTEGER})
+  <insert id="insert" parameterType="com.zx.model.Address" >
+    insert into address (adid, adcon, adtel, 
+      adname, uid)
+    values (#{adid,jdbcType=INTEGER}, #{adcon,jdbcType=VARCHAR}, #{adtel,jdbcType=VARCHAR}, 
+      #{adname,jdbcType=VARCHAR}, #{uid,jdbcType=INTEGER})
   </insert>
-
-  <insert id="insertSelective" parameterType="com.zx.model.Order">
-    insert into orders
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="oid != null">
-        oid,
+  <insert id="insertSelective" parameterType="com.zx.model.Address" >
+    insert into address
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="adid != null" >
+        adid,
       </if>
-      <if test="onum != null">
-        onum,
+      <if test="adcon != null" >
+        adcon,
       </if>
-      <if test="otatal != null">
-        otatal,
+      <if test="adtel != null" >
+        adtel,
       </if>
-      <if test="uid != null">
+      <if test="adname != null" >
+        adname,
+      </if>
+      <if test="uid != null" >
         uid,
       </if>
-      <if test="odate != null">
-        odate,
-      </if>
-      <if test="odelete != null">
-        odelete,
-      </if>
     </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="oid != null">
-        #{oid,jdbcType=INTEGER},
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="adid != null" >
+        #{adid,jdbcType=INTEGER},
       </if>
-      <if test="onum != null">
-        #{onum,jdbcType=INTEGER},
+      <if test="adcon != null" >
+        #{adcon,jdbcType=VARCHAR},
       </if>
-      <if test="otatal != null">
-        #{otatal,jdbcType=INTEGER},
+      <if test="adtel != null" >
+        #{adtel,jdbcType=VARCHAR},
       </if>
-      <if test="uid != null">
+      <if test="adname != null" >
+        #{adname,jdbcType=VARCHAR},
+      </if>
+      <if test="uid != null" >
         #{uid,jdbcType=INTEGER},
-      </if>
-      <if test="odate != null">
-        #{odate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="odelete != null">
-        #{odelete,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.zx.model.OrderExample" resultType="java.lang.Integer" >
-    select count(*) from orders
+  <select id="countByExample" parameterType="com.zx.model.AddressExample" resultType="java.lang.Integer" >
+    select count(*) from address
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map" >
-    update orders
+    update address
     <set >
-      <if test="record.oid != null" >
-        oid = #{record.oid,jdbcType=INTEGER},
+      <if test="record.adid != null" >
+        adid = #{record.adid,jdbcType=INTEGER},
       </if>
-      <if test="record.onum != null" >
-        onum = #{record.onum,jdbcType=INTEGER},
+      <if test="record.adcon != null" >
+        adcon = #{record.adcon,jdbcType=VARCHAR},
       </if>
-      <if test="record.otatal != null" >
-        otatal = #{record.otatal,jdbcType=INTEGER},
+      <if test="record.adtel != null" >
+        adtel = #{record.adtel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.adname != null" >
+        adname = #{record.adname,jdbcType=VARCHAR},
       </if>
       <if test="record.uid != null" >
         uid = #{record.uid,jdbcType=INTEGER},
-      </if>
-      <if test="record.odate != null" >
-        odate = #{record.odate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="record.odelete != null" >
-        odelete = #{record.odelete,jdbcType=INTEGER},
       </if>
     </set>
     <if test="_parameter != null" >
@@ -186,45 +172,40 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map" >
-    update orders
-    set oid = #{record.oid,jdbcType=INTEGER},
-      onum = #{record.onum,jdbcType=INTEGER},
-      otatal = #{record.otatal,jdbcType=INTEGER},
-      uid = #{record.uid,jdbcType=INTEGER},
-      odate = #{record.odate,jdbcType=TIMESTAMP},
-      odelete = #{record.odelete,jdbcType=INTEGER}
+    update address
+    set adid = #{record.adid,jdbcType=INTEGER},
+      adcon = #{record.adcon,jdbcType=VARCHAR},
+      adtel = #{record.adtel,jdbcType=VARCHAR},
+      adname = #{record.adname,jdbcType=VARCHAR},
+      uid = #{record.uid,jdbcType=INTEGER}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.zx.model.Order" >
-    update orders
+  <update id="updateByPrimaryKeySelective" parameterType="com.zx.model.Address" >
+    update address
     <set >
-      <if test="onum != null" >
-        onum = #{onum,jdbcType=INTEGER},
+      <if test="adcon != null" >
+        adcon = #{adcon,jdbcType=VARCHAR},
       </if>
-      <if test="otatal != null" >
-        otatal = #{otatal,jdbcType=INTEGER},
+      <if test="adtel != null" >
+        adtel = #{adtel,jdbcType=VARCHAR},
+      </if>
+      <if test="adname != null" >
+        adname = #{adname,jdbcType=VARCHAR},
       </if>
       <if test="uid != null" >
         uid = #{uid,jdbcType=INTEGER},
       </if>
-      <if test="odate != null" >
-        odate = #{odate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="odelete != null" >
-        odelete = #{odelete,jdbcType=INTEGER},
-      </if>
     </set>
-    where oid = #{oid,jdbcType=INTEGER}
+    where adid = #{adid,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.zx.model.Order" >
-    update orders
-    set onum = #{onum,jdbcType=INTEGER},
-      otatal = #{otatal,jdbcType=INTEGER},
-      uid = #{uid,jdbcType=INTEGER},
-      odate = #{odate,jdbcType=TIMESTAMP},
-      odelete = #{odelete,jdbcType=INTEGER}
-    where oid = #{oid,jdbcType=INTEGER}
+  <update id="updateByPrimaryKey" parameterType="com.zx.model.Address" >
+    update address
+    set adcon = #{adcon,jdbcType=VARCHAR},
+      adtel = #{adtel,jdbcType=VARCHAR},
+      adname = #{adname,jdbcType=VARCHAR},
+      uid = #{uid,jdbcType=INTEGER}
+    where adid = #{adid,jdbcType=INTEGER}
   </update>
 </mapper>

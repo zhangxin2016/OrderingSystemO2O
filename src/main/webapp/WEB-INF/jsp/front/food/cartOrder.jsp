@@ -35,7 +35,14 @@
     <section class="Topmenubg">
         <div class="Topnav">
             <div class="LeftNav">
-                <a href="register.html">注册</a>/<a href="login.html">登录</a><a href="#">QQ客服</a><a href="#">微信客服</a><a
+                <c:if test="${user.uname==null}">
+                    <a href="<%=basePath%>user/userBuyRegister.html">注册</a>
+                    |<a href="<%=basePath%>user/userBuylogin.html">登录</a>
+                </c:if>
+                <c:if test="${user.uname!=null}">
+                    欢迎您，${user.uname }<a href="<%=basePath%>Logout.html">退出</a>
+                </c:if>
+                <a href="#">QQ客服</a><a href="#">微信客服</a><a
                     href="#">手机客户端</a>
             </div>
             <div class="RightNav">
@@ -138,7 +145,7 @@
             </ul>
         </form>
     </div>
-    <form action="#">
+    <form action="${pageContext.request.contextPath }/addFoodOrders.html" method="post">
         <input type="hidden" id="paysuccess" name="pays" />
         <div class="inforlist">
             <span class="flow_title">商品清单</span>
@@ -149,6 +156,7 @@
                 <th>小计</th>
                 <c:forEach items="${cartListByLot }" var="cartListByLot">
                     <tr>
+                        <input type="hidden" name="cartid" value="${cartListByLot.cid }" />
                         <td>${cartListByLot.foods.fname }</td>
                         <td>${cartListByLot.num }</td>
                         <td>￥${cartListByLot.foods.fprice }</td>
@@ -157,11 +165,11 @@
                 </c:forEach>
             </table>
             <div class="Order_M">
-                <p><em>订单附言:</em><input name="" type="text"></p>
+                <p><em>订单附言:</em><input name="domessage" id="domessage" type="text"></p>
             </div>
             <div class="Sum_infor">
                 <p class="p2">合计：￥<span id="J_ActualFee"></span></p>
-                <input type="button" value="提交订单" class="p3button"/>
+                <input type="submit" value="提交订单" class="p3button"/>
             </div>
         </div>
     </form>

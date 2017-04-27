@@ -21,5 +21,6 @@ public interface FoodService {
     List<Food> findAllByStid(Integer stid) throws Exception;
     //根据食物ID获取食物详细信息
     Food  findFoodById(Integer id) throws Exception;
-
+    //修改食物信息
+    void updateFood(Integer id,Food food) throws Exception;
 }

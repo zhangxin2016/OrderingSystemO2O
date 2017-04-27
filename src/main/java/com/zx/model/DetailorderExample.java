@@ -671,6 +671,76 @@ public class DetailorderExample {
             addCriterion("dodelete not between", value1, value2, "dodelete");
             return (Criteria) this;
         }
+
+        public Criteria andDomessageIsNull() {
+            addCriterion("domessage is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andDomessageIsNotNull() {
+            addCriterion("domessage is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andDomessageEqualTo(String value) {
+            addCriterion("domessage =", value, "domessage");
+            return (Criteria) this;
+        }
+
+        public Criteria andDomessageNotEqualTo(String value) {
+            addCriterion("domessage <>", value, "domessage");
+            return (Criteria) this;
+        }
+
+        public Criteria andDomessageGreaterThan(String value) {
+            addCriterion("domessage >", value, "domessage");
+            return (Criteria) this;
+        }
+
+        public Criteria andDomessageGreaterThanOrEqualTo(String value) {
+            addCriterion("domessage >=", value, "domessage");
+            return (Criteria) this;
+        }
+
+        public Criteria andDomessageLessThan(String value) {
+            addCriterion("domessage <", value, "domessage");
+            return (Criteria) this;
+        }
+
+        public Criteria andDomessageLessThanOrEqualTo(String value) {
+            addCriterion("domessage <=", value, "domessage");
+            return (Criteria) this;
+        }
+
+        public Criteria andDomessageLike(String value) {
+            addCriterion("domessage like", value, "domessage");
+            return (Criteria) this;
+        }
+
+        public Criteria andDomessageNotLike(String value) {
+            addCriterion("domessage not like", value, "domessage");
+            return (Criteria) this;
+        }
+
+        public Criteria andDomessageIn(List<String> values) {
+            addCriterion("domessage in", values, "domessage");
+            return (Criteria) this;
+        }
+
+        public Criteria andDomessageNotIn(List<String> values) {
+            addCriterion("domessage not in", values, "domessage");
+            return (Criteria) this;
+        }
+
+        public Criteria andDomessageBetween(String value1, String value2) {
+            addCriterion("domessage between", value1, value2, "domessage");
+            return (Criteria) this;
+        }
+
+        public Criteria andDomessageNotBetween(String value1, String value2) {
+            addCriterion("domessage not between", value1, value2, "domessage");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

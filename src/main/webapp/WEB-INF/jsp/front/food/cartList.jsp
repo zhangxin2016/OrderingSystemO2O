@@ -182,8 +182,14 @@
     <section class="Topmenubg">
         <div class="Topnav">
             <div class="LeftNav">
-                <a href="register.html">注册</a>/<a href="login.html">登录</a><a href="#">QQ客服</a><a href="#">微信客服</a><a
-                    href="#">手机客户端</a>
+                <c:if test="${user.uname==null}">
+                    <a href="<%=basePath%>user/userBuyRegister.html">注册</a>
+                    |<a href="<%=basePath%>user/userBuylogin.html">登录</a>
+                </c:if>
+                <c:if test="${user.uname!=null}">
+                    欢迎您，${user.uname }<a href="<%=basePath%>Logout.html">退出</a>
+                </c:if>
+                <a href="#">QQ客服</a><a href="#">微信客服</a><a href="#">手机客户端</a>
             </div>
             <div class="RightNav">
                 <a href="user_center.html">用户中心</a> <a href="user_orderlist.html" target="_blank" title="我的订单">我的订单</a>
@@ -228,6 +234,17 @@
 <!--Start content-->
 <form action="#">
     <div class="gwc" style=" margin:auto;">
+    <c:choose>
+
+    <c:when test="${empty cartList }">
+        <table cellpadding="0" cellspacing="0" class="gwc_tb1">
+            <tr>
+                <td class="tb1_td1">您购物车空空的，赶紧去订餐吧！</td>
+            </tr>
+        </table>
+    </c:when>
+    <c:otherwise>
+
         <table cellpadding="0" cellspacing="0" class="gwc_tb1">
             <tr>
                 <td class="tb1_td1"></td>
@@ -291,6 +308,8 @@
                                                                class="jz2" id="jz2"><span onclick="delArc();">结算</span></a></td>
             </tr>
         </table>
+    </c:otherwise>
+    </c:choose>
     </div>
 </form>
 <!--End content-->

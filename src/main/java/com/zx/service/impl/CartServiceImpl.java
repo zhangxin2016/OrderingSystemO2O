@@ -49,4 +49,9 @@ public class CartServiceImpl implements CartService {
     public Cart findCartByCid(Integer cid) throws Exception {
         return cartMapper.findCartByCid(cid);
     }
+
+    @Override
+    public Integer deleteCart(Integer cid) {
+        return cartMapper.deleteCartById(cid);
+    }
 }
