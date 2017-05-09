@@ -6,6 +6,8 @@ import com.zx.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * Created by Xin on 2017/4/26.
  */
@@ -21,5 +23,10 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public void updateOrders(Order orders) throws Exception {
         ordersMapper.updateByPrimaryKeySelective(orders);
+    }
+
+    @Override
+    public List<Order> orderByUser(Integer uid) {
+        return ordersMapper.orderByUser(uid);
     }
 }

@@ -58,4 +58,9 @@ public class StorestypeServiceImpl implements StorestypeService {
     public Storestype selectByPrimaryKey(Integer id) {
         return storestypeMapper.selectByPrimaryKey(id);
     }
+
+    @Override
+    public List<Storestype> findAllStorestype() {
+        return storestypeMapper.findAllStorestype();
+    }
 }

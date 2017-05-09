@@ -1,8 +1,10 @@
 package com.zx.controller;
 
+import com.zx.model.Address;
 import com.zx.model.Cart;
 import com.zx.model.Food;
 import com.zx.model.UserBuy;
+import com.zx.service.AddressService;
 import com.zx.service.CartService;
 import com.zx.service.FoodService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +27,8 @@ public class CartController {
     private CartService cartService;
     @Autowired
     private FoodService foodService;
+    @Autowired
+    private AddressService addressService;
     private String prid;
     List<Cart> cartListByLot = new ArrayList<Cart>();
     @RequestMapping("/addFoodCart")
@@ -120,6 +124,9 @@ public class CartController {
             cartService.findCartList(cart);
         }
         UserBuy user = (UserBuy) session.getAttribute("user");
+        List<Address> listAddressOrder = addressService.getuid(user.getUid());
+        request.setAttribute("listAddressOrder",listAddressOrder);
+        System.out.println("listAddress====="+listAddressOrder);
         request.setAttribute("cartListByLot", cartListByLot);
         System.out.println("============>>>>>>>>>>>>>"+request.getAttribute("cartListByLot"));
 		/*request.removeAttribute("cartList");*/

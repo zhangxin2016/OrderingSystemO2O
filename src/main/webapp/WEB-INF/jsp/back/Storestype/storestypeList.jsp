@@ -31,8 +31,7 @@
 	rel="stylesheet" type="text/css" />
 <link href="<%=basePath%>lib/icheck/icheck.css" rel="stylesheet"
 	type="text/css" />
-<link href="<%=basePath%>lib/laypage/1.2/skin/laypage.css"
-	rel="stylesheet" type="text/css" />
+<link href="<%=basePath%>lib/laypage/1.2/skin/laypage.css" rel="stylesheet" type="text/css" />
 <!--[if IE 6]>
 <script type="text/javascript" src="<%=basePath%>http://lib.h-ui.net/DD_belatedPNG_0.0.8a-min.js" ></script>
 <script>DD_belatedPNG.fix('*');</script>

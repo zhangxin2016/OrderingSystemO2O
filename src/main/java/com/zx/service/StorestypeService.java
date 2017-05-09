@@ -28,4 +28,5 @@ public interface StorestypeService {
     int updateByPrimaryKey(Storestype storestype);
     //根据ID获取需要修改的店铺类别
     Storestype selectByPrimaryKey(Integer id);
+    List<Storestype> findAllStorestype();
 }

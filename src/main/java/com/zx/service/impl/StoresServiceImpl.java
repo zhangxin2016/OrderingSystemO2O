@@ -21,4 +21,24 @@ public class StoresServiceImpl implements StoresService {
     public List<Stores> getStoresByAddress(String staddress) {
         return storesMapper.selectStoresByAddress(staddress);
     }
+
+    @Override
+    public Stores getStoresByUsid(Integer usid) {
+        return storesMapper.selectStoresByUsid(usid);
+    }
+
+    @Override
+    public Integer addStores(Stores stores) {
+        return storesMapper.insertSelective(stores);
+    }
+
+    @Override
+    public Stores getStoresByStid(Integer stid) {
+        return storesMapper.selectByPrimaryKey(stid);
+    }
+
+    @Override
+    public Integer updateStorseByStid(Stores stores) {
+        return storesMapper.updateByPrimaryKeySelective(stores);
+    }
 }

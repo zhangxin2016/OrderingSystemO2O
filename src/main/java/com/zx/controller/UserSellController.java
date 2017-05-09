@@ -1,6 +1,8 @@
 package com.zx.controller;
 
+import com.zx.model.Stores;
 import com.zx.model.UserSell;
+import com.zx.service.StoresService;
 import com.zx.service.UserSellService;
 import net.sf.json.JSONObject;
 import org.apache.commons.httpclient.HttpClient;
@@ -27,6 +29,8 @@ import java.io.IOException;
 public class UserSellController {
     @Autowired
     private UserSellService userService;
+    @Autowired
+    private StoresService storesService;
     @RequestMapping("/userSellToLogin.html")
     public String login(){
         return "front/stores/storeslogin";
@@ -36,12 +40,14 @@ public class UserSellController {
         return "front/stores/userSellRegister";
     }
     @RequestMapping("/userSellLogin.html")
-    public String userlogin(HttpSession session, UserSell inuser) throws Exception{
+    public String userlogin(HttpSession session, UserSell inuser,HttpServletRequest request) throws Exception{
         //根据用户输入的用户名和密码查找用户信息
         UserSell user = userService.getUserByNameAndPass(inuser);
+        Stores stores = storesService.getStoresByUsid(user.getUsid());
         //设置session，将user传入
-        session.setAttribute("user", user);
-        return "front/stores/mystores";
+        session.setAttribute("userSell", user);
+        request.setAttribute("stores",stores);
+        return "redirect:getStoresBySellId.html";
     }
     /**
      * @title :checkUserSellLogin

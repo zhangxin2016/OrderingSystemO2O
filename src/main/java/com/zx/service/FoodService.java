@@ -1,6 +1,7 @@
 package com.zx.service;
 
 import com.zx.model.Food;
+import com.zx.util.Page;
 
 import java.util.List;
 import java.util.Map;
@@ -23,4 +24,13 @@ public interface FoodService {
     Food  findFoodById(Integer id) throws Exception;
     //修改食物信息
     void updateFood(Integer id,Food food) throws Exception;
+    //添加店铺
+    Integer addFood(Food food);
+    //根据店铺ID获取菜品数量
+    Integer findFoodCountByStid(Integer stid) throws Exception;
+    //根据店铺ID获取食品(分页)
+    //List<Food> findFoodByStid(Integer stid, Page page) throws Exception;
+    Map<String,Object> findFoodByStid(Integer currentPage, Integer lineSize, Integer stid)throws Exception ;
+    //商家删除菜品
+    Integer deleteFoodByFid(Integer fid) throws Exception;
 }

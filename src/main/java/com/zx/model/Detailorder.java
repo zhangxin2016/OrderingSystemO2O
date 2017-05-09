@@ -31,4 +31,6 @@ public class Detailorder {
     private Integer dodelete;
 
     private String domessage;
+
+    private Order order;
 }

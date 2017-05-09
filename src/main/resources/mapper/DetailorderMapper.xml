@@ -13,6 +13,26 @@
     <result column="dodelete" property="dodelete" jdbcType="INTEGER" />
     <result column="domessage" property="domessage" jdbcType="VARCHAR" />
   </resultMap>
+  <resultMap type="com.zx.model.Detailorder" id="DetailOrderResultMap">
+    <id column="doid" property="doid" jdbcType="INTEGER" />
+    <result column="oid" property="oid" jdbcType="INTEGER" />
+    <result column="fid" property="fid" jdbcType="INTEGER" />
+    <result column="donum" property="donum" jdbcType="INTEGER" />
+    <result column="dopri" property="dopri" jdbcType="INTEGER" />
+    <result column="dodate" property="dodate" jdbcType="TIMESTAMP" />
+    <result column="dostatus" property="dostatus" jdbcType="INTEGER" />
+    <result column="adid" property="adid" jdbcType="INTEGER" />
+    <result column="dodelete" property="dodelete" jdbcType="INTEGER" />
+    <result column="domessage" property="domessage" jdbcType="VARCHAR" />
+    <collection property="order" ofType="com.zx.model.Order">
+      <id column="oid" property="oid" jdbcType="INTEGER" />
+      <result column="onum" property="onum" jdbcType="INTEGER" />
+      <result column="otatal" property="otatal" jdbcType="INTEGER" />
+      <result column="uid" property="uid" jdbcType="INTEGER" />
+      <result column="odate" property="odate" jdbcType="TIMESTAMP" />
+      <result column="odelete" property="odelete" jdbcType="INTEGER" />
+    </collection>
+  </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >
@@ -287,4 +307,24 @@
       domessage = #{domessage,jdbcType=VARCHAR}
     where doid = #{doid,jdbcType=INTEGER}
   </update>
+  <!--未发货数量-->
+  <select id="countByNoSend" parameterType="Integer" resultType="java.lang.Integer">
+    select count(*) from detailorder
+    WHERE dostatus=0 AND dodelete=0 AND oid=#{oid}
+  </select>
+  <!--未签收数量-->
+  <select id="countByNoSigh" parameterType="Integer" resultType="java.lang.Integer" >
+    select count(*) from detailorder
+    WHERE dostatus=1 AND dodelete=0 AND oid=#{oid}
+  </select>
+  <!--未评价数量-->
+  <select id="countByNoEvaluate" parameterType="Integer" resultType="java.lang.Integer" >
+    select count(*) from detailorder
+    WHERE dostatus=2 AND dodelete=0 AND oid=#{oid}
+  </select>
+  <!--根据订单ID获取订单明细列表-->
+  <select id="selectdetailOrderList" parameterType="Integer" resultMap="BaseResultMap" >
+    select * from detailorder
+    WHERE dodelete=0 AND oid=#{oid}
+  </select>
 </mapper>

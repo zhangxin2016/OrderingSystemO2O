@@ -29,4 +29,6 @@ public interface StorestypeMapper{
     int updateByPrimaryKey(Storestype storestype);
 
     List<Storestype> findAll(String keyWord)throws Exception;   //复杂查询
+
+    List<Storestype> findAllStorestype();
 }

@@ -9,7 +9,6 @@
 $(function(){
     	 $(":button[id!='cpBtn'][id!='lsBtn'][id!='searchBtn']").click(function(){
         //$("#cpBtn").click(function () {
-            alert("44444");
              var currentPage=$(this).val();
              console.info("currentPage:"+currentPage);
              var keyWord=$("#keyWordInput").val()  ;      //这里可以选择是否接收,因为你不一定使用搜索框,看不懂就不需要改写一样可以分页

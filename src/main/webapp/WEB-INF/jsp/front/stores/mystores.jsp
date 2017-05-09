@@ -8,33 +8,55 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8"/>
+    <meta charset="utf-8" />
     <title>我的店铺</title>
-    <meta name="keywords" content="DeathGhost,DeathGhost.cn,web前端设,移动WebApp开发"/>
-    <meta name="description" content="DeathGhost.cn::H5 WEB前端设计开发!"/>
+    <meta name="keywords" content="DeathGhost,DeathGhost.cn,web前端设,移动WebApp开发" />
+    <meta name="description" content="DeathGhost.cn::H5 WEB前端设计开发!" />
     <meta name="author" content="DeathGhost"/>
-    <link href="style/style.css" rel="stylesheet" type="text/css"/>
-    <script type="text/javascript" src="js/public.js"></script>
+    <link href="<%=path %>/style/style.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="<%=path %>/js/public.js"></script>
+    <script type="text/javascript" src="<%=path %>/js/jquery.js"></script>
+    <%--<script type="text/javascript" src="<%=path %>/js/jqpublic.js"></script>--%>
+
+    <script type="text/javascript" src="<%=path %>/js/cart.js"></script>
+    <script type="text/javascript" src="<%=path %>/js/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="<%=basePath%>lib/Validform/5.3.2/Validform.min.js"></script>
+    <script type="text/javascript" src="<%=basePath%>lib/layer/2.1/layer.js"></script>
+
+    <script type="text/javascript" src="<%=basePath%>static/h-ui/js/H-ui.js"></script>
+
+    <script type="text/javascript" src="<%=basePath%>static/h-ui.admin/js/H-ui.admin.js"></script>
+    <script type="text/javascript" src="<%=basePath%>lib/laypage/1.2/laypage.js"></script>
+    <script type="text/javascript" src="<%=basePath%>lib/My97DatePicker/WdatePicker.js"></script>
+    <script type="text/javascript" src="<%=basePath%>lib/jquery/1.9.1/jquery.js"></script>
     <script type="text/javascript" src="js/jquery.js"></script>
-    <script type="text/javascript" src="js/jqpublic.js"></script>
-    <script type="text/javascript" src="js/cart.js"></script>
-    <script type="text/javascript" src="js/jquery.easyui.min.js"></script>
+    <!--  Bootstrap-->
+    <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+
+   <%-- <link rel="stylesheet" href="<%=basePath%>css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">--%>
+    <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+    <script src="http://cdn.bootcss.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="<%=basePath%>js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <!-- 自定义分页的JS插件 -->
+    <script type="text/javascript" src="<%=basePath%>js/pagination.js"></script>
+    <script type="text/javascript" src="<%=basePath%>js/teacher_del.js"></script>
+    <script type="text/javascript" src="<%=basePath%>js/jquery-1.9.1.min.js"></script>
     <script>
-        $(function () {
-            $('.title-list li').click(function () {
+        $(function(){
+            $('.title-list li').click(function(){
                 var liindex = $('.title-list li').index(this);
                 $(this).addClass('on').siblings().removeClass('on');
                 $('.menutab-wrap div.menutab').eq(liindex).fadeIn(150).siblings('div.menutab').hide();
                 var liWidth = $('.title-list li').width();
-                $('.shopcontent .title-list p').stop(false, true).animate({'left': liindex * liWidth + 'px'}, 300);
+                $('.shopcontent .title-list p').stop(false,true).animate({'left' : liindex * liWidth + 'px'},300);
             });
 
-            $('.menutab-wrap .menutab li').hover(function () {
-                $(this).css("border-color", "#ff6600");
-                $(this).find('p > a').css('color', '#ff6600');
-            }, function () {
-                $(this).css("border-color", "#fafafa");
-                $(this).find('p > a').css('color', '#666666');
+            $('.menutab-wrap .menutab li').hover(function(){
+                $(this).css("border-color","#ff6600");
+                $(this).find('p > a').css('color','#ff6600');
+            },function(){
+                $(this).css("border-color","#fafafa");
+                $(this).find('p > a').css('color','#666666');
             });
         });
         var mt = 0;
@@ -48,22 +70,80 @@
                     Topcart.style.margin = "";
                     Topcart.style.top = "200px";
                     Topcart.style.right = "191px";
-                    Topcart.style.boxShadow = "0px 0px 20px 5px #cccccc";
-                    Topcart.style.top = "0";
-                    Topcart.style.border = "1px #636363 solid";
+                    Topcart.style.boxShadow ="0px 0px 20px 5px #cccccc";
+                    Topcart.style.top="0";
+                    Topcart.style.border="1px #636363 solid";
                 }
                 else {
                     Topcart.style.position = "static";
-                    Topcart.style.boxShadow = "none";
-                    Topcart.style.border = "";
+                    Topcart.style.boxShadow ="none";
+                    Topcart.style.border="";
                 }
             }
         }
+        function toAddStores(title,url,w,h){
+            layer.open({
+                type: 2,
+                area: [w+'px', h +'px'],
+                fix: false, //不固定
+                maxmin: false,
+                shade:0.2,
+                shadeClose: false,
+                title: title,
+                move: false,
+                content: [url,'no']
+            });
+        }
+        function editStores(title,url,w,h){
+            layer.open({
+                type: 2,
+                area: [w+'px', h +'px'],
+                fix: false, //不固定
+                maxmin: false,
+                shade:0.2,
+                shadeClose: false,
+                title: title,
+                move: false,
+                content: [url,'no']
+            });
+        }
+        function toAddFood(title,url,w,h){
+            layer.open({
+                type: 2,
+                area: [w+'px', h +'px'],
+                fix: false, //不固定
+                maxmin: false,
+                shade:0.2,
+                shadeClose: false,
+                title: title,
+                move: false,
+                content: [url,'no']
+            });
+        }
+        function toEditFood(title,url,w,h){
+            layer.open({
+                type: 2,
+                area: [w+'px', h +'px'],
+                fix: false, //不固定
+                maxmin: false,
+                shade:0.2,
+                shadeClose: false,
+                title: title,
+                move: false,
+                content: [url,'no']
+            });
+        }
+        function editStores_callback(){
+            window.location.reload();
+            layer.msg("修改成功！");
+        }
+        function addStores_callback(){
+            window.location.reload();
+            layer.msg("增加店铺成功！");
+        }
+
     </script>
-    <!--
-    Author: DeathGhost
-    Author URI: http://www.deathghost.cn
-    -->
+
 </head>
 <body>
 <header>
@@ -75,21 +155,19 @@
                     |<a href="<%=basePath%>userSellToLogin.html">登录</a>
                 </c:if>
                 <c:if test="${userSell.usname!=null}">
-                    欢迎您，${userSell.usname }<a href="<%=basePath%>userSellLogout.html">退出</a>
+                欢迎您，${userSell.usname }<a href="<%=basePath%>userSellLogout.html">退出
+                </a>
                 </c:if>
-
-                <a href="#">QQ客服</a><a href="#">微信客服</a><a href="#">手机客户端</a>
-            </div>
+            <a href="#">QQ客服</a><a href="#">微信客服</a><a href="#">手机客户端</a>
+        </div>
             <div class="RightNav">
-                <a href="user_center.html">用户中心</a> <a href="user_orderlist.html" target="_blank" title="我的订单">我的订单</a>
-                <a href="cart.html">购物车（0）</a> <a href="user_favorites.html" target="_blank" title="我的收藏">我的收藏</a> <a
-                    href="#">商家入驻</a>
+                <a href="user_center.html">用户中心</a> <a href="user_orderlist.html" target="_blank" title="我的订单">我的订单</a> <a href="cart.html">购物车（0）</a> <a href="user_favorites.html" target="_blank" title="我的收藏">我的收藏</a> <a href="#">商家入驻</a>
             </div>
         </div>
     </section>
     <div class="Logo_search">
         <div class="Logo">
-            <img src="images/logo.jpg" title="DeathGhost" alt="模板">
+            <img src="images/logo.jpg"  title="DeathGhost" alt="模板">
             <i></i>
             <span>西安市 [ <a href="#">莲湖区</a> ]</span>
         </div>
@@ -100,15 +178,11 @@
                     <a href="javascript:;" onClick="selectsearch(this,'food_name')">食物名</a>
                 </div>
                 <div class="Search_area">
-                    <input type="search" id="fkeyword" name="keyword" placeholder="请输入您所需查找的餐厅名称或食物名称..."
-                           class="searchbox"/>
-                    <input type="submit" class="searchbutton" value="搜 索"/>
+                    <input type="search" id="fkeyword" name="keyword" placeholder="请输入您所需查找的餐厅名称或食物名称..." class="searchbox" />
+                    <input type="submit" class="searchbutton" value="搜 索" />
                 </div>
             </form>
-            <p class="hotkeywords"><a href="#" title="酸辣土豆丝">酸辣土豆丝</a><a href="#" title="这里是产品名称">螃蟹炒年糕</a><a href="#"
-                                                                                                              title="这里是产品名称">牛奶炖蛋</a><a
-                    href="#" title="这里是产品名称">芝麻酱凉面</a><a href="#" title="这里是产品名称">滑蛋虾仁</a><a href="#" title="这里是产品名称">蒜汁茄子</a>
-            </p>
+            <p class="hotkeywords"><a href="#" title="酸辣土豆丝">酸辣土豆丝</a><a href="#" title="这里是产品名称">螃蟹炒年糕</a><a href="#" title="这里是产品名称">牛奶炖蛋</a><a href="#" title="这里是产品名称">芝麻酱凉面</a><a href="#" title="这里是产品名称">滑蛋虾仁</a><a href="#" title="这里是产品名称">蒜汁茄子</a></p>
         </div>
     </div>
     <nav class="menu_bg">
@@ -124,9 +198,16 @@
 <section class="Shop-index">
     <article>
         <div class="shopinfor">
+        <c:if test="${inMyStores==null}">
+
+            <div class="title" style="text-align: center">
+                <span style="text-align: center" onclick="toAddStores('添加店铺','<%=basePath%>toAddStores.html',800,600)">您还没有属于自己的店铺，点击添加店铺</span>
+            </div>
+        </c:if>
+        <c:if test="${inMyStores!=null}">
             <div class="title">
                 <img src="upload/wpjnewlogo.jpg" class="shop-ico">
-                <span>含山路外婆家</span>
+                <span>${inMyStores.stname}</span>
                 <span>
      <img src="images/star-on.png">
      <img src="images/star-on.png">
@@ -138,32 +219,21 @@
             </div>
             <div class="imginfor">
                 <div class="shopimg">
-                    <img src="upload/cc.jpg" id="showimg">
-                    <ul class="smallpic">
-                        <li><img src="upload/cc.jpg" onmouseover="show(this)" onmouseout="hide()"></li>
-                    </ul>
+                    <img src="/upload/${inMyStores.stdesc }" id="showimg">
                 </div>
                 <div class="shoptext">
-                    <p><span>地址：</span>陕西省西安市雁塔区丈八北路***号</p>
+                    <p><span>地址：</span>${inMyStores.staddress}</p>
                     <p><span>电话：</span>029-88888888</p>
-                    <p><span>特色菜品：</span>毛肚、牛丸、滑虾、羊肉、香辣虾...</p>
                     <p><span>优惠活动：</span>暂无信息</p>
                     <p><span>停车位：</span>4个停车位（免费）</p>
                     <p><span>营业时间：</span>09:00~22:00</p>
                     <p><span>WIFI：</span>免费WIFI</p>
-                    <p><span>价格：</span>50元</p>
                     <div class="Button">
-                        <a href="#ydwm"><span class="DCbutton">查看菜谱点菜</span></a>
+                        <input type="button"><span type="button" class="DCbutton" onclick="toAddFood('添加菜品','<%=basePath%>addStoresFood.html?a=1&stid=${inMyStores.stid}',800,500)">添加菜品</span></input>
+                        <input type="button"><span type="button" class="DCbutton" onclick="editStores('修改店铺信息','<%=basePath%>editstores.html?a=1&stid=${inMyStores.stid}',800,600)">修改店铺信息</span></input>
                     </div>
                     <div class="otherinfor">
-                        <a href="#" class="icoa"><img src="images/collect.png">收藏店铺（1293）</a>
-                        <div class="bshare-custom"><a title="分享"
-                                                      class="bshare-more bshare-more-icon more-style-addthis">分享</a>
-                        </div>
-                        <script type="text/javascript" charset="utf-8"
-                                src="http://static.bshare.cn/b/buttonLite.js#style=-1&amp;uuid=&amp;pophcol=1&amp;lang=zh"></script>
-                        <script type="text/javascript" charset="utf-8"
-                                src="http://static.bshare.cn/b/bshareC0.js"></script>
+                        <script type="text/javascript" charset="utf-8" src="http://static.bshare.cn/b/buttonLite.js#style=-1&amp;uuid=&amp;pophcol=1&amp;lang=zh"></script><script type="text/javascript" charset="utf-8" src="http://static.bshare.cn/b/bshareC0.js"></script>
                     </div>
                 </div>
             </div>
@@ -171,9 +241,8 @@
                 <div class="title2 cf">
                     <ul class="title-list fr cf ">
                         <li class="on">菜谱</li>
-                        <li>累计评论（5）</li>
+                        <li>累计评论</li>
                         <li>商家详情</li>
-                        <li>店铺留言</li>
                         <p><b></b></p>
                     </ul>
                 </div>
@@ -182,59 +251,55 @@
                         <!--case1-->
                         <div class="menutab show">
                             <ul class="products">
-                                <li>
-                                    <a href="detailsp.html" target="_blank" title="酸辣土豆丝">
-                                        <img src="upload/01.jpg" class="foodsimgsize">
-                                    </a>
-                                    <a href="#" class="item">
-                                        <div>
-                                            <p>酸辣土豆丝</p>
-                                            <p class="AButton">拖至购物车:￥50.00</p>
+                                <c:forEach items="${foodList }" var="listFood">
+                                    <li>
+                                        <a href="detailsp.html" target="_blank" title="${listFood.fname}">
+                                            <img src="upload/01.jpg" class="foodsimgsize">
+                                        </a>
+                                        <div class="item">
+                                            <div>
+                                                <p>${listFood.fname} ￥${listFood.fprice}元</p>
+                                                <span class="AButton" onclick="toEditFood('修改菜品','<%=basePath%>frontEditFood.html?a=1&fid=${listFood.fid}',800,600)"><a>修改</a></span>
+                                                <span class="AButton"><a href="<%=basePath%>frontDeleteFood.html?fid=${listFood.fid}">删除</a></span>
+                                            </div>
                                         </div>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="detailsp.html" target="_blank" title="酸辣土豆丝">
-                                        <img src="upload/02.jpg" class="foodsimgsize">
-                                    </a>
-                                    <a href="#" class="item">
-                                        <div>
-                                            <p>酸辣土豆丝</p>
-                                            <p class="AButton">拖至购物车:￥50.00</p>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="detailsp.html" target="_blank" title="酸辣土豆丝">
-                                        <img src="upload/04.jpg" class="foodsimgsize">
-                                    </a>
-                                    <a href="#" class="item">
-                                        <div>
-                                            <p>酸辣土豆丝</p>
-                                            <p class="AButton">拖至购物车:￥50.00</p>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="detailsp.html" target="_blank" title="酸辣土豆丝">
-                                        <img src="upload/03.jpg" class="foodsimgsize">
-                                    </a>
-                                    <a href="#" class="item">
-                                        <div>
-                                            <p>酸辣土豆丝</p>
-                                            <p class="AButton">拖至购物车:￥50.00</p>
-                                        </div>
-                                    </a>
-                                </li>
+                                    </li>
+                                </c:forEach>
                                 <div class="TurnPage">
-                                    <a href="#">
-                                        <span class="Prev"><i></i>首页</span>
-                                    </a>
-                                    <a href="#"><span class="PNumber">1</span></a>
-                                    <a href="#"><span class="PNumber">2</span></a>
-                                    <a href="#">
-                                        <span class="Next">最后一页<i></i></span>
-                                    </a>
+                                    <!-------------------------------分页插件↓----------------------------------------------------------------->
+                                    <form action="<%=basePath%>getStoresBySellId.html" method="POST" name="spForm" id="spForm">
+                                        <input type="hidden" id="currentPage" name="currentPage" value="${pageInfo.pageNum}">
+                                        <input type="hidden" id="lineSize" name="lineSize" value="${pageInfo.pageSize}">
+                                        <input type="hidden" id="stid" name="stid" value="${stid}">
+                                        <button type="button" class="btn btn-primary" value="${pageInfo.firstPage}"
+                                            ${pageInfo.pageNum==1?"disabled='disabled'":""}>
+                                            首页
+                                        </button>
+                                        <button type="button" class="btn btn-success"
+                                                value="${pageInfo.prePage}"
+                                            ${pageInfo.prePage==0?"disabled='disabled'":""}>
+                                            上一页
+                                        </button>
+                                        &nbsp;&nbsp;&nbsp;跳转到第&nbsp;<div class="btn-group">
+                                        <button type="button" class="btn btn-default dropdown-toggle">
+                                                ${pageInfo.pageNum}&nbsp;&nbsp;<span class="caret"></span>
+                                        </button>
+                                    </div>&nbsp;页&nbsp;&nbsp;&nbsp;
+                                        &nbsp;&nbsp;&nbsp;每页显示&nbsp;<div class="btn-group">
+                                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" id="lsBtn">
+                                                ${pageInfo.pageSize}&nbsp;&nbsp;<span class="caret"></span>
+                                        </button>
+                                    </div>&nbsp;条&nbsp;&nbsp;&nbsp;
+                                        <button type="button" class="btn btn-info" value="${pageInfo.nextPage}"
+                                            ${pageInfo.nextPage==0?"disabled='disabled'":""}>
+                                            下一页
+                                        </button>
+                                        <button type="button" class="btn btn-danger"value="${pageInfo.lastPage}"
+                                            ${pageInfo.pageNum==pageInfo.lastPage?"disabled='disabled'":""}>
+                                            尾页
+                                        </button>
+                                        &nbsp;共 &nbsp;${pageInfo.size}/${pageInfo.total} &nbsp;条
+                                    </form>
                                 </div>
                             </ul>
                         </div>
@@ -265,40 +330,17 @@
                                 <p><span>地址：</span>陕西省西安市雁塔区丈八北路***号</p>
                                 <p><span>电话：</span>029-88888888</p>
                                 <p><span>乘车路线：</span>300路、115路、14路、800路到西辛庄站下车往东100米</p>
-                                <p><span>店铺介绍：</span>***于2005年3月28日开业，立于西安市碑林区***于2005年3月28日开业，立于西安市碑林区***于2005年3月28日开业，立于西安市碑林区***于2005年3月28日开业，立于西安市碑林区***
-                                </p>
+                                <p><span>店铺介绍：</span>***于2005年3月28日开业，立于西安市碑林区***于2005年3月28日开业，立于西安市碑林区***于2005年3月28日开业，立于西安市碑林区***于2005年3月28日开业，立于西安市碑林区***</p>
                             </div>
                         </div>
                     </div>
                     <!--case5-->
-                    <div class="menutab">
-                        <span class="Ask"><i>DeathGhost</i>:这里是测试问答？</span>
-                        <span class="Answer"><i>管理员回复</i>：这里是测试回答！</span>
 
-                        <div class="TurnPage">
-                            <a href="#">
-                                <span class="Prev"><i></i>首页</span>
-                            </a>
-                            <a href="#"><span class="PNumber">1</span></a>
-                            <a href="#"><span class="PNumber">2</span></a>
-                            <a href="#">
-                                <span class="Next">最后一页<i></i></span>
-                            </a>
-                        </div>
-
-                        <form class="A-Message" action="#">
-                            <p><i>姓名：</i><input name="usr_name" type="text" autofocus placeholder="张三" required></p>
-                            <p><i>手机：</i><input name="" type="text" placeholder="15825518***" pattern="[0-9]{11}"
-                                                required></p>
-                            <p><i>邮件：</i><input type="email" name="email" autocomplete="off"
-                                                placeholder="admin@admin.com" required/></p>
-                            <p><i>问题补充：</i><textarea name="" cols="" rows="" required
-                                                     placeholder="详细说明您的问题..."></textarea></p>
-                            <p><input type="submit" class="Abutt"/></p>
-                        </form>
-                    </div>
                 </div>
             </div>
+        </c:if>
+
+        </div>
     </article>
     <aside>
         <div class="cart" id="Topcart">
@@ -312,8 +354,7 @@
                 </tr>
                 </thead>
             </table>
-            <p class="Ptc"><span class="Cbutton"><a href="cart.html" target="进入购物车">进入购物车</a></span><span class="total">共计金额: ￥0</span>
-            </p>
+            <p class="Ptc"><span class="Cbutton"><a href="cart.html" target="进入购物车">进入购物车</a></span><span class="total">共计金额: ￥0</span></p>
         </div>
 
         <div class="Nearshop">
@@ -322,8 +363,7 @@
                 <li>
                     <img src="upload/cc.jpg">
                     <p>
-                        <span class="shopname" title="动态调用完整标题"><a href="detailsp.html" target="_blank"
-                                                                   title="肯德基">肯德基</a></span>
+                        <span class="shopname" title="动态调用完整标题"><a href="detailsp.html" target="_blank" title="肯德基">肯德基</a></span>
                         <span class="Discolor">距离：1.2KM</span>
                         <span title="完整地址title">地址：西安市雁塔区2000号...</span>
                     </p>
@@ -367,11 +407,7 @@
                 <p>客服热线</p>
                 <p><i>1830927**73</i></p>
                 <p>配送时间</p>
-                <p>
-                    <time>09：00</time>
-                    ~
-                    <time>22:00</time>
-                </p>
+                <p><time>09：00</time>~<time>22:00</time></p>
                 <p>网站公告</p>
             </div>
         </aside>
@@ -405,9 +441,29 @@
             </div>
         </section>
     </section>
-    <div class="copyright">© 版权所有 2016 DeathGhost 技术支持：<a href="http://www.deathghost.cn"
-                                                          title="DeathGhost">DeathGhost</a></div>
+    <div class="copyright">© 版权所有 2016 DeathGhost 技术支持：<a href="http://www.deathghost.cn" title="DeathGhost">DeathGhost</a></div>
 </footer>
 
+
+
+
+
+<script type="text/javascript"
+        src="<%=basePath%>lib/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript"
+        src="<%=basePath%>lib/icheck/jquery.icheck.min.js"></script>
+<!--//放在最下边才可以，多选框0-->
+<script type="text/javascript"
+        src="<%=basePath%>lib/Validform/5.3.2/Validform.min.js"></script>
+<script type="text/javascript"
+        src="<%=basePath%>lib/layer/2.1/layer.js"></script>
+<script type="text/javascript"
+        src="<%=basePath%>static/h-ui/js/H-ui.js"></script>
+<script type="text/javascript"
+        src="<%=basePath%>static/h-ui.admin/js/H-ui.admin.js"></script>
+<script type="text/javascript"
+        src="<%=basePath%>lib/laypage/1.2/laypage.js"></script>
+<script type="text/javascript"
+        src="<%=basePath%>lib/My97DatePicker/WdatePicker.js"></script>
 </body>
 </html>

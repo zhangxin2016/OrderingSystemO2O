@@ -274,28 +274,47 @@
   </update>
   <select id="findAll" parameterType="java.lang.String" resultType="Food">
     SELECT * FROM food
-    WHERE fid LIKE #{keyWord} OR UPPER(fname) LIKE #{keyWord}
+    WHERE fdelete = 0
+    AND fid LIKE #{keyWord} OR UPPER(fname) LIKE #{keyWord}
   </select>
   <!--滚动条：根据IP地址获取销售数量前3的食品-->
   <select id="findAllBySalesvolume" parameterType="java.lang.Integer" resultType="Food">
     SELECT * FROM food
-    WHERE  stid = #{stid}
+    WHERE  fdelete = 0
+    AND stid = #{stid}
     ORDER BY fsalesvolume DESC limit 3
   </select>
   <!--- 首页下方三张图片：根据店铺ID获取收藏数量前3的食品-->
   <select id="findAllByCollection" parameterType="java.lang.Integer" resultType="Food">
     SELECT * FROM food
     WHERE  stid = #{stid}
+    AND fdelete = 0
     ORDER BY fcollection DESC limit 3
   </select>
   <select id="findAllByStid" parameterType="java.lang.Integer" resultType="Food">
     SELECT * FROM food
-    WHERE  stid = #{stid}
+    WHERE  fdelete = 0
+    AND stid = #{stid}
   </select>
   <select id="findFoodById" parameterType="java.lang.Integer" resultType="Food">
     SELECT
     <include refid="Base_Column_List" />
     from food
-    where fid = #{fid}
+    where fdelete = 0 AND fid = #{fid}
   </select>
+
+  <select id="findFoodCountByStid"  parameterType="java.lang.Integer" resultType="Integer">
+    SELECT count(fid) FROM food
+    WHERE fdelete = 0
+    AND stid = #{stid}
+  </select>
+  <select id="findFoodByStid" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    SELECT * FROM food
+    WHERE  fdelete = 0
+    AND stid = #{stid}
+  </select>
+  <update id="deleteFoodByFid" parameterType="java.lang.Integer">
+    UPDATE food SET fdelete = 1
+    WHERE fid = #{fid}
+  </update>
 </mapper>

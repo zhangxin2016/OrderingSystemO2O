@@ -30,4 +30,6 @@ public interface StoresMapper {
 
     //根据IP地址查看店铺信息
     List<Stores> selectStoresByAddress(String staddress);
+    //根据商家Id获取店铺
+    Stores selectStoresByUsid(Integer usid);
 }

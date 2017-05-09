@@ -1,9 +1,7 @@
-<%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
 	String path = request.getContextPath();
-	String basePath = request.getScheme() + "://"
-			+ request.getServerName() + ":" + request.getServerPort()
-			+ path + "/";
+	String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
 <!--_meta 作为公共模版分离出去-->
 <!DOCTYPE HTML>
@@ -30,15 +28,28 @@
 <!--[if IE 6]>
 <script type="text/javascript" src="http://lib.h-ui.net/DD_belatedPNG_0.0.8a-min.js" ></script>
 <script>DD_belatedPNG.fix('*');</script>
+
 <![endif]-->
 <!--/meta 作为公共模版分离出去-->
 
 <title>添加店铺类型 </title>
 </head>
+<script src="<%=path %>/js/jquery.js"></script>
+<script src="<%=path %>/layer/layer.js"></script>
+<script src="<%=path %>/laydate/laydate.js"></script>
+
+<script type="text/javascript" src="<%=path %>/js/jquery1.js"></script>
+<script type="text/javascript">
+    $(function () {
+        $("#sub").click(function(){
+            document.getElementById("addstypeForm").submit();
+        });
+    })
+</script>
 <body>
 <article class="page-container">
 
-	<form class="form form-horizontal" action="<%=basePath%>insertStorestype.html" method="post">
+	<form class="form form-horizontal" action="<%=basePath%>insertStorestype.html" id="addstypeForm" name="addstypeForm" method="post">
 	<div class="row cl" align="center">
 		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>店铺类型名称：</label>
 		<div class="formControls col-xs-8 col-sm-3">
@@ -47,7 +58,7 @@
 	</div>
 	<div class="row cl">
 		<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
-			<input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
+			<input class="btn btn-primary radius" id="sub" type="button" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
 		</div>
 	</div>
 	</form>

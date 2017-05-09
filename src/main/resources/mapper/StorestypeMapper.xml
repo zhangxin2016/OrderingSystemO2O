@@ -181,6 +181,11 @@
 
   <select id="findAll" parameterType="java.lang.String" resultType="Storestype">
              SELECT * FROM storestype
-             WHERE stypeid LIKE #{keyWord} OR UPPER(stypename) LIKE #{keyWord}
+             WHERE stypedel = 0
+             AND stypeid LIKE #{keyWord} OR UPPER(stypename) LIKE #{keyWord}
+  </select>
+
+  <select id="findAllStorestype" resultType="Storestype">
+    SELECT * FROM storestype WHERE stypedel = 0
   </select>
 </mapper>

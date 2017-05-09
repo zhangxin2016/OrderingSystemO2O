@@ -15,7 +15,7 @@
 <html>
 <head>
     <meta charset="utf-8" />
-    <title>DeathGhost-登录</title>
+    <title>登录</title>
     <meta name="keywords" content="DeathGhost,DeathGhost.cn,web前端设,移动WebApp开发" />
     <meta name="description" content="DeathGhost.cn::H5 WEB前端设计开发!" />
     <meta name="author" content="DeathGhost"/>
@@ -42,42 +42,85 @@
     <script type="text/javascript" src="<%=path %>/js/lrscroll_1.js"></script>
     <script src="<%=path %>/js/jquery.js"></script>
     <script src="<%=path %>/layer/layer.js"></script>
-
-
 </head>
-<script type="text/javascript">
-    $(function(){
-        $("#checkLogin").click(function(){
-            $.ajax({
-                url:"<%=path%>/CheckLogin.html",
-                type:"post",
-                dataType:"json",
-                data:{
-                    name:$("#uname").val(),
-                    pass:$("#upassword").val()
-                },
-                success:function(data){
-                    if(data.result == 0){
-                        layer.msg('用户名或密码错误', {icon: 2,time: 1000});
-                        $("#error").html("<font color='red'>用户名或密码错误！</font>");
-                        return;
-                    }else if(data.result == 1){
-                        $("#error").html("");
-                        layer.msg('登录成功', {icon: 1,time: 1000});
-                        $("#loginform").submit();
-                    }else{
-                        $("#error").html("");
+<!-- 注意，验证码本身是不需要 jquery 库，此处使用 jquery 仅为了在 demo 使用，减少代码量 -->
+<script src="http://apps.bdimg.com/libs/jquery/1.9.1/jquery.js"></script>
+<!-- 引入 gt.js，既可以使用其中提供的 initGeetest 初始化函数 -->
+<script src="<%=path %>/js/gt.js"></script>
+
+<script>
+    var handler1 = function (captchaObj) {
+        $("#checkLogin").click(function (e) {
+            var result = captchaObj.getValidate();
+            if (!result) {
+                $("#notice1").show();
+                setTimeout(function () {
+                    $("#notice1").hide();
+                }, 2000);
+            } else {
+                $.ajax({
+                    url:"<%=path%>/CheckLogin.html",
+                    type:"post",
+                    dataType:"json",
+                    data:{
+                        name:$("#uname").val(),
+                        pass:$("#upassword").val(),
+                        geetest_challenge: result.geetest_challenge,
+                        geetest_validate: result.geetest_validate,
+                        geetest_seccode: result.geetest_seccode
+                    },
+                    success:function(data){
+                        if(data.result == 0){
+                            layer.msg('用户名或密码错误', {icon: 2,time: 1000});
+                            $("#error").html("<font color='red'>用户名或密码错误！</font>");
+                            document.location.reload();
+                        }else if(data.result == 1){
+                            $("#error").html("");
+                            layer.msg('登录成功', {icon: 1,time: 1000});
+                            $("#loginform").submit();
+                        }else if(data.result == 2){
+                            $("#error").html("");
+                            layer.msg('验证码验证失败', {icon: 1,time: 1000});
+                            document.location.reload();
+                        }else{
+                            $("#error").html("");
+                        }
+                    },
+                    error:function(){
+                        layer.msg('系统错误！', {icon: 2,time: 1000});
                     }
-                },
-                error:function(){
-                    layer.msg('系统错误！', {icon: 2,time: 1000});
-                }
-            });
+                })
+            }
+            e.preventDefault();
         });
-
+        // 将验证码加到id为captcha的元素里，同时会有三个input的值用于表单提交
+        captchaObj.appendTo("#captcha1");
+        captchaObj.onReady(function () {
+            $("#wait1").hide();
+        });
+        // 更多接口参考：http://www.geetest.com/install/sections/idx-client-sdk.html
+    };
+    $.ajax({
+        url: "<%=path%>/StartCaptcha.html?t=" + (new Date()).getTime(), // 加随机数防止缓存
+        type: "get",
+        dataType: "json",
+        success: function (data) {
+            // 调用 initGeetest 初始化参数
+            // 参数1：配置参数
+            // 参数2：回调，回调的第一个参数验证码对象，之后可以使用它调用相应的接口
+            initGeetest({
+                gt: data.gt,
+                challenge: data.challenge,
+                new_captcha: data.new_captcha, // 用于宕机时表示是新验证码的宕机
+                offline: !data.success, // 表示用户后台检测极验服务器是否宕机，一般不需要关注
+                product: "float", // 产品形式，包括：float，popup
+                width: "100%"
+                // 更多配置参数请参见：http://www.geetest.com/install/sections/idx-client-sdk.html#config
+            }, handler1);
+        }
     });
-
 </script>
+
 <body>
 <header>
     <section class="Topmenubg">
@@ -125,18 +168,24 @@
         <table class="login">
             <tr>
                 <td width="40%" align="right" class="FontW">账号：</td>
-                <td><input type="text"  name="uname" id="uname" required autofocus placeholder="账号"></td>
+                <td><input type="text" style="width: 270px" name="uname" id="uname" required autofocus placeholder="账号"></td>
             </tr>
             <tr>
                 <td width="40%" align="right" class="FontW">密码：</td>
-                <td><input type="password" name="upassword" id="upassword" required></td>
+                <td><input type="password" style="width: 270px" name="upassword" id="upassword" required></td>
             </tr>
-            <%--<tr>
-                <td width="40%" align="right" class="FontW">验证码：</td>
-                <td><input type="text" name="" required><img src="<%=path %>/upload/captcha.png" style="margin-left:8px; vertical-align:bottom" width="83" height="36"></td>
-            </tr>--%>
+            <tr>
+                <td width="40%" align="right" class="FontW">完成验证：</td>
+                <td>
+                    <div id="captcha1" style="width: 40%">
+                        <p id="wait1" class="show">正在加载验证码......</p>
+                    </div>
+                    <%--<p id="notice1" class="hide">请先完成验证</p>--%>
+                </td>
+            </tr>
             <tr>
                 <td width="40%" align="right"></td>
+
                 <td><input type="button" name="" value="登 录" class="log_btn" id="checkLogin">( 还不是会员，<a href="<%=basePath%>user/userBuyRegister.html" class="BlueA">请注册</a> )</td>
             </tr>
         </table>

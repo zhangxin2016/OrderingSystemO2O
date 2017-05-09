@@ -27,4 +27,12 @@ public interface DetailorderMapper {
     int updateByPrimaryKeySelective(Detailorder record);
 
     int updateByPrimaryKey(Detailorder record);
+
+    int countByNoSend(Integer oid);
+
+    int countByNoSigh(Integer oid);
+
+    int countByNoEvaluate(Integer oid);
+
+    List<Detailorder> selectdetailOrderList(Integer oid);
 }

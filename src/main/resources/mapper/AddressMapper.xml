@@ -208,4 +208,9 @@
       uid = #{uid,jdbcType=INTEGER}
     where adid = #{adid,jdbcType=INTEGER}
   </update>
+  <!--用户id 查询全部地址 -->
+  <select id="getuid" parameterType="Integer" resultType="com.zx.model.Address">
+    SELECT * FROM address WHERE uid=#{uid}
+  </select>
+
 </mapper>

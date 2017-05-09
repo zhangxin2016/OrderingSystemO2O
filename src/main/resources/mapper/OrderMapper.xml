@@ -227,4 +227,9 @@
       odelete = #{odelete,jdbcType=INTEGER}
     where oid = #{oid,jdbcType=INTEGER}
   </update>
+  <!--根据用户名获取订单-->
+  <select id="orderByUser" parameterType="Integer" resultMap="BaseResultMap" >
+    select * from orders
+    WHERE odelete=0 AND uid=#{uid}
+  </select>
 </mapper>

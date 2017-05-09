@@ -1,10 +1,7 @@
 package com.zx.controller;
 
 import com.zx.model.*;
-import com.zx.service.CartService;
-import com.zx.service.DetailOrderService;
-import com.zx.service.FoodService;
-import com.zx.service.OrderService;
+import com.zx.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -29,6 +26,8 @@ public class OrderController {
     private FoodService foodService;
     @Autowired
     private DetailOrderService detailOrderService;
+    @Autowired
+    private AddressService addressService;
     List<Order> ordersList = new ArrayList<Order>();
     int sumTotal=0;
     int sumNum=0;
@@ -36,6 +35,9 @@ public class OrderController {
     public String addFoodOrders(HttpSession session, String pays, HttpServletRequest request, Integer[] cartid, ModelMap modelMap) throws Exception {
         Order orders = new Order();
         String domessage = request.getParameter("domessage");
+        Integer addressID = Integer.parseInt(request.getParameter("addressIn"));
+        Address address = addressService.getadid(addressID);
+        System.out.println("address============="+addressID);
         UserBuy user = (UserBuy) session.getAttribute("user");
         orders.setUid(user.getUid());
         //orders.setOdate(new Date());
@@ -58,8 +60,7 @@ public class OrderController {
             //订单明细表增加
             Food foods = foodService.findFoodById(cart1.getFid());
             Detailorder detailorder = new Detailorder();
-            //--------------后续添加地址-------//
-            detailorder.setAdid(1);
+            detailorder.setAdid(addressID);
             detailorder.setDonum(cart1.getNum());
             detailorder.setDopri(cart1.getCtotal());
             detailorder.setDostatus(0);
@@ -76,7 +77,7 @@ public class OrderController {
             //删除购物车列表
             cartService.deleteCart(id);
         }
-        //--------后续增加地址------//
+
         //订单表保存
         for(Order orders2:ordersList){
             System.out.println(orders2);
@@ -84,6 +85,13 @@ public class OrderController {
             System.out.println("----------------------"+orders2);
         }
         modelMap.put("pays", pays);
+        modelMap.put("addressOrderSuccess",address);
         return "front/food/paysuccess";
     }
+    @RequestMapping("/orderByUserBuy")
+    public void orderByUserBuy(HttpSession session, HttpServletRequest request, ModelMap modelMap) throws Exception {
+        UserBuy user = (UserBuy) session.getAttribute("user");
+        List<Order> orderListByUser = ordersService.orderByUser(user.getUid());
+    }
+
 }

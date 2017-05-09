@@ -3,6 +3,8 @@ package com.zx.mapper;
 import com.zx.model.Food;
 import com.zx.model.FoodExample;
 import java.util.List;
+
+import com.zx.util.Page;
 import org.apache.ibatis.annotations.Param;
 
 public interface FoodMapper {
@@ -34,6 +36,12 @@ public interface FoodMapper {
     List<Food> findAllBySalesvolume(Integer stid) throws Exception;
     //根据店铺ID获取食品收藏数
     List<Food> findAllByCollection(Integer stid) throws Exception;
-
+    //根据店铺ID获取菜品
     List<Food> findAllByStid(Integer stid) throws Exception;
+    //根据店铺ID获取菜品数量
+    Integer findFoodCountByStid(Integer stid) throws Exception;
+    //根据店铺ID获取菜品(分页)
+    List<Food> findFoodByStid(Integer stid) throws Exception;
+    //删除商品
+    int deleteFoodByFid(Integer fid);
 }

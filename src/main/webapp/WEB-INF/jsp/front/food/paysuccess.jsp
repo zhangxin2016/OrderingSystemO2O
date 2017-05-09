@@ -76,7 +76,7 @@ Author URI: http://www.deathghost.cn
  <div class="confirm_addr_f">
          <!-- 订单提交成功后则显示如下 -->
          <p class="Font14 Lineheight35 FontW">恭喜你！订单提交成功！</p>
-         <p class="Font14 Lineheight35 FontW">您的收货地址为：<span class="CorRed">201409205134</span></p>
+         <p class="Font14 Lineheight35 FontW">您的收货地址为：<span class="CorRed">${addressOrderSuccess.adcon}（${addressOrderSuccess.adname }收） 联系方式：${addressOrderSuccess.adtel }</span></p>
          <p class="Font14 Lineheight35 FontW">共计金额：￥<span class="CorRed">${pays}</span></p>
          <p><button type="button" class="Lineheight35"><a href="#" target="_blank">已买到的宝贝</a></button><button type="button" class="Lineheight35"><a href="user_center.html">返回首页</a></button></p>
 

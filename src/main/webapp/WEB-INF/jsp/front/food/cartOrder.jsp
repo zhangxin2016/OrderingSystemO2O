@@ -88,41 +88,8 @@
 <!--Start content-->
 <section class="Psection MT20" id="Cflow">
     <!--如果用户未添加收货地址，则显示如下-->
-    <div class="confirm_addr_f">
-        <span class="flow_title">收货地址：</span>
-        <!--如果未添加地址，则显示此表单-->
-        <form class="add_address" action="#" style="display:none;">
-            <p><i>收件人姓名：</i><input type="text" name="" required></p>
-            <p>
-                <i>选择所在地：</i>
-                <select name="">
-                    <option>陕西省</option>
-                </select>
-                <select name="">
-                    <option>西安市</option>
-                </select>
-                <select name="">
-                    <option>莲湖区</option>
-                </select>
-            </p>
-            <p><i>街道地址：</i><input type="text" required size="50"></p>
-            <p><i>邮政编码：</i><input type="text" required size="10" pattern="[0-9]{6}"></p>
-            <p><i>手机号码：</i><input type="text" name="" required pattern="[0-9]{11}"></p>
-            <p><i></i><input name="" type="submit" value="确定"></p>
-        </form>
-        <!--已保存的地址列表-->
-        <form action="#">
-            <ul class="address">
-                <li id="style1"><input type="radio" value="" id="1" name="rdColor" onclick="changeColor(1)"/><label
-                        for="1"> 浙江省 杭州市 余杭区 航海路1588号（孙先生收）<span class="fontcolor">183092***73</span></label></li>
-                <li id="style2"><input type="radio" value="" id="2" name="rdColor" onclick="changeColor(2)"/><label
-                        for="2"> 陕西省 西安市 雁塔区 丈八路22号（孙先生收）<span class="fontcolor">183092***73</span></label></li>
-                <li><a href="javascript:void(0)"
-                       onclick="document.getElementById('light').style.display='block';document.getElementById('fade').style.display='block'"><img
-                        src="images/newaddress.png"/></a></li>
-            </ul>
-        </form>
-    </div>
+
+
     <!--配送方式及支付，则显示如下-->
     <!--check order or add other information-->
     <div class="pay_delivery">
@@ -147,6 +114,17 @@
     </div>
     <form action="${pageContext.request.contextPath }/addFoodOrders.html" method="post">
         <input type="hidden" id="paysuccess" name="pays" />
+        <div class="confirm_addr_f">
+            <span class="flow_title">收货地址：</span>
+            <!--已保存的地址列表-->
+            <c:forEach items="${listAddressOrder }" var="listAddressOrder">
+                <ul class="address">
+                    <li id="style1"><input type="radio" value="${listAddressOrder.adid }" id="addressIn" name="addressIn" onclick="changeColor(1)"/>
+                            ${listAddressOrder.adcon }（${listAddressOrder.adname }收）<span class="fontcolor">联系方式：${listAddressOrder.adtel }</span></li>
+                </ul>
+            </c:forEach>
+        </div>
+
         <div class="inforlist">
             <span class="flow_title">商品清单</span>
             <table>
@@ -173,7 +151,6 @@
             </div>
         </div>
     </form>
-    </div>
 </section>
 <script>
     //Test code,You can delete this script /2014-9-21DeathGhost/

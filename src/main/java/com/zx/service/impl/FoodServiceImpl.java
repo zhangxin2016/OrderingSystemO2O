@@ -5,6 +5,7 @@ import com.github.pagehelper.PageInfo;
 import com.zx.mapper.FoodMapper;
 import com.zx.model.Food;
 import com.zx.service.FoodService;
+import com.zx.util.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -62,5 +63,32 @@ public class FoodServiceImpl implements FoodService {
     public void updateFood(Integer id, Food food) throws Exception {
         foodMapper.updateByPrimaryKeySelective(food);
     }
+
+    @Override
+    public Integer addFood(Food food) {
+        return foodMapper.insertSelective(food);
+    }
+
+    @Override
+    public Integer findFoodCountByStid(Integer stid) throws Exception {
+        return foodMapper.findFoodCountByStid(stid);
+    }
+
+    @Override
+    public Map<String, Object> findFoodByStid(Integer currentPage, Integer lineSize, Integer stid) throws Exception {
+        Map<String,Object> map=new HashMap<String, Object>();    //map集合保存分页信息和数据
+        PageHelper.startPage(currentPage, lineSize);     //设置分页参数
+        List<Food> foodList=this.foodMapper.findFoodByStid(stid);   //模糊查询
+        PageInfo<Food> pageInfo=new PageInfo<Food>(foodList) ; //获取分页信息
+        map.put("foodList", foodList);
+        map.put("pageInfo", pageInfo);
+        return map;
+    }
+
+    @Override
+    public Integer deleteFoodByFid(Integer fid) throws Exception {
+        return foodMapper.deleteFoodByFid(fid);
+    }
+
 
 }

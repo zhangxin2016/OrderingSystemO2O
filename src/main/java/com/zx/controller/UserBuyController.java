@@ -1,6 +1,8 @@
 package com.zx.controller;
 
+import com.zx.demo.demo1.GeetestConfig;
 import com.zx.model.UserBuy;
+import com.zx.sdk.GeetestLib;
 import com.zx.service.UserService;
 import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +19,7 @@ import org.dom4j.DocumentHelper;
 import org.dom4j.Element;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -38,7 +41,7 @@ public class UserBuyController {
      * @throws IOException
      */
     @RequestMapping("/CheckLogin.html")
-    public void checkLogin(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public void checkLogin(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         //从前台获取json中的name和pass值
         String name = request.getParameter("name");
         String pass = request.getParameter("pass");
@@ -52,52 +55,82 @@ public class UserBuyController {
         int result = 0;
         //new一个json存放返回数据
         JSONObject json = new JSONObject();
-        //判断u是否为空
-        if(u == null){
-            //用户名或密码错误，返回错误0
-            json.put("result", result);
-            response.getWriter().print(json);
-        }else if(u != null){
-            //用户名或密码正确，返回正确1
-            result = 1;
+        GeetestLib gtSdk = new GeetestLib(GeetestConfig.getGeetest_id(), GeetestConfig.getGeetest_key(),
+                GeetestConfig.isnewfailback());
+        String challenge = request.getParameter(GeetestLib.fn_geetest_challenge);
+        String validate = request.getParameter(GeetestLib.fn_geetest_validate);
+        String seccode = request.getParameter(GeetestLib.fn_geetest_seccode);
+        //从session中获取gt-server状态
+        int gt_server_status_code = (Integer) request.getSession().getAttribute(gtSdk.gtServerStatusSessionKey);
+        //从session中获取userid
+        String userid = (String)request.getSession().getAttribute("userid");
+        int gtResult = 0;
+        if (gt_server_status_code == 1) {
+            //gt-server正常，向gt-server进行二次验证
+            gtResult = gtSdk.enhencedValidateRequest(challenge, validate, seccode, userid);
+            System.out.println("gtResult========"+gtResult);
+        } else {
+            // gt-server非正常情况下，进行failback模式验证
+            System.out.println("failback:use your own server captcha validate");
+            gtResult = gtSdk.failbackValidateRequest(challenge, validate, seccode);
+            System.out.println("gtResult====++++===="+gtResult);
+        }
+        //int gtResult = VerifyLogin(request, response);
+        if (gtResult == 1) {
+            // 验证成功
+            //判断u是否为空
+            if(u == null){
+                //用户名或密码错误，返回错误0
+                json.put("result", result);
+                response.getWriter().print(json);
+            }else if(u != null){
+                //用户名或密码正确，返回正确1
+                result = 1;
+                json.put("result", result);
+                response.getWriter().print(json);
+
+            }
+        }
+        else {
+            // 验证失败
+            result = 2;
             json.put("result", result);
             response.getWriter().print(json);
         }
-
         response.getWriter().flush();
         response.getWriter().close();
     }
 
+    public int VerifyLogin(HttpServletRequest request,
+                            HttpServletResponse response) throws ServletException, IOException{
+        GeetestLib gtSdk = new GeetestLib(GeetestConfig.getGeetest_id(), GeetestConfig.getGeetest_key(),
+                GeetestConfig.isnewfailback());
+        String challenge = request.getParameter(GeetestLib.fn_geetest_challenge);
+        String validate = request.getParameter(GeetestLib.fn_geetest_validate);
+        String seccode = request.getParameter(GeetestLib.fn_geetest_seccode);
+        //从session中获取gt-server状态
+        int gt_server_status_code = (Integer) request.getSession().getAttribute(gtSdk.gtServerStatusSessionKey);
+        //从session中获取userid
+        String userid = (String)request.getSession().getAttribute("userid");
+        int gtResult = 0;
+        if (gt_server_status_code == 1) {
+            //gt-server正常，向gt-server进行二次验证
+            gtResult = gtSdk.enhencedValidateRequest(challenge, validate, seccode, userid);
+            System.out.println(gtResult);
+        } else {
+            // gt-server非正常情况下，进行failback模式验证
+            System.out.println("failback:use your own server captcha validate");
+            gtResult = gtSdk.failbackValidateRequest(challenge, validate, seccode);
+            System.out.println(gtResult);
+        }
+        return gtResult;
+    }
     @RequestMapping("/Userlogin.html")
-    public String userlogin(HttpSession session, UserBuy inuser) throws Exception{
+    public String userlogin(HttpSession session, UserBuy inuser,HttpServletRequest request, HttpServletResponse response) throws Exception{
         //根据用户输入的用户名和密码查找用户信息
         UserBuy user = userService.getUserByNameAndPass(inuser);
         //设置session，将user传入
         session.setAttribute("user", user);
-
-        /*//根据用户id查到购物车
-        List<Cart> cartList = cartService.getCartBuyUid(user.getUid());
-        //根据商品id展示商品列表
-        List<Item> itemList = new ArrayList<Item>();
-        for (Cart cart2 : cartList) {
-            Item i = cartService.getItemBySku(cart2.getSku());
-            itemList.add(i);
-        }
-        //商品参数集合
-        Map<Integer,List<ParamPojo>> map=new HashMap<Integer,List<ParamPojo>>();
-        for (Item i : itemList) {
-            Item item = cartService.getItemBySku(i.getSku());
-            Itemparam byId = itemParamService.getById(item.getPid());
-            List<ParamPojo> pojos1 = JsonUtils.jsonToList(byId.getParamValue(), ParamPojo.class);
-            map.put(i.getSku(), pojos1);
-        }
-
-        session.setAttribute("cartNum", itemList.size());
-        session.setAttribute("pojos", map);
-        session.setAttribute("itemList", itemList);
-        session.setAttribute("cList", cartList);
-        */
-        //return "redirect:Member_User.html";
         return "redirect:user/frontindex.html";
     }
 
@@ -109,7 +142,7 @@ public class UserBuyController {
     public String logout(HttpSession session){
         //清空session
         session.invalidate();
-        return "redirect:user/testJson.html";
+        return "redirect:user/frontindex.html";
     }
 
 
