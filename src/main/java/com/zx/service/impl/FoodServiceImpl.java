@@ -75,6 +75,11 @@ public class FoodServiceImpl implements FoodService {
     }
 
     @Override
+    public List<Food> findFoodByStid(Page page) throws Exception {
+        return foodMapper.findFoodByStid(page);
+    }
+
+    /*@Override
     public Map<String, Object> findFoodByStid(Integer currentPage, Integer lineSize, Integer stid) throws Exception {
         Map<String,Object> map=new HashMap<String, Object>();    //map集合保存分页信息和数据
         PageHelper.startPage(currentPage, lineSize);     //设置分页参数
@@ -83,7 +88,7 @@ public class FoodServiceImpl implements FoodService {
         map.put("foodList", foodList);
         map.put("pageInfo", pageInfo);
         return map;
-    }
+    }*/
 
     @Override
     public Integer deleteFoodByFid(Integer fid) throws Exception {

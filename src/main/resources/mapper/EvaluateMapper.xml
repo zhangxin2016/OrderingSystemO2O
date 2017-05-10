@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zx.mapper.EvaluateMapper" >
+  <resultMap id="BaseResultMap" type="com.zx.model.Evaluate" >
+    <id column="eid" property="eid" jdbcType="INTEGER" />
+    <result column="doid" property="doid" jdbcType="INTEGER" />
+    <result column="ebuycontent" property="ebuycontent" jdbcType="VARCHAR" />
+    <result column="esellcontent" property="esellcontent" jdbcType="VARCHAR" />
+    <result column="ebuydate" property="ebuydate" jdbcType="TIMESTAMP" />
+    <result column="eselldate" property="eselldate" jdbcType="TIMESTAMP" />
+    <result column="edelete" property="edelete" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    eid, doid, ebuycontent, esellcontent, ebuydate, eselldate, edelete
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.zx.model.EvaluateExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from evaluate
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from evaluate
+    where eid = #{eid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from evaluate
+    where eid = #{eid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.zx.model.EvaluateExample" >
+    delete from evaluate
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.zx.model.Evaluate" >
+    insert into evaluate (eid, doid, ebuycontent, 
+      esellcontent, ebuydate, eselldate, 
+      edelete)
+    values (#{eid,jdbcType=INTEGER}, #{doid,jdbcType=INTEGER}, #{ebuycontent,jdbcType=VARCHAR}, 
+      #{esellcontent,jdbcType=VARCHAR}, #{ebuydate,jdbcType=TIMESTAMP}, #{eselldate,jdbcType=TIMESTAMP}, 
+      #{edelete,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zx.model.Evaluate" >
+    insert into evaluate
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="eid != null" >
+        eid,
+      </if>
+      <if test="doid != null" >
+        doid,
+      </if>
+      <if test="ebuycontent != null" >
+        ebuycontent,
+      </if>
+      <if test="esellcontent != null" >
+        esellcontent,
+      </if>
+      <if test="ebuydate != null" >
+        ebuydate,
+      </if>
+      <if test="eselldate != null" >
+        eselldate,
+      </if>
+      <if test="edelete != null" >
+        edelete,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="eid != null" >
+        #{eid,jdbcType=INTEGER},
+      </if>
+      <if test="doid != null" >
+        #{doid,jdbcType=INTEGER},
+      </if>
+      <if test="ebuycontent != null" >
+        #{ebuycontent,jdbcType=VARCHAR},
+      </if>
+      <if test="esellcontent != null" >
+        #{esellcontent,jdbcType=VARCHAR},
+      </if>
+      <if test="ebuydate != null" >
+        #{ebuydate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="eselldate != null" >
+        #{eselldate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="edelete != null" >
+        #{edelete,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.zx.model.EvaluateExample" resultType="java.lang.Integer" >
+    select count(*) from evaluate
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update evaluate
+    <set >
+      <if test="record.eid != null" >
+        eid = #{record.eid,jdbcType=INTEGER},
+      </if>
+      <if test="record.doid != null" >
+        doid = #{record.doid,jdbcType=INTEGER},
+      </if>
+      <if test="record.ebuycontent != null" >
+        ebuycontent = #{record.ebuycontent,jdbcType=VARCHAR},
+      </if>
+      <if test="record.esellcontent != null" >
+        esellcontent = #{record.esellcontent,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ebuydate != null" >
+        ebuydate = #{record.ebuydate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.eselldate != null" >
+        eselldate = #{record.eselldate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.edelete != null" >
+        edelete = #{record.edelete,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update evaluate
+    set eid = #{record.eid,jdbcType=INTEGER},
+      doid = #{record.doid,jdbcType=INTEGER},
+      ebuycontent = #{record.ebuycontent,jdbcType=VARCHAR},
+      esellcontent = #{record.esellcontent,jdbcType=VARCHAR},
+      ebuydate = #{record.ebuydate,jdbcType=TIMESTAMP},
+      eselldate = #{record.eselldate,jdbcType=TIMESTAMP},
+      edelete = #{record.edelete,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zx.model.Evaluate" >
+    update evaluate
+    <set >
+      <if test="doid != null" >
+        doid = #{doid,jdbcType=INTEGER},
+      </if>
+      <if test="ebuycontent != null" >
+        ebuycontent = #{ebuycontent,jdbcType=VARCHAR},
+      </if>
+      <if test="esellcontent != null" >
+        esellcontent = #{esellcontent,jdbcType=VARCHAR},
+      </if>
+      <if test="ebuydate != null" >
+        ebuydate = #{ebuydate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="eselldate != null" >
+        eselldate = #{eselldate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="edelete != null" >
+        edelete = #{edelete,jdbcType=INTEGER},
+      </if>
+    </set>
+    where eid = #{eid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zx.model.Evaluate" >
+    update evaluate
+    set doid = #{doid,jdbcType=INTEGER},
+      ebuycontent = #{ebuycontent,jdbcType=VARCHAR},
+      esellcontent = #{esellcontent,jdbcType=VARCHAR},
+      ebuydate = #{ebuydate,jdbcType=TIMESTAMP},
+      eselldate = #{eselldate,jdbcType=TIMESTAMP},
+      edelete = #{edelete,jdbcType=INTEGER}
+    where eid = #{eid,jdbcType=INTEGER}
+  </update>
+</mapper>

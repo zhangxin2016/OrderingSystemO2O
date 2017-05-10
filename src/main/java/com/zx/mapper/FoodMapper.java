@@ -41,7 +41,7 @@ public interface FoodMapper {
     //根据店铺ID获取菜品数量
     Integer findFoodCountByStid(Integer stid) throws Exception;
     //根据店铺ID获取菜品(分页)
-    List<Food> findFoodByStid(Integer stid) throws Exception;
+    List<Food> findFoodByStid(Page page) throws Exception;
     //删除商品
     int deleteFoodByFid(Integer fid);
 }

@@ -3,7 +3,14 @@ package com.zx.util;
 import java.util.List;
 
 public class Page {
-	
+	//根据ID查询（备用）
+	private int id;
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
 	private int totalNumber;
 	
 	private int currentPage = 1;
@@ -23,46 +30,37 @@ public class Page {
 		this.maxRows = maxRows;
 		this.totalPage = getTotalPage();
 	}
-	
-	
-	
-	
-	
-	
+	public Page(int id,int totalNumber, int maxRows) {
+		super();
+		this.id = id;
+		this.totalNumber = totalNumber;
+		this.maxRows = maxRows;
+		this.totalPage = getTotalPage();
+	}
+
 	public String getPageType() {
 		return pageType;
 	}
-
-
 
 	public void setPageType(String pageType) {
 		this.pageType = pageType;
 	}
 
-	
-
 	public String getPageEditStatus() {
 		return pageEditStatus;
 	}
-
-
 
 	public void setPageEditStatus(String pageEditStatus) {
 		this.pageEditStatus = pageEditStatus;
 	}
 
-
 	public void setTotalPage(int totalPage) {
 		this.totalPage = totalPage;
 	}
 
-
-
 	public void setStart(int start) {
 		this.start = start;
 	}
-
-
 
 	public int getTotalNumber() {
 		return totalNumber;

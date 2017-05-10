@@ -37,6 +37,10 @@
     <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
     <script src="http://cdn.bootcss.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="<%=basePath%>js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <!-- 百度地图API样式 -->
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=lo8alm4vpnwYCLWV6PSKtBP402GHU3p4"></script>
     <!-- 自定义分页的JS插件 -->
     <script type="text/javascript" src="<%=basePath%>js/pagination.js"></script>
     <script type="text/javascript" src="<%=basePath%>js/teacher_del.js"></script>
@@ -219,7 +223,7 @@
             </div>
             <div class="imginfor">
                 <div class="shopimg">
-                    <img src="/upload/${inMyStores.stdesc }" id="showimg">
+                    <img src="/pic/${inMyStores.stdesc }" id="showimg">
                 </div>
                 <div class="shoptext">
                     <p><span>地址：</span>${inMyStores.staddress}</p>
@@ -229,8 +233,8 @@
                     <p><span>营业时间：</span>09:00~22:00</p>
                     <p><span>WIFI：</span>免费WIFI</p>
                     <div class="Button">
-                        <input type="button"><span type="button" class="DCbutton" onclick="toAddFood('添加菜品','<%=basePath%>addStoresFood.html?a=1&stid=${inMyStores.stid}',800,500)">添加菜品</span></input>
-                        <input type="button"><span type="button" class="DCbutton" onclick="editStores('修改店铺信息','<%=basePath%>editstores.html?a=1&stid=${inMyStores.stid}',800,600)">修改店铺信息</span></input>
+                        <input type="button"><span type="button" class="DCbutton" onclick="toAddFood('添加菜品','<%=basePath%>toAddFoodsByStores.html?stid=${inMyStores.stid}',800,500)">添加菜品</span></input>
+                        <input type="button"><span type="button" class="DCbutton" onclick="editStores('修改店铺信息','<%=basePath%>toEditStores.html?a=1&stid=${inMyStores.stid}',800,700)">修改店铺信息</span></input>
                     </div>
                     <div class="otherinfor">
                         <script type="text/javascript" charset="utf-8" src="http://static.bshare.cn/b/buttonLite.js#style=-1&amp;uuid=&amp;pophcol=1&amp;lang=zh"></script><script type="text/javascript" charset="utf-8" src="http://static.bshare.cn/b/bshareC0.js"></script>
@@ -243,6 +247,7 @@
                         <li class="on">菜谱</li>
                         <li>累计评论</li>
                         <li>商家详情</li>
+                        <li>订单详情</li>
                         <p><b></b></p>
                     </ul>
                 </div>
@@ -254,52 +259,37 @@
                                 <c:forEach items="${foodList }" var="listFood">
                                     <li>
                                         <a href="detailsp.html" target="_blank" title="${listFood.fname}">
-                                            <img src="upload/01.jpg" class="foodsimgsize">
+                                            <img src="/pic/${listFood.fpic }" class="foodsimgsize">
                                         </a>
                                         <div class="item">
                                             <div>
                                                 <p>${listFood.fname} ￥${listFood.fprice}元</p>
-                                                <span class="AButton" onclick="toEditFood('修改菜品','<%=basePath%>frontEditFood.html?a=1&fid=${listFood.fid}',800,600)"><a>修改</a></span>
+                                                <span class="AButton" onclick="toEditFood('修改菜品','<%=basePath%>toEditFoodsByStores.html?a=1&fid=${listFood.fid}',800,600)"><a>修改</a></span>
                                                 <span class="AButton"><a href="<%=basePath%>frontDeleteFood.html?fid=${listFood.fid}">删除</a></span>
                                             </div>
                                         </div>
                                     </li>
                                 </c:forEach>
                                 <div class="TurnPage">
-                                    <!-------------------------------分页插件↓----------------------------------------------------------------->
-                                    <form action="<%=basePath%>getStoresBySellId.html" method="POST" name="spForm" id="spForm">
-                                        <input type="hidden" id="currentPage" name="currentPage" value="${pageInfo.pageNum}">
-                                        <input type="hidden" id="lineSize" name="lineSize" value="${pageInfo.pageSize}">
-                                        <input type="hidden" id="stid" name="stid" value="${stid}">
-                                        <button type="button" class="btn btn-primary" value="${pageInfo.firstPage}"
-                                            ${pageInfo.pageNum==1?"disabled='disabled'":""}>
-                                            首页
-                                        </button>
-                                        <button type="button" class="btn btn-success"
-                                                value="${pageInfo.prePage}"
-                                            ${pageInfo.prePage==0?"disabled='disabled'":""}>
-                                            上一页
-                                        </button>
-                                        &nbsp;&nbsp;&nbsp;跳转到第&nbsp;<div class="btn-group">
-                                        <button type="button" class="btn btn-default dropdown-toggle">
-                                                ${pageInfo.pageNum}&nbsp;&nbsp;<span class="caret"></span>
-                                        </button>
-                                    </div>&nbsp;页&nbsp;&nbsp;&nbsp;
-                                        &nbsp;&nbsp;&nbsp;每页显示&nbsp;<div class="btn-group">
-                                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" id="lsBtn">
-                                                ${pageInfo.pageSize}&nbsp;&nbsp;<span class="caret"></span>
-                                        </button>
-                                    </div>&nbsp;条&nbsp;&nbsp;&nbsp;
-                                        <button type="button" class="btn btn-info" value="${pageInfo.nextPage}"
-                                            ${pageInfo.nextPage==0?"disabled='disabled'":""}>
-                                            下一页
-                                        </button>
-                                        <button type="button" class="btn btn-danger"value="${pageInfo.lastPage}"
-                                            ${pageInfo.pageNum==pageInfo.lastPage?"disabled='disabled'":""}>
-                                            尾页
-                                        </button>
-                                        &nbsp;共 &nbsp;${pageInfo.size}/${pageInfo.total} &nbsp;条
-                                    </form>
+                                    <c:if test="${foodList ==null}">
+                                    </c:if>
+                                    <c:if test="${foodList!=null}">
+                                        <font size="2">共 ${page.totalPage}页&nbsp;|&nbsp;共${page.totalNumber}条</font> &nbsp;<font size="2"> 当前第 ${i} 页</font> &nbsp;
+                                        <c:choose>
+                                            <c:when test="${i eq '1'}">上一页
+                                            </c:when>
+                                            <c:otherwise>
+                                                <font size="2"><a href="<%=basePath%>getStoresBySellId.html?currentPage=${i-1}">上一页</a></font>&nbsp;
+                                            </c:otherwise>
+                                        </c:choose>
+                                        <c:choose>
+                                            <c:when test="${i eq page.totalPage}">下一页
+                                            </c:when>
+                                            <c:otherwise>
+                                                <font size="2"><a href="<%=basePath%>getStoresBySellId.html?currentPage=${i+1}">下一页</a></font>
+                                            </c:otherwise>
+                                        </c:choose>
+                                    </c:if>
                                 </div>
                             </ul>
                         </div>
@@ -322,19 +312,47 @@
                     <!--case4-->
                     <div class="menutab">
                         <div class="shopdetails">
-                            <div class="shopmaparea">
-                                <img src="upload/testimg.jpg"><!--此处占位图调用动态地图后将其删除即可-->
+                            <%--<div id="allmap"></div>
+                            <p>返回北京市“景点”关键字的检索结果，并展示在地图上</p>--%>
+                            <div class="shopmaparea" id="allmap">
+                                <p></p>
                             </div>
                             <div class="shopdetailsT">
-                                <p><span>店铺：外婆家</span></p>
-                                <p><span>地址：</span>陕西省西安市雁塔区丈八北路***号</p>
-                                <p><span>电话：</span>029-88888888</p>
+                                <input type="hidden" id="storeAddressByMap" value="${inMyStores.staddress}"/>
+                                <p><span>店铺：${inMyStores.stname}</span></p>
+                                <p><span>地址：</span>${inMyStores.staddress}</p>
                                 <p><span>乘车路线：</span>300路、115路、14路、800路到西辛庄站下车往东100米</p>
                                 <p><span>店铺介绍：</span>***于2005年3月28日开业，立于西安市碑林区***于2005年3月28日开业，立于西安市碑林区***于2005年3月28日开业，立于西安市碑林区***于2005年3月28日开业，立于西安市碑林区***</p>
                             </div>
                         </div>
                     </div>
                     <!--case5-->
+                    <div class="menutab">
+                        <div class="shopcomment">
+                            <div class="Spname">
+                                <a href="#" target="_blank" title="酸辣土豆丝">酸辣土豆丝</a>
+                            </div>
+                            <div class="C-content">
+                                <q>还不错，速度挺快,还不错，速度挺快还不错，速度挺快还不错，速度挺快还不错，速度挺快还不错，速度挺快还不错，速度挺快。。。</q>
+                                <i>2014年09月17日 19:36 </i>
+                            </div>
+                            <div class="username">
+                                DeatGhost
+                            </div>
+                        </div>
+                        <div class="shopcomment">
+                            <div class="Spname">
+                                <a href="#" target="_blank" title="酸辣土豆丝">酸辣土豆丝</a>
+                            </div>
+                            <div class="C-content">
+                                <q>还不错，速度挺快,还不错，速度挺快还不错，速度挺快还不错，速度挺快还不错，速度挺快还不错，速度挺快还不错，速度挺快。。。</q>
+                                <i>2014年09月17日 19:36 </i>
+                            </div>
+                            <div class="username">
+                                DeatGhost
+                            </div>
+                        </div>
+                    </div>
 
                 </div>
             </div>
@@ -443,11 +461,17 @@
     </section>
     <div class="copyright">© 版权所有 2016 DeathGhost 技术支持：<a href="http://www.deathghost.cn" title="DeathGhost">DeathGhost</a></div>
 </footer>
-
-
-
-
-
+<script type="text/javascript">
+    // 百度地图API功能
+    var map = new BMap.Map("allmap");
+    map.centerAndZoom(new BMap.Point(116.404, 39.915), 11);
+    var local = new BMap.LocalSearch(map, {
+        renderOptions:{map: map}
+    });
+    var a = $('#storeAddressByMap').val();
+    a = a.replace(" ","");
+    local.search(a);
+</script>
 <script type="text/javascript"
         src="<%=basePath%>lib/jquery/1.9.1/jquery.min.js"></script>
 <script type="text/javascript"
@@ -467,3 +491,4 @@
         src="<%=basePath%>lib/My97DatePicker/WdatePicker.js"></script>
 </body>
 </html>
+

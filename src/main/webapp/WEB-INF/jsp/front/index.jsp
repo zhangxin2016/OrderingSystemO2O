@@ -94,14 +94,13 @@
         <a href="list.html" target="_blank"><img src="<%=path %>/images/dc_button.png"></a>
     </aside>
     <div class="F-middle">
-
-            <ul class="rslides f426x240">
-                <c:forEach items="${foodsListBySalesvolume}" var="foodsListBySalesvolume">
-                <li><a href="javascript:">${foodsListBySalesvolume.fname}</a></li>
-                </c:forEach>
-            </ul>
-
+        <ul class="rslides f426x240">
+            <c:forEach items="${foodsListBySalesvolume}" var="foodsListBySalesvolume">
+                <li><a href="javascript:"><img src="/pic/${foodsListBySalesvolume.fpic }" width="600"/></a></li>
+            </c:forEach>
+        </ul>
     </div>
+
     <aside class="N-right">
         <div class="N-title">公司新闻 <i>COMPANY NEWS</i></div>
         <ul class="Newslist">
@@ -180,7 +179,7 @@
                             <c:forEach items="${foodsListByCollection}" var="foodsListByCollection">
                                 <a href="<%=basePath%>getFoodById.html?fid=${foodsListByCollection.fid}" target="_blank" title="菜品名称">
                                     <figure>
-                                        <img src="<%=path %>/upload/05.jpg">
+                                        <img src="/pic/${foodsListByCollection.fpic }">
                                         <figcaption>
                                             <span class="title">${foodsListByCollection.fname}</span>
                                             <span class="price"><i>￥</i>${foodsListByCollection.fprice}</span>

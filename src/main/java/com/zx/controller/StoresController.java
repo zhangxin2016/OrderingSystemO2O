@@ -36,34 +36,29 @@ public class StoresController {
     @Autowired
     private FoodService foodService;
     @RequestMapping("/getStoresBySellId")
-    public String getStoresBySellId(@RequestParam(value="currentPage",defaultValue="1") Integer currentPage,
-                                    @RequestParam(value="lineSize",defaultValue="4") Integer lineSize ,
-                                    @RequestParam(value="stid",defaultValue="0") Integer stid,
-                                    Map<String,Object> map,HttpSession session, HttpServletRequest request) throws Exception {
+    public String getStoresBySellId(Map<String,Object> map,HttpSession session, HttpServletRequest request) throws Exception {
         UserSell userSell = (UserSell) session.getAttribute("userSell");
         System.out.println("userSell:==="+userSell);
         Stores stores = storesService.getStoresByUsid(userSell.getUsid());
         request.setAttribute("inMyStores",stores);
         System.out.println("inMyStores===="+stores);
+        String currentPage=request.getParameter("currentPage");
+        int i = 0;
         if (stores!=null) {
             //根据店铺展示商品（分页）
-            map = null;
-            System.out.println("=========="+stores);
-            try{
-                stid = stores.getStid();
-                map=this.foodService.findFoodByStid(currentPage, lineSize, stid);
-                System.out.println("map.get(foodList)======="+map.get("foodList"));
-                request.setAttribute("foodList",map.get("foodList"));
-                /**
-                 * 下面的分页参数一定要传过去,不然没法使用分页插件
-                 */
-                request.setAttribute("pageInfo", map.get("pageInfo"));
-                System.out.printf("map.get(pageInfo)"+map.get("pageInfo"));
-                request.setAttribute("lineSizes", new int[]{4,8});
-                request.setAttribute("stid", stid);
-            }catch(Exception e){
-                System.out.printf("菜品列表出现异常！");
+            Page page = new Page(stores.getStid(),foodService.findFoodCountByStid(stores.getStid()), 4);
+            if(currentPage == null){
+                List<Food> foodList = foodService.findFoodByStid(page);
+                map.put("foodList", foodList);
+                i=1;
+            }else{
+                i=Integer.parseInt(currentPage);
+                page.setCurrentPage(i);
+                List<Food> foodList = foodService.findFoodByStid(page);
+                map.put("foodList", foodList);
             }
+            map.put("page", page);
+            map.put("i", i); // 将键和值放在Map中
         }
         return "front/stores/mystores";
     }
@@ -116,9 +111,23 @@ public class StoresController {
         }
         return "front/stores/storesadd";
     }
-
+    @RequestMapping("/toEditStores")
+    public String toEditStores(Integer stid,HttpSession session, HttpServletRequest request) throws Exception {
+        System.out.println("stid======"+stid);
+        Stores stores=storesService.getStoresByStid(stid);
+        String[] storesAddress = stores.getStaddress().split(" ");
+        request.setAttribute("sheng",storesAddress[0]);
+        request.setAttribute("shi",storesAddress[1]);
+        request.setAttribute("qu",storesAddress[2]);
+        request.setAttribute("xiangxi",storesAddress[3]);
+        request.setAttribute("editstores",stores);
+        List<Storestype> storestypeEditList = storestypeService.findAllStorestype();
+        request.setAttribute("storestypeEditList",storestypeEditList);
+        System.out.println("editstores:====="+stores);
+        return "front/stores/storesedit";
+    }
     @RequestMapping("/editstores")
-    public String editstores(Integer a,Integer stid,Map<String,Object> map,HttpSession session, HttpServletRequest request){
+    public String editstores(MultipartFile items_pic,Integer a,Integer stid,Map<String,Object> map,HttpSession session, HttpServletRequest request) throws IOException {
         if(a!=null){
             System.out.println("stid======"+stid);
             Stores stores=storesService.getStoresByStid(stid);
@@ -141,6 +150,14 @@ public class StoresController {
             String stname = request.getParameter("stname");
             Integer stypeid = Integer.parseInt(request.getParameter("stypeid"));
             Stores stores = new Stores();
+            String originalFilename = items_pic.getOriginalFilename();
+            if(items_pic!=null && originalFilename!=null && originalFilename.length()>0){
+                String pic_path = "E:\\CourseDesign\\picture\\";
+                String newFileName = UUID.randomUUID() + originalFilename.substring(originalFilename.lastIndexOf("."));
+                File newFile = new File(pic_path+newFileName);
+                items_pic.transferTo(newFile);
+                stores.setStdesc(newFileName);
+            }
             stores.setStdelete(0);
             stores.setUscoll("0");
             stores.setStid(Integer.parseInt(request.getParameter("stid")));

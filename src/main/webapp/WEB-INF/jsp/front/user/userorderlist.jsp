@@ -17,19 +17,7 @@
     <script type="text/javascript" src="js/public.js"></script>
     <script type="text/javascript" src="js/jquery.js"></script>
     <script type="text/javascript" src="js/jqpublic.js"></script>
-    <!--  Bootstrap-->
-    <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
-    <link rel="stylesheet" href="<%=basePath%>css/bootstrap.min.css"
-          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
-    <script src="http://cdn.bootcss.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="<%=basePath%>js/bootstrap.min.js"
-            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
-            crossorigin="anonymous"></script>
-    <!-- 自定义分页的JS插件 -->
-    <script type="text/javascript" src="<%=basePath%>js/pagination.js"></script>
-    <script type="text/javascript" src="<%=basePath%>js/teacher_del.js"></script>
-    <script type="text/javascript" src="<%=basePath%>js/jquery-1.9.1.min.js"></script>
+
 
 </head>
 <body>
@@ -110,8 +98,23 @@
                         <td>${detailorderList.dodate}</td>
                         <td>${detailorderList.donum}</td>
                         <td>${detailorderList.dopri}</td>
-                        <td>${detailorderList.dostatus}</td>
-                        <td><a href="#">取消订单</a> | <a href="#">删除</a></td>
+                        <c:if test="${detailorderList.dostatus == 0}">
+                            <td>等待商家接单</td>
+                            <td>等待商家接单</td>
+                        </c:if>
+                        <c:if test="${detailorderList.dostatus == 1}">
+                            <td>商家已接单，美食正在来的路上</td>
+                            <td><a href="#">确认订单</a></td>
+                        </c:if>
+                        <c:if test="${detailorderList.dostatus == 2}">
+                            <td>未留言评价</td>
+                            <td><a href="#">留言</a> | <a href="#">删除</a></td>
+                        </c:if>
+                        <c:if test="${detailorderList.dostatus == 3}">
+                            <td>已留言评价</td>
+                            <td><a href="#">删除</a></td>
+                        </c:if>
+
                 </tr>
                 </c:forEach>
             </table>

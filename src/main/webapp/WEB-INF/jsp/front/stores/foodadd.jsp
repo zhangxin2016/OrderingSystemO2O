@@ -51,14 +51,14 @@
 <body style="overflow: hidden;">
 <article class="page-container" style="padding-top: 1%;width: 90%;margin-left: 5%;">
 
-	<form action="<%=basePath %>addStoresFood.html" method="post" class="form form-horizontal" id="demoform-2" novalidate="novalidate">
+	<form action="<%=basePath %>addStoresFood.html" method="post" class="form form-horizontal" id="demoform-2" novalidate="novalidate" enctype="multipart/form-data">
 		<input type="hidden" class="input-text" name="stid" value="${stid}" id="stid" >
 		<legend class="col-xs-12" style="font-size: 16px;padding: 0px;margin-top: 10px;margin-bottom: 0px;">请输入菜品名字:</legend>
 		<input type="text" class="input-text" name="fname" value="" id="fname" >
 		<legend class="col-xs-12" style="font-size: 16px;padding: 0px;margin-top: 10px;margin-bottom: 0px;">请输入菜品价格:</legend>
 		<input type="text" class="input-text" name="fprice" value="" id="fprice" >
 		<legend class="col-xs-12" style="font-size: 16px;padding: 0px;margin-top: 10px;margin-bottom: 0px;">请输入菜品图片:</legend>
-		<input type="text" class="input-text" name="fpic" value="" id="fpic" >
+		<input type="file" class="input-text" name="items_pic" value="items_pic" id="items_pic" >
 		<input style="width: 100%;margin-top: 25px;" class="btn btn-primary" type="submit" value="&nbsp;&nbsp;提&nbsp;交&nbsp;&nbsp;">
 	</form>
 

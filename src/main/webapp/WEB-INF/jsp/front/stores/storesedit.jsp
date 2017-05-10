@@ -51,7 +51,7 @@
 <body style="overflow: hidden;">
 <article class="page-container" style="padding-top: 1%;width: 90%;margin-left: 5%;">
 
-	<form action="<%=basePath %>editstores.html" method="post" class="form form-horizontal" id="demoform-2" novalidate="novalidate">
+	<form action="<%=basePath %>editstores.html" method="post" class="form form-horizontal" id="demoform-2" novalidate="novalidate" enctype="multipart/form-data">
 		<input type="hidden" name="stid" value="${editstores.stid}"/>
 		<legend class="col-xs-12" style="font-size: 16px;padding: 0px;margin-top: 10px;margin-bottom: 0px;">请输入餐厅名字:</legend>
 		<input type="text" class="input-text" name="stname" value="${editstores.stname}" id="stname" >
@@ -83,8 +83,11 @@
 			</c:forEach>
 		</select>
 		<legend class="col-xs-12" style="font-size: 16px;padding: 0px;margin-top: 10px;margin-bottom: 0px;">请输入餐厅图片:</legend>
-		<input type="text" class="input-text" name="stdesc" value="" id="stdesc" >
-
+		<input type="file" class="input-text" name="items_pic" value="${editstores.stdesc}" id="items_pic" >
+		<c:if test="${editstores.stdesc !=null}">
+			<img src="/pic/${editstores.stdesc}" width=100 height=80  />
+			<br/>
+		</c:if>
 		<input style="width: 100%;margin-top: 25px;" class="btn btn-primary" type="submit" value="&nbsp;&nbsp;提&nbsp;交&nbsp;&nbsp;">
 
 

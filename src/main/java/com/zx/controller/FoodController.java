@@ -14,13 +14,16 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 /**
  * Created by Xin on 2017/3/27.
@@ -72,10 +75,20 @@ public class FoodController {
         return "/front/food/detailFood";
     }
     /*
+    * 转到添加菜品页面
+    */
+    @RequestMapping("/toAddFoodsByStores")
+    public String toAddFoodsByStores(Integer stid,HttpSession session, HttpServletRequest request) throws Exception {
+        System.out.println("stid:====="+stid);
+        request.setAttribute("stid",stid);
+        return "front/stores/foodadd";
+    }
+    /*
      *店铺增加菜品
      */
     @RequestMapping("/addStoresFood")
-    public String addStoresFood(Integer a,Integer stid, Map<String,Object> map, HttpSession session, HttpServletRequest request) throws Exception{
+    public String addStoresFood(MultipartFile items_pic,Integer a, Integer stid, Map<String,Object> map,
+                                HttpSession session, HttpServletRequest request) throws Exception{
         if(a!=null){
             System.out.println("stid:====="+stid);
             request.setAttribute("stid",stid);
@@ -83,13 +96,19 @@ public class FoodController {
         }else{
             String fname = request.getParameter("fname");
             Integer fprice = Integer.valueOf(request.getParameter("fprice"));
-            String fpic = request.getParameter("fpic");
             Integer stidToAddFood = Integer.valueOf(request.getParameter("stid"));
             Food food = new Food();
+            String originalFilename = items_pic.getOriginalFilename();
+            if(items_pic!=null && originalFilename!=null && originalFilename.length()>0){
+                String pic_path = "E:\\CourseDesign\\picture\\";
+                String newFileName = UUID.randomUUID() + originalFilename.substring(originalFilename.lastIndexOf("."));
+                File newFile = new File(pic_path+newFileName);
+                items_pic.transferTo(newFile);
+                food.setFpic(newFileName);
+            }
             food.setStid(stid);
             food.setFname(fname);
             food.setFprice(fprice);
-            food.setFpic(fpic);
             food.setStid(stidToAddFood);
             System.out.println("food==="+food);
             foodService.addFood(food);
@@ -98,29 +117,49 @@ public class FoodController {
         return "front/stores/foodadd";
     }
     /*
+    * 转到商家修改菜品页面
+    */
+    @RequestMapping("/toEditFoodsByStores")
+    public String toEditFoodsByStores(Integer fid,HttpServletRequest request) throws Exception {
+        System.out.println("fid======"+fid);
+        Food editFoodByStid = foodService.findFoodById(fid);
+        request.setAttribute("editFoodByStid",editFoodByStid);
+        System.out.println("editFoodByStid:====="+editFoodByStid);
+        return "front/stores/foodedit";
+    }
+    /*
      * 前端商家修改菜品
      */
     @RequestMapping("/frontEditFood")
-    public String frontEditFood(Integer a,Integer fid,Map<String,Object> map,HttpSession session, HttpServletRequest request) throws Exception {
+    public String frontEditFood(Integer a,Integer fid,Map<String,Object> map,HttpSession session,
+                                HttpServletRequest request,MultipartFile items_pic) throws Exception {
         if(a!=null){
             System.out.println("fid======"+fid);
             Food editFoodByStid = foodService.findFoodById(fid);
             request.setAttribute("editFoodByStid",editFoodByStid);
             System.out.println("editFoodByStid:====="+editFoodByStid);
+            return "front/stores/foodedit";
         }else{
             String fname = request.getParameter("fname");
             Integer fprice = Integer.parseInt(request.getParameter("fprice"));
-            String fpic = request.getParameter("fpic");
+            //String fpic = request.getParameter("fpic");
             Integer fid1 = Integer.parseInt(request.getParameter("fid"));
             Integer stid = Integer.parseInt(request.getParameter("stid"));
             Integer fcollection = Integer.parseInt(request.getParameter("fcollection"));
             Integer fsalesvolume = Integer.parseInt(request.getParameter("fsalesvolume"));
             Integer fstatus = Integer.parseInt(request.getParameter("fstatus"));
             Food food = new Food();
+            String originalFilename = items_pic.getOriginalFilename();
+            if(items_pic!=null && originalFilename!=null && originalFilename.length()>0){
+                String pic_path = "E:\\CourseDesign\\picture\\";
+                String newFileName = UUID.randomUUID() + originalFilename.substring(originalFilename.lastIndexOf("."));
+                File newFile = new File(pic_path+newFileName);
+                items_pic.transferTo(newFile);
+                food.setFpic(newFileName);
+            }
             food.setStid(stid);
             food.setFname(fname);
             food.setFprice(fprice);
-            food.setFpic(fpic);
             food.setFid(fid1);
             food.setFcollection(fcollection);
             food.setFsalesvolume(fsalesvolume);

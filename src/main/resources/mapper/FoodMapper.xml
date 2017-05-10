@@ -308,10 +308,11 @@
     WHERE fdelete = 0
     AND stid = #{stid}
   </select>
-  <select id="findFoodByStid" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  <select id="findFoodByStid" parameterType="com.zx.util.Page" resultMap="BaseResultMap">
     SELECT * FROM food
     WHERE  fdelete = 0
-    AND stid = #{stid}
+    AND stid = #{id}
+    LIMIT #{start},#{maxRows}
   </select>
   <update id="deleteFoodByFid" parameterType="java.lang.Integer">
     UPDATE food SET fdelete = 1

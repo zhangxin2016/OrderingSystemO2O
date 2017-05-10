@@ -29,8 +29,8 @@ public interface FoodService {
     //根据店铺ID获取菜品数量
     Integer findFoodCountByStid(Integer stid) throws Exception;
     //根据店铺ID获取食品(分页)
-    //List<Food> findFoodByStid(Integer stid, Page page) throws Exception;
-    Map<String,Object> findFoodByStid(Integer currentPage, Integer lineSize, Integer stid)throws Exception ;
+    List<Food> findFoodByStid(Page page) throws Exception;
+    //Map<String,Object> findFoodByStid(Integer currentPage, Integer lineSize, Integer stid)throws Exception ;
     //商家删除菜品
     Integer deleteFoodByFid(Integer fid) throws Exception;
 }
