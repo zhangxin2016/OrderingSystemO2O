@@ -50,6 +50,9 @@ dependencies {
     compile group: 'commons-codec', name: 'commons-codec', version: '1.10'
     compile group: 'aopalliance', name: 'aopalliance', version: '1.0'
     compile group: 'org.aspectj', name: 'aspectjweaver', version: '1.8.6'
+    //敏感字
+    compile group: 'com.aliyun', name: 'aliyun-java-sdk-core', version: '3.0.7'
+    compile group: 'com.aliyun', name: 'aliyun-java-sdk-green', version: '2.6.0'
 
 
 

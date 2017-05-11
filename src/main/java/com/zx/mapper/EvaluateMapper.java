@@ -27,4 +27,6 @@ public interface EvaluateMapper {
     int updateByPrimaryKeySelective(Evaluate record);
 
     int updateByPrimaryKey(Evaluate record);
+
+    Evaluate selectEvaluateByDoid(Integer doid);
 }

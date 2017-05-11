@@ -21,4 +21,7 @@ public interface DetailOrderService {
     Map<String,Object> findDetailOrderList(Integer currentPage, Integer lineSize, List<Detailorder> detailorderList)throws Exception ;
 
     List<Detailorder> findDetailOrderList1(Integer oid) throws Exception;
+    Detailorder findDetailOrderByDoid(Integer doid);
+    Integer updateDetailOrder(Detailorder detailorder);
+    List<Detailorder> findDetailListByFid(Integer fid);
 }

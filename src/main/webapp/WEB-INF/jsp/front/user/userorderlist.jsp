@@ -14,10 +14,30 @@
     <meta name="description" content="DeathGhost.cn::H5 WEB前端设计开发!"/>
     <meta name="author" content="DeathGhost"/>
     <link href="style/style.css" rel="stylesheet" type="text/css"/>
-    <script type="text/javascript" src="js/public.js"></script>
+    <%--<script type="text/javascript" src="js/public.js"></script>--%>
     <script type="text/javascript" src="js/jquery.js"></script>
-    <script type="text/javascript" src="js/jqpublic.js"></script>
-
+    <%--<script type="text/javascript" src="js/jqpublic.js"></script>--%>
+    <script type="text/javascript" src="<%=basePath%>lib/laypage/1.2/laypage.js"></script>
+    <script type="text/javascript" src="<%=basePath%>lib/layer/2.1/layer.js"></script>
+    <script>
+        function toBuyAddEvaluate(title,url,w,h){
+            layer.open({
+                type: 2,
+                area: [w+'px', h +'px'],
+                fix: false, //不固定
+                maxmin: false,
+                shade:0.2,
+                shadeClose: false,
+                title: title,
+                move: false,
+                content: [url,'no']
+            });
+        }
+        function AddEvaluate_callback(){
+            window.location.reload();
+            layer.msg("留言成功！");
+        }
+    </script>
 
 </head>
 <body>
@@ -108,11 +128,11 @@
                         </c:if>
                         <c:if test="${detailorderList.dostatus == 2}">
                             <td>未留言评价</td>
-                            <td><a href="#">留言</a> | <a href="#">删除</a></td>
+                            <td><span onclick="toBuyAddEvaluate('添加留言','<%=basePath%>toBuyAddEvaluate.html?doid=${detailorderList.doid}',800,300)">留言</span> | <a href="#">删除</a></td>
                         </c:if>
                         <c:if test="${detailorderList.dostatus == 3}">
                             <td>已留言评价</td>
-                            <td><a href="#">删除</a></td>
+                            <td>已留言评价</td>
                         </c:if>
 
                 </tr>

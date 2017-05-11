@@ -240,4 +240,10 @@
       edelete = #{edelete,jdbcType=INTEGER}
     where eid = #{eid,jdbcType=INTEGER}
   </update>
+  <!--根据订单ID获取评论-->
+  <select id="selectEvaluateByDoid" parameterType="Integer" resultMap="BaseResultMap" >
+    select * from evaluate
+    WHERE edelete=0 AND doid=#{doid}
+  </select>
+
 </mapper>

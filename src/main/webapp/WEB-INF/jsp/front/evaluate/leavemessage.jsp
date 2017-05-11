@@ -23,14 +23,17 @@
 	<script type="text/javascript" src="http://lib.h-ui.net/PIE_IE678.js"></script>
 	<![endif]-->
 	<link rel="stylesheet" type="text/css" href="http://static.h-ui.net/h-ui/css/H-ui.min.css" />
-	<link rel="stylesheet" type="text/css" href="http://static.h-ui.net/h-ui/css/H-ui.admin.css" />
+<%--	<link rel="stylesheet" type="text/css" href="http://static.h-ui.net/h-ui/css/H-ui.admin.css" />--%>
 	<link rel="stylesheet" type="text/css" href="http://lib.h-ui.net/Hui-iconfont/1.0.7/iconfont.css" />
 	<link rel="stylesheet" type="text/css" href="http://lib.h-ui.net/icheck/icheck.css" />
-	<link rel="stylesheet" type="text/css" href="http://static.h-ui.net/h-ui/skin/default/skin.css" id="skin" />
-	<link rel="stylesheet" type="text/css" href="http://static.h-ui.net/h-ui/css/style.css" />
+	<%--<link rel="stylesheet" type="text/css" href="http://static.h-ui.net/h-ui/css/style.css" />--%>
 	<link rel="stylesheet" href="<%=basePath%>lib/labellauty/css/jquery-labelauty.css">
+	<script type="text/javascript" src="<%=basePath%>lib/jquery/1.9.1/jquery.js"></script>
+	<script type="text/javascript" src="<%=basePath%>js/jquery.js"></script>
+	<script type="text/javascript" src="<%=basePath%>js/jquery-1.9.1.min.js"></script>
 	<!--[if IE 6]>
 	<script type="text/javascript" src="http://lib.h-ui.net/DD_belatedPNG_0.0.8a-min.js" ></script>
+
 	<script>DD_belatedPNG.fix('*');</script>
 	<![endif]-->
 	<!--/meta 作为公共模版分离出去-->
@@ -46,22 +49,51 @@
 			margin-right: auto;
 		}
 	</style>
+	<script>
+        $(function(){
+            $("#checkcontent").click(function(){
+                $.ajax({
+                    url:"<%=path%>/checkEvaluateContent.html",
+                    type:"post",
+                    dataType:"json",
+                    data:{
+                        ebuycontent:$("#ebuycontent").val(),
+                    },
+                    success:function(data){
+                        if(data.result == 0){
+                            layer.msg('您还没有留言呢', {icon: 2,time: 1000});
+                            return;
+                        }else if(data.result == 1){
+                            $("#error").html("");
+                            layer.msg('留言成功', {icon: 1,time: 1000});
+                            $("#demoform-2").submit();
+                        }else if(data.result == 2){
+                            $("#error").html("");
+                            layer.msg('包含敏感字，请重新输入', {icon: 1,time: 2000});
+                            return;
+                        }else{
+                            $("#error").html("");
+                        }
+                    },
+                    error:function(){
+                        layer.msg('系统错误！', {icon: 2,time: 1000});
+                    }
+                });
+            });
+
+        });
+	</script>
 </head>
 
 <body style="overflow: hidden;">
 <article class="page-container" style="padding-top: 1%;width: 90%;margin-left: 5%;">
+	<form action="<%=basePath %>addBuyEvaluate.html" method="post" class="form form-horizontal" id="demoform-2" novalidate="novalidate" enctype="multipart/form-data">
+		<input type="hidden" class="input-text" name="doid" value="${doid}" id="stid" >
+		<legend class="col-xs-12" style="font-size: 16px;padding: 0px;margin-top: 10px;margin-bottom: 0px;">请输入评论内容:</legend>
+		<input type="text" class="input-text" name="ebuycontent" value="" id="ebuycontent" >
 
-	<form action="<%=basePath %>addStoresFood.html" method="post" class="form form-horizontal" id="demoform-2" novalidate="novalidate" enctype="multipart/form-data">
-		<input type="hidden" class="input-text" name="stid" value="${stid}" id="stid" >
-		<legend class="col-xs-12" style="font-size: 16px;padding: 0px;margin-top: 10px;margin-bottom: 0px;">请输入菜品名字:</legend>
-		<input type="text" class="input-text" name="fname" value="" id="fname" >
-		<legend class="col-xs-12" style="font-size: 16px;padding: 0px;margin-top: 10px;margin-bottom: 0px;">请输入菜品价格:</legend>
-		<input type="text" class="input-text" name="fprice" value="" id="fprice" >
-		<legend class="col-xs-12" style="font-size: 16px;padding: 0px;margin-top: 10px;margin-bottom: 0px;">请输入菜品图片:</legend>
-		<input type="file" class="input-text" name="items_pic" value="items_pic" id="items_pic" >
-		<input style="width: 100%;margin-top: 25px;" class="btn btn-primary" type="submit" value="&nbsp;&nbsp;提&nbsp;交&nbsp;&nbsp;">
 	</form>
-
+	<input style="width: 100%;margin-top: 25px;" id="checkcontent" class="btn btn-primary" type="button" value="&nbsp;&nbsp;提&nbsp;交&nbsp;&nbsp;">
 </article>
 
 <!--_footer 作为公共模版分离出去-->
@@ -80,7 +112,7 @@
         if(call_flag=="close"){
             //layer.msg('修改成功', {icon: 1,time: 1000});
             var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
-			parent.addStores_callback();
+			parent.AddEvaluate_callback();
             parent.layer.close(index);
         }
 

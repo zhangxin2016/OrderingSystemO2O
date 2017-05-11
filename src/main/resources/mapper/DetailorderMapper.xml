@@ -327,4 +327,9 @@
     select * from detailorder
     WHERE dodelete=0 AND oid=#{oid}
   </select>
+  <!--根据食物ID获取订单明细列表-->
+  <select id="selectdetailOrderListByFid" parameterType="Integer" resultMap="BaseResultMap" >
+    select * from detailorder
+    WHERE dodelete=0 AND fid=#{fid}
+  </select>
 </mapper>

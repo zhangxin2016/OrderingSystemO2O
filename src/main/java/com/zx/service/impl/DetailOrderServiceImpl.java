@@ -58,6 +58,21 @@ public class DetailOrderServiceImpl implements DetailOrderService {
         return detailOrderMapper.selectdetailOrderList(oid);
     }
 
+    @Override
+    public Detailorder findDetailOrderByDoid(Integer doid) {
+        return detailOrderMapper.selectByPrimaryKey(doid);
+    }
+
+    @Override
+    public Integer updateDetailOrder(Detailorder detailorder) {
+        return detailOrderMapper.updateByPrimaryKeySelective(detailorder);
+    }
+
+    @Override
+    public List<Detailorder> findDetailListByFid(Integer fid) {
+        return detailOrderMapper.selectdetailOrderListByFid(fid);
+    }
+
     public static void main(String[] args) throws Exception {
         ApplicationContext ac = new ClassPathXmlApplicationContext("spring-mybatis.xml");
         DetailOrderService detailOrderService = ac.getBean(DetailOrderService.class);

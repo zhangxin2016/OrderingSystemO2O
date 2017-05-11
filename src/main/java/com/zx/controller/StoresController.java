@@ -1,12 +1,7 @@
 package com.zx.controller;
 
-import com.zx.model.Food;
-import com.zx.model.Stores;
-import com.zx.model.Storestype;
-import com.zx.model.UserSell;
-import com.zx.service.FoodService;
-import com.zx.service.StoresService;
-import com.zx.service.StorestypeService;
+import com.zx.model.*;
+import com.zx.service.*;
 import com.zx.util.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -35,8 +31,14 @@ public class StoresController {
     private StorestypeService storestypeService;
     @Autowired
     private FoodService foodService;
+    @Autowired
+    private DetailOrderService detailOrderService;
+    @Autowired
+    private EvaluateService evaluateService;
     @RequestMapping("/getStoresBySellId")
     public String getStoresBySellId(Map<String,Object> map,HttpSession session, HttpServletRequest request) throws Exception {
+        List<Food> foodList = new ArrayList<Food>();
+        List<Evaluate> evaluatesListByDoid = new ArrayList<Evaluate>();
         UserSell userSell = (UserSell) session.getAttribute("userSell");
         System.out.println("userSell:==="+userSell);
         Stores stores = storesService.getStoresByUsid(userSell.getUsid());
@@ -48,18 +50,27 @@ public class StoresController {
             //根据店铺展示商品（分页）
             Page page = new Page(stores.getStid(),foodService.findFoodCountByStid(stores.getStid()), 4);
             if(currentPage == null){
-                List<Food> foodList = foodService.findFoodByStid(page);
+                foodList = foodService.findFoodByStid(page);
                 map.put("foodList", foodList);
                 i=1;
             }else{
                 i=Integer.parseInt(currentPage);
                 page.setCurrentPage(i);
-                List<Food> foodList = foodService.findFoodByStid(page);
+                foodList = foodService.findFoodByStid(page);
                 map.put("foodList", foodList);
             }
             map.put("page", page);
             map.put("i", i); // 将键和值放在Map中
         }
+        for(Food food : foodList) {
+            List<Detailorder> detailorderList = detailOrderService.findDetailListByFid(food.getFid());
+            for(Detailorder detailorder : detailorderList) {
+                Evaluate evaluate = evaluateService.findEvaluateByDoid(detailorder.getDoid());
+                evaluatesListByDoid.add(evaluate);
+            }
+        }
+        request.setAttribute("evaluatesListByDoid",evaluatesListByDoid);
+
         return "front/stores/mystores";
     }
     @RequestMapping("/toAddStores")

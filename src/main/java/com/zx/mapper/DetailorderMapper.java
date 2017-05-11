@@ -35,4 +35,6 @@ public interface DetailorderMapper {
     int countByNoEvaluate(Integer oid);
 
     List<Detailorder> selectdetailOrderList(Integer oid);
+
+    List<Detailorder> selectdetailOrderListByFid(Integer fid);
 }
