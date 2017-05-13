@@ -24,4 +24,6 @@ public class Evaluate {
     private Date eselldate;
 
     private Integer edelete;
+
+    private Detailorder detailorder;
 }

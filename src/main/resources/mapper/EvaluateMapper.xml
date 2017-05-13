@@ -10,6 +10,38 @@
     <result column="eselldate" property="eselldate" jdbcType="TIMESTAMP" />
     <result column="edelete" property="edelete" jdbcType="INTEGER" />
   </resultMap>
+  <resultMap type="com.zx.model.Evaluate" id="EvaluateDetailOrderResultMap">
+    <id column="eid" property="eid" jdbcType="INTEGER" />
+    <result column="doid" property="doid" jdbcType="INTEGER" />
+    <result column="ebuycontent" property="ebuycontent" jdbcType="VARCHAR" />
+    <result column="esellcontent" property="esellcontent" jdbcType="VARCHAR" />
+    <result column="ebuydate" property="ebuydate" jdbcType="TIMESTAMP" />
+    <result column="eselldate" property="eselldate" jdbcType="TIMESTAMP" />
+    <result column="edelete" property="edelete" jdbcType="INTEGER" />
+    <collection property="detailorder" ofType="com.zx.model.Detailorder">
+      <id column="doid" property="doid" jdbcType="INTEGER" />
+      <result column="oid" property="oid" jdbcType="INTEGER" />
+      <result column="fid" property="fid" jdbcType="INTEGER" />
+      <result column="donum" property="donum" jdbcType="INTEGER" />
+      <result column="dopri" property="dopri" jdbcType="INTEGER" />
+      <result column="dodate" property="dodate" jdbcType="TIMESTAMP" />
+      <result column="dostatus" property="dostatus" jdbcType="INTEGER" />
+      <result column="adid" property="adid" jdbcType="INTEGER" />
+      <result column="dodelete" property="dodelete" jdbcType="INTEGER" />
+      <result column="domessage" property="domessage" jdbcType="VARCHAR" />
+      <collection property="food" ofType="com.zx.model.Food">
+        <id column="fid" property="fid" jdbcType="INTEGER" />
+        <result column="fname" property="fname" jdbcType="VARCHAR" />
+        <result column="stid" property="stid" jdbcType="INTEGER" />
+        <result column="fprice" property="fprice" jdbcType="INTEGER" />
+        <result column="fcollection" property="fcollection" jdbcType="INTEGER" />
+        <result column="fsalesvolume" property="fsalesvolume" jdbcType="INTEGER" />
+        <result column="fstatus" property="fstatus" jdbcType="INTEGER" />
+        <result column="fpic" property="fpic" jdbcType="VARCHAR" />
+        <result column="fdelete" property="fdelete" jdbcType="INTEGER" />
+      </collection>
+    </collection>
+  </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >
@@ -241,9 +273,16 @@
     where eid = #{eid,jdbcType=INTEGER}
   </update>
   <!--根据订单ID获取评论-->
-  <select id="selectEvaluateByDoid" parameterType="Integer" resultMap="BaseResultMap" >
-    select * from evaluate
-    WHERE edelete=0 AND doid=#{doid}
+  <select id="selectEvaluateByDoid" parameterType="Integer" resultMap="EvaluateDetailOrderResultMap" >
+      SELECT  evaluate.*, detailorder.*,food.*
+      FROM
+        evaluate,
+        detailorder,
+        food
+      WHERE evaluate.doid=detailorder.doid
+      AND detailorder.fid=food.fid
+      AND edelete=0
+      AND evaluate.doid=#{doid}
   </select>
 
 </mapper>

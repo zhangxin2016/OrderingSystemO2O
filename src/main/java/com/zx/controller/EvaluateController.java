@@ -36,7 +36,7 @@ public class EvaluateController {
         return "front/evaluate/leavemessage";
     }
     /*
-     *店铺增加菜品
+     * 买家添加评论
      */
     @RequestMapping("/addBuyEvaluate")
     public String addBuyEvaluate(Map<String,Object> map, HttpSession session,
@@ -92,5 +92,36 @@ public class EvaluateController {
         }
         response.getWriter().flush();
         response.getWriter().close();
+    }
+
+    /*
+    * 转到商家回复评论页面
+    */
+    @RequestMapping("/toSellAddEvaluate")
+    public String toSellAddEvaluate(Integer eid,HttpSession session,
+                                   HttpServletRequest request) throws Exception {
+        request.setAttribute("eid",eid);
+        return "front/evaluate/replymessage";
+    }
+    /*
+     * 买家添加评论
+     */
+    @RequestMapping("/addSellEvaluate")
+    public String addSellEvaluate(Map<String,Object> map, HttpSession session,
+                                 HttpServletRequest request) throws Exception{
+        Integer eid = Integer.valueOf(request.getParameter("eid"));
+        String esellcontent = request.getParameter("esellcontent");
+        Evaluate evaluate = evaluateService.findEvaluateByEid(eid);
+        Evaluate evaluate1 = new Evaluate();
+        evaluate1.setEbuydate(evaluate.getEbuydate());
+        evaluate1.setDoid(evaluate.getDoid());
+        evaluate1.setEbuycontent(evaluate.getEbuycontent());
+        evaluate1.setEdelete(0);
+        evaluate1.setEid(eid);
+        evaluate1.setEsellcontent(esellcontent);
+        evaluate1.setEselldate(new Date());
+        evaluateService.updateEvaluate(evaluate1);
+        map.put("close", "close");//将 close 置入request 域，前台判断 request 域有 close 时候就关闭弹出层
+        return "front/evaluate/replymessage";
     }
 }

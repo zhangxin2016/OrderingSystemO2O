@@ -23,4 +23,14 @@ public class EvaluateServiceImpl implements EvaluateService{
     public Evaluate findEvaluateByDoid(Integer doid) {
         return evaluateMapper.selectEvaluateByDoid(doid);
     }
+
+    @Override
+    public Evaluate findEvaluateByEid(Integer eid) {
+        return evaluateMapper.selectByPrimaryKey(eid);
+    }
+
+    @Override
+    public Integer updateEvaluate(Evaluate evaluate) {
+        return evaluateMapper.updateByPrimaryKeySelective(evaluate);
+    }
 }

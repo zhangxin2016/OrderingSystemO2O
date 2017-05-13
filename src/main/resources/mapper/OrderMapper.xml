@@ -8,6 +8,20 @@
     <result column="uid" property="uid" jdbcType="INTEGER" />
     <result column="odate" property="odate" jdbcType="TIMESTAMP" />
     <result column="odelete" property="odelete" jdbcType="INTEGER" />
+    <collection property="userBuy" ofType="com.zx.model.UserBuy">
+      <id column="uid" property="uid" jdbcType="INTEGER" />
+      <result column="uname" property="uname" jdbcType="VARCHAR" />
+      <result column="utruename" property="utruename" jdbcType="VARCHAR" />
+      <result column="upassword" property="upassword" jdbcType="VARCHAR" />
+      <result column="uidcard" property="uidcard" jdbcType="VARCHAR" />
+      <result column="uphone" property="uphone" jdbcType="VARCHAR" />
+      <result column="umail" property="umail" jdbcType="VARCHAR" />
+      <result column="upic" property="upic" jdbcType="VARCHAR" />
+      <result column="usex" property="usex" jdbcType="VARCHAR" />
+      <result column="uage" property="uage" jdbcType="INTEGER" />
+      <result column="udel" property="udel" jdbcType="INTEGER" />
+      <result column="ucredit" property="ucredit" jdbcType="INTEGER" />
+    </collection>
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >

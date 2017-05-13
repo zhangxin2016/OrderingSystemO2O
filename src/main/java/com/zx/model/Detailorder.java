@@ -33,4 +33,8 @@ public class Detailorder {
     private String domessage;
 
     private Order order;
+
+    private Food food;
+
+    private Address address;
 }

@@ -8,4 +8,6 @@ import com.zx.model.Evaluate;
 public interface EvaluateService {
     Integer addEvaluate(Evaluate evaluate);
     Evaluate findEvaluateByDoid(Integer doid);
+    Evaluate findEvaluateByEid(Integer eid);
+    Integer updateEvaluate(Evaluate evaluate);
 }

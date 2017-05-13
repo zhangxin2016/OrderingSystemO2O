@@ -40,10 +40,10 @@ public class StoresController {
         List<Food> foodList = new ArrayList<Food>();
         List<Evaluate> evaluatesListByDoid = new ArrayList<Evaluate>();
         UserSell userSell = (UserSell) session.getAttribute("userSell");
-        System.out.println("userSell:==="+userSell);
+        //System.out.println("userSell:==="+userSell);
         Stores stores = storesService.getStoresByUsid(userSell.getUsid());
         request.setAttribute("inMyStores",stores);
-        System.out.println("inMyStores===="+stores);
+        //System.out.println("inMyStores===="+stores);
         String currentPage=request.getParameter("currentPage");
         int i = 0;
         if (stores!=null) {
@@ -62,15 +62,33 @@ public class StoresController {
             map.put("page", page);
             map.put("i", i); // 将键和值放在Map中
         }
+        //评论
         for(Food food : foodList) {
             List<Detailorder> detailorderList = detailOrderService.findDetailListByFid(food.getFid());
             for(Detailorder detailorder : detailorderList) {
                 Evaluate evaluate = evaluateService.findEvaluateByDoid(detailorder.getDoid());
-                evaluatesListByDoid.add(evaluate);
+                if (evaluate!=null){
+                    evaluatesListByDoid.add(evaluate);
+                }
             }
         }
         request.setAttribute("evaluatesListByDoid",evaluatesListByDoid);
-
+        //System.out.println("evaluatesListByDoid============="+evaluatesListByDoid);
+        //订单状态（商家发货）
+        List<Detailorder> detailorderList1 = new ArrayList<Detailorder>();
+        List<Food> foodsListByDetailOrder = new ArrayList<Food>();
+        foodsListByDetailOrder = foodService.findAllByStid(stores.getStid());
+        for(Food food:foodsListByDetailOrder){
+            List<Detailorder> detailorderListByFid = detailOrderService.findDetailListByFid(food.getFid());
+            if (detailorderListByFid!=null) {
+                for (Detailorder detailorder : detailorderListByFid) {
+                    detailorderList1.add(detailorder);
+                }
+            }
+        }
+        System.out.println("foodsListByDetailOrder====="+foodList);
+        System.out.println("detailorderList===="+detailorderList1);
+        request.setAttribute("detailorderList",detailorderList1);
         return "front/stores/mystores";
     }
     @RequestMapping("/toAddStores")

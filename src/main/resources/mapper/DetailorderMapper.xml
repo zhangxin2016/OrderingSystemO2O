@@ -31,6 +31,38 @@
       <result column="uid" property="uid" jdbcType="INTEGER" />
       <result column="odate" property="odate" jdbcType="TIMESTAMP" />
       <result column="odelete" property="odelete" jdbcType="INTEGER" />
+      <collection property="userBuy" ofType="com.zx.model.UserBuy">
+        <id column="uid" property="uid" jdbcType="INTEGER" />
+        <result column="uname" property="uname" jdbcType="VARCHAR" />
+        <result column="utruename" property="utruename" jdbcType="VARCHAR" />
+        <result column="upassword" property="upassword" jdbcType="VARCHAR" />
+        <result column="uidcard" property="uidcard" jdbcType="VARCHAR" />
+        <result column="uphone" property="uphone" jdbcType="VARCHAR" />
+        <result column="umail" property="umail" jdbcType="VARCHAR" />
+        <result column="upic" property="upic" jdbcType="VARCHAR" />
+        <result column="usex" property="usex" jdbcType="VARCHAR" />
+        <result column="uage" property="uage" jdbcType="INTEGER" />
+        <result column="udel" property="udel" jdbcType="INTEGER" />
+        <result column="ucredit" property="ucredit" jdbcType="INTEGER" />
+      </collection>
+    </collection>
+    <collection property="food" ofType="com.zx.model.Food">
+      <id column="fid" property="fid" jdbcType="INTEGER" />
+      <result column="fname" property="fname" jdbcType="VARCHAR" />
+      <result column="stid" property="stid" jdbcType="INTEGER" />
+      <result column="fprice" property="fprice" jdbcType="INTEGER" />
+      <result column="fcollection" property="fcollection" jdbcType="INTEGER" />
+      <result column="fsalesvolume" property="fsalesvolume" jdbcType="INTEGER" />
+      <result column="fstatus" property="fstatus" jdbcType="INTEGER" />
+      <result column="fpic" property="fpic" jdbcType="VARCHAR" />
+      <result column="fdelete" property="fdelete" jdbcType="INTEGER" />
+    </collection>
+    <collection property="address" ofType="com.zx.model.Address">
+      <id column="adid" property="adid" jdbcType="INTEGER" />
+      <result column="adcon" property="adcon" jdbcType="VARCHAR" />
+      <result column="adtel" property="adtel" jdbcType="VARCHAR" />
+      <result column="adname" property="adname" jdbcType="VARCHAR" />
+      <result column="uid" property="uid" jdbcType="INTEGER" />
     </collection>
   </resultMap>
   <sql id="Example_Where_Clause" >
@@ -323,13 +355,24 @@
     WHERE dostatus=2 AND dodelete=0 AND oid=#{oid}
   </select>
   <!--根据订单ID获取订单明细列表-->
-  <select id="selectdetailOrderList" parameterType="Integer" resultMap="BaseResultMap" >
-    select * from detailorder
-    WHERE dodelete=0 AND oid=#{oid}
+  <select id="selectdetailOrderList" parameterType="Integer" resultMap="DetailOrderResultMap" >
+    select orders.*, detailorder.*, food.*,address.*,user_buy.*
+      from detailorder,orders,food,address,user_buy
+      WHERE detailorder.fid=food.fid
+      AND detailorder.oid=orders.oid
+      AND detailorder.adid=address.adid
+      AND orders.uid = user_buy.uid
+    AND detailorder.dodelete=0 AND detailorder.oid=#{oid}
   </select>
   <!--根据食物ID获取订单明细列表-->
-  <select id="selectdetailOrderListByFid" parameterType="Integer" resultMap="BaseResultMap" >
-    select * from detailorder
-    WHERE dodelete=0 AND fid=#{fid}
+  <select id="selectdetailOrderListByFid" parameterType="Integer" resultMap="DetailOrderResultMap" >
+      select orders.*, detailorder.*, food.*,address.*,user_buy.*
+      from detailorder,orders,food,address,user_buy
+      WHERE detailorder.fid=food.fid
+      AND detailorder.oid=orders.oid
+      AND detailorder.adid=address.adid
+      AND orders.uid = user_buy.uid
+      AND detailorder.dodelete=0
+      AND detailorder.fid=#{fid}
   </select>
 </mapper>

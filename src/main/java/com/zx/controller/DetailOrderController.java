@@ -75,5 +75,42 @@ public class DetailOrderController {
         return "front/user/userorderlist";
     }
 
+    @RequestMapping("/userSellSendFood")
+    public String userSellSendFood(Map<String,Object> map,Integer doid,HttpServletRequest request,HttpSession session) throws Exception {
+        //Integer doid = Integer.valueOf(request.getParameter("doid"));
+        Detailorder detailorder = detailOrderService.findDetailOrderByDoid(doid);
+        Detailorder detailorder1 = new Detailorder();
+        detailorder1.setDoid(doid);
+        detailorder1.setAdid(detailorder.getAdid());
+        detailorder1.setDonum(detailorder.getDonum());
+        detailorder1.setDopri(detailorder.getDopri());
+        detailorder1.setDostatus(1);
+        detailorder1.setFid(detailorder.getFid());
+        detailorder1.setOid(detailorder.getOid());
+        detailorder1.setDodate(detailorder.getDodate());
+        detailorder1.setDodelete(detailorder.getDodelete());
+        detailorder1.setDomessage(detailorder.getDomessage());
+        detailOrderService.updateDetailOrder(detailorder1);
+        return "redirect:getStoresBySellId.html";
+    }
+
+    @RequestMapping("/userBuySureFood")
+    public String userBuySureFood(Map<String,Object> map ,Integer doid,HttpServletRequest request,HttpSession session) throws Exception {
+        //Integer doid = Integer.valueOf(request.getParameter("doid"));
+        Detailorder detailorder = detailOrderService.findDetailOrderByDoid(doid);
+        Detailorder detailorder1 = new Detailorder();
+        detailorder1.setDoid(doid);
+        detailorder1.setAdid(detailorder.getAdid());
+        detailorder1.setDonum(detailorder.getDonum());
+        detailorder1.setDopri(detailorder.getDopri());
+        detailorder1.setDostatus(2);
+        detailorder1.setFid(detailorder.getFid());
+        detailorder1.setOid(detailorder.getOid());
+        detailorder1.setDodate(detailorder.getDodate());
+        detailorder1.setDodelete(detailorder.getDodelete());
+        detailorder1.setDomessage(detailorder.getDomessage());
+        detailOrderService.updateDetailOrder(detailorder1);
+        return "redirect:listOrderDetailByFront.html";
+    }
 
 }

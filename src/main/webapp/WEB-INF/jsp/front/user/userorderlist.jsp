@@ -106,7 +106,7 @@
         <!--user order list-->
         <section>
             <table class="Myorder">
-                <th class="Font14 FontW">订单编号</th>
+                <th class="Font14 FontW">菜品名字</th>
                 <th class="Font14 FontW">下单时间</th>
                 <th class="Font14 FontW">数量</th>
                 <th class="Font14 FontW">订单总金额</th>
@@ -114,7 +114,7 @@
                 <th class="Font14 FontW">操作</th>
                 <c:forEach items="${detailorderList}" var="detailorderList">
                 <tr>
-                        <td class="FontW"><a href="user_order.html">${detailorderList.doid}</a></td>
+                        <td class="FontW"><a href="user_order.html">${detailorderList.food.fname}</a></td>
                         <td>${detailorderList.dodate}</td>
                         <td>${detailorderList.donum}</td>
                         <td>${detailorderList.dopri}</td>
@@ -124,7 +124,7 @@
                         </c:if>
                         <c:if test="${detailorderList.dostatus == 1}">
                             <td>商家已接单，美食正在来的路上</td>
-                            <td><a href="#">确认订单</a></td>
+                            <td><a href="<%=basePath%>userBuySureFood.html?doid=${detailorderList.doid}">确认订单</a></td>
                         </c:if>
                         <c:if test="${detailorderList.dostatus == 2}">
                             <td>未留言评价</td>

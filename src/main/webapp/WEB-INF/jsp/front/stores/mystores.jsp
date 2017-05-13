@@ -146,6 +146,11 @@
             layer.msg("增加店铺成功！");
         }
 
+        function replyEvaluate_callback(){
+            window.location.reload();
+            layer.msg("回复留言成功！");
+        }
+
     </script>
 
 </head>
@@ -296,18 +301,28 @@
                     </a>
                     <!--case2-->
                     <div class="menutab">
+                        <c:forEach items="${evaluatesListByDoid }" var="evaluatesListByDoid">
                         <div class="shopcomment">
-                            <div class="Spname">
-                                <a href="#" target="_blank" title="酸辣土豆丝">酸辣土豆丝</a>
-                            </div>
-                            <div class="C-content">
-                                <q>还不错，速度挺快,还不错，速度挺快还不错，速度挺快还不错，速度挺快还不错，速度挺快还不错，速度挺快还不错，速度挺快。。。</q>
-                                <i>2014年09月17日 19:36 </i>
-                            </div>
-                            <div class="username">
-                                DeatGhost
-                            </div>
+
+                                <div class="Spname">
+                                    <a href="#" target="_blank" title="酸辣土豆丝">${evaluatesListByDoid.detailorder.food.fname}</a>
+                                </div>
+                                <div class="C-content">
+                                    <q>${evaluatesListByDoid.ebuycontent}</q>
+                                    <i>留言日期：${evaluatesListByDoid.ebuydate}</i>
+                                </div>
+                                <div class="username">
+                                    <c:if test="${evaluatesListByDoid.esellcontent==null}">
+                                        <span class="AButton" onclick="toEditFood('回复留言','<%=basePath%>toSellAddEvaluate.html?eid=${evaluatesListByDoid.eid}',800,300)"><a>回复</a></span>
+                                    </c:if>
+                                    <c:if test="${evaluatesListByDoid.esellcontent!=null}">
+                                        已回复：${evaluatesListByDoid.esellcontent}
+                                    </a>
+                                    </c:if>
+                                </div>
+
                         </div>
+                        </c:forEach>
                     </div>
                     <!--case4-->
                     <div class="menutab">
@@ -328,30 +343,31 @@
                     </div>
                     <!--case5-->
                     <div class="menutab">
-                        <div class="shopcomment">
-                            <div class="Spname">
-                                <a href="#" target="_blank" title="酸辣土豆丝">酸辣土豆丝</a>
+                        <c:forEach items="${detailorderList }" var="detailorderList">
+                            <div class="shopcomment">
+                                <div class="Spname">
+                                    <a href="#" target="_blank" title="${detailorderList.food.fname}">菜名：${detailorderList.food.fname}</a>
+                                </div>
+                                <div class="C-content">
+                                    <q>姓名：${detailorderList.address.adname}&nbsp&nbsp电话：${detailorderList.address.adtel}</q>
+                                    <i>地址：${detailorderList.address.adcon}&nbsp&nbsp备注：${detailorderList.domessage}</i>
+                                </div>
+                                <div class="username">
+                                    <c:if test="${detailorderList.dostatus == 0}">
+                                        <a href="<%=basePath%>userSellSendFood.html?doid=${detailorderList.doid}"> 开始送餐</a>
+                                    </c:if>
+                                    <c:if test="${detailorderList.dostatus == 1}">
+                                        订单状态：待确认收货
+                                    </c:if>
+                                    <c:if test="${detailorderList.dostatus == 2}">
+                                        订单状态：买家未评价
+                                    </c:if>
+                                    <c:if test="${detailorderList.dostatus == 3}">
+                                        订单状态：买家已评价
+                                    </c:if>
+                                </div>
                             </div>
-                            <div class="C-content">
-                                <q>还不错，速度挺快,还不错，速度挺快还不错，速度挺快还不错，速度挺快还不错，速度挺快还不错，速度挺快还不错，速度挺快。。。</q>
-                                <i>2014年09月17日 19:36 </i>
-                            </div>
-                            <div class="username">
-                                DeatGhost
-                            </div>
-                        </div>
-                        <div class="shopcomment">
-                            <div class="Spname">
-                                <a href="#" target="_blank" title="酸辣土豆丝">酸辣土豆丝</a>
-                            </div>
-                            <div class="C-content">
-                                <q>还不错，速度挺快,还不错，速度挺快还不错，速度挺快还不错，速度挺快还不错，速度挺快还不错，速度挺快还不错，速度挺快。。。</q>
-                                <i>2014年09月17日 19:36 </i>
-                            </div>
-                            <div class="username">
-                                DeatGhost
-                            </div>
-                        </div>
+                        </c:forEach>
                     </div>
 
                 </div>

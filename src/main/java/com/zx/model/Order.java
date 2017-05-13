@@ -23,4 +23,6 @@ public class Order {
 
     private Integer odelete;
 
+    private UserBuy userBuy;
+
 }
