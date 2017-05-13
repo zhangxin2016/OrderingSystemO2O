@@ -26,4 +26,6 @@ public class Stores {
 
     private String uscoll;
 
+    private Storestype storestype;
+
 }

@@ -6,10 +6,13 @@ function selectsearch(theA,word){
   obj[i].className='';
  }
  theA.className='choose';
+    var foodnameSearch = $('#fnamesearch').val();
+    var urlsearchFoodByName = $('#urlsearchFoodByName').val();
+    var urlsearchStoresByName = $('#urlsearchStoresByName').val();
   if(word=='restaurant_name'){
-   document.getElementById('main_a_serach').action="search_s.html";//Test url
+   document.getElementById('main_a_serach').action=urlsearchStoresByName+"?fname="+foodnameSearch;//Test url
   }else if(word=='food_name'){
-   document.getElementById('main_a_serach').action="search_p.html";//Test url
+   document.getElementById('main_a_serach').action=urlsearchFoodByName+"?fname="+foodnameSearch;//Test url
   }
 }
 //INDEX TAB LIST

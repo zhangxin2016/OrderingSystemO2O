@@ -11,6 +11,15 @@ public class Page {
 	public void setId(int id) {
 		this.id = id;
 	}
+	//模糊查询（备用）
+	private String name;
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+
 	private int totalNumber;
 	
 	private int currentPage = 1;
@@ -33,6 +42,14 @@ public class Page {
 	public Page(int id,int totalNumber, int maxRows) {
 		super();
 		this.id = id;
+		this.totalNumber = totalNumber;
+		this.maxRows = maxRows;
+		this.totalPage = getTotalPage();
+	}
+	public Page(int id,String name,int totalNumber, int maxRows) {
+		super();
+		this.id = id;
+		this.name=name;
 		this.totalNumber = totalNumber;
 		this.maxRows = maxRows;
 		this.totalPage = getTotalPage();

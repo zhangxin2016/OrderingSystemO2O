@@ -41,4 +41,10 @@ public class StoresServiceImpl implements StoresService {
     public Integer updateStorseByStid(Stores stores) {
         return storesMapper.updateByPrimaryKeySelective(stores);
     }
+
+    @Override
+    public List<Stores> findStoresListByNameAndStid(Stores stores) throws Exception {
+        return storesMapper.findStoresListByNameAndStid(stores);
+    }
+
 }

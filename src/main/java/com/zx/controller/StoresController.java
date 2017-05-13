@@ -1,8 +1,12 @@
 package com.zx.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import com.zx.model.*;
 import com.zx.service.*;
+import com.zx.util.AddressPort;
+import com.zx.util.GetIp;
 import com.zx.util.Page;
+import com.zx.util.Unicode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -35,6 +39,7 @@ public class StoresController {
     private DetailOrderService detailOrderService;
     @Autowired
     private EvaluateService evaluateService;
+    private String IPADDRESS = "http://ip.chemdrug.com/";
     @RequestMapping("/getStoresBySellId")
     public String getStoresBySellId(Map<String,Object> map,HttpSession session, HttpServletRequest request) throws Exception {
         List<Food> foodList = new ArrayList<Food>();
@@ -201,5 +206,38 @@ public class StoresController {
             //return "redirect:getStoresBySellId.html";
         }
         return "front/stores/storesedit";
+    }
+
+
+    /*
+     * 前端搜索店铺
+     */
+    @RequestMapping("/frontSearchStoresByName")
+    public String frontSearchFood(String fname,HttpSession session,
+                                  HttpServletRequest request) throws Exception {
+        GetIp fetcher=new GetIp(IPADDRESS);
+        AddressPort addressPort = new AddressPort();
+        String result = addressPort.addressByIp(fetcher.getMyExternalIpAddress());
+        JSONObject jsStr = JSONObject.parseObject(result);
+        Unicode unicode = new Unicode();
+        String city = unicode.decodeUnicode(jsStr.getString("city"));
+        System.out.println("city:"+city);
+        List<Stores> storesList = storesService.getStoresByAddress(city);
+        List<Stores> storesListByNameAndStid = new ArrayList<Stores>();
+        for(Stores stores : storesList){
+            Stores stores1 = new Stores();
+            stores1.setStid(stores.getStid());
+            //fname:前台搜索框name为fname.
+            stores1.setStname(fname);
+            System.out.println("stores1:======="+stores1);
+            List<Stores> listStores = storesService.findStoresListByNameAndStid(stores1);
+            System.out.println("listStores:======="+listStores);
+            for (Stores stores2:listStores){
+                storesListByNameAndStid.add(stores2);
+            }
+        }
+        System.out.println("storesListByNameAndStid======"+storesListByNameAndStid);
+        request.setAttribute("storesListByNameAndStid",storesListByNameAndStid);
+        return "front/food/searchstores";
     }
 }

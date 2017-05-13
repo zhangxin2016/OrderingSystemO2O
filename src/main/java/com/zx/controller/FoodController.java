@@ -180,4 +180,31 @@ public class FoodController {
         foodService.deleteFoodByFid(fid);
         return "redirect:getStoresBySellId.html";
     }
+    /*
+     * 前端搜索菜品
+     */
+    @RequestMapping("/frontSearchFoodByName")
+    public String frontSearchFood(String fname,HttpSession session,
+                                  HttpServletRequest request) throws Exception {
+        GetIp fetcher=new GetIp(IPADDRESS);
+        AddressPort addressPort = new AddressPort();
+        String result = addressPort.addressByIp(fetcher.getMyExternalIpAddress());
+        JSONObject jsStr = JSONObject.parseObject(result);
+        Unicode unicode = new Unicode();
+        String city = unicode.decodeUnicode(jsStr.getString("city"));
+        System.out.println("city:"+city);
+        List<Stores> storesList = storesService.getStoresByAddress(city);
+        List<Food> foodListByNameAndStid = new ArrayList<Food>();
+        for(Stores stores : storesList){
+            Food food = new Food();
+            food.setStid(stores.getStid());
+            food.setFname(fname);
+            List<Food> listFood = foodService.findFoodListByNameAndStid(food);
+            for (Food food1:listFood){
+                foodListByNameAndStid.add(food1);
+            }
+        }
+        request.setAttribute("foodListByNameAndStid",foodListByNameAndStid);
+        return "front/food/searchfood";
+    }
 }

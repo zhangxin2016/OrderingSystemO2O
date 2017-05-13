@@ -19,5 +19,7 @@ public interface StoresService {
     Stores getStoresByStid(Integer stid);
     //修改店铺信息
     Integer updateStorseByStid(Stores stores);
+    //前台搜索店铺
+    List<Stores> findStoresListByNameAndStid(Stores stores) throws Exception;
 
 }

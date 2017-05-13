@@ -32,4 +32,7 @@ public interface StoresMapper {
     List<Stores> selectStoresByAddress(String staddress);
     //根据商家Id获取店铺
     Stores selectStoresByUsid(Integer usid);
+    //前台搜索菜品根据名字
+    List<Stores> findStoresListByNameAndStid(Stores stores)throws Exception;
+
 }

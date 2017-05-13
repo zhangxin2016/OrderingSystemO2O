@@ -10,6 +10,11 @@
     <result column="stdelete" property="stdelete" jdbcType="INTEGER" />
     <result column="usid" property="usid" jdbcType="INTEGER" />
     <result column="uscoll" property="uscoll" jdbcType="VARCHAR" />
+    <collection property="storestype" ofType="com.zx.model.Storestype">
+      <id column="stypeid" property="stypeid" jdbcType="INTEGER" />
+      <result column="stypename" property="stypename" jdbcType="VARCHAR" />
+      <result column="stypedel" property="stypedel" jdbcType="INTEGER" />
+    </collection>
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -258,9 +263,18 @@
   <select id="selectStoresByAddress" parameterType="java.lang.String"  resultMap="BaseResultMap">
       SELECT * from stores
       WHERE staddress LIKE concat(concat('%',#{staddress}),'%')
+      AND stdelete = 0
   </select>
   <select id="selectStoresByUsid" parameterType="java.lang.Integer"  resultMap="BaseResultMap">
     SELECT * from stores
     WHERE usid = #{usid,jdbcType=INTEGER}
+    AND stdelete = 0
+  </select>
+  <select id="findStoresListByNameAndStid" parameterType="com.zx.model.Stores" resultMap="BaseResultMap">
+    SELECT stores.*,storestype.* FROM stores,storestype
+    WHERE stores.stypeid = storestype.stypeid
+    AND stores.stdelete = 0
+    AND stores.stid = #{stid}
+    AND stores.stname LIKE concat(concat('%',#{stname}),'%')
   </select>
 </mapper>

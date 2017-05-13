@@ -9,51 +9,25 @@
 <html>
 <head>
     <meta charset="utf-8"/>
-    <title>DeathGhost-用户中心</title>
+    <title>DeathGhost-产品分类页面</title>
     <meta name="keywords" content="DeathGhost,DeathGhost.cn,web前端设,移动WebApp开发"/>
     <meta name="description" content="DeathGhost.cn::H5 WEB前端设计开发!"/>
     <meta name="author" content="DeathGhost"/>
     <link href="style/style.css" rel="stylesheet" type="text/css"/>
-    <%--<script type="text/javascript" src="js/public.js"></script>--%>
+ <%--   <script type="text/javascript" src="js/public.js"></script>
+    <script type="text/javascript" src="js/jqpublic.js"></script>--%>
     <script type="text/javascript" src="js/jquery.js"></script>
-    <%--<script type="text/javascript" src="js/jqpublic.js"></script>--%>
-    <script type="text/javascript" src="<%=basePath%>lib/laypage/1.2/laypage.js"></script>
-    <script type="text/javascript" src="<%=basePath%>lib/layer/2.1/layer.js"></script>
-    <script>
-        function toBuyAddEvaluate(title,url,w,h){
-            layer.open({
-                type: 2,
-                area: [w+'px', h +'px'],
-                fix: false, //不固定
-                maxmin: false,
-                shade:0.2,
-                shadeClose: false,
-                title: title,
-                move: false,
-                content: [url,'no']
-            });
-        }
-        function AddEvaluate_callback(){
-            window.location.reload();
-            layer.msg("留言成功！");
-        }
-    </script>
-
+    <!--
+    Author: DeathGhost
+    Author URI: http://www.deathghost.cn
+    -->
 </head>
 <body>
 <header>
     <section class="Topmenubg">
         <div class="Topnav">
             <div class="LeftNav">
-                <c:if test="${user.uname==null}">
-                    <a href="<%=basePath%>user/userBuyRegister.html">注册</a>
-                    |<a href="<%=basePath%>user/userBuylogin.html">登录</a>
-                </c:if>
-                <c:if test="${user.uname!=null}">
-                    欢迎您，${user.uname }<a href="<%=basePath%>Logout.html">退出</a>
-                </c:if>
-
-                <a href="#">QQ客服</a><a href="#">微信客服</a><a
+                <a href="register.html">注册</a>/<a href="login.html">登录</a><a href="#">QQ客服</a><a href="#">微信客服</a><a
                     href="#">手机客户端</a>
             </div>
             <div class="RightNav">
@@ -97,59 +71,157 @@
     </nav>
 </header>
 <!--Start content-->
-<section class="Psection MT20">
-    <nav class="U-nav Font14 FontW">
-        <ul>
-            <li><i></i><a href="user_center.html">用户中心首页</a></li>
-            <li><i></i><a href="user_orderlist.html">我的订单</a></li>
-            <li><i></i><a href="user_address.html">收货地址</a></li>
-            <li><i></i><a href="user_message.html">我的留言</a></li>
-            <li><i></i><a href="user_coupon.html">我的优惠券</a></li>
-            <li><i></i><a href="user_favorites.html">我的收藏</a></li>
-            <li><i></i><a href="user_account.html">账户管理</a></li>
-            <li><i></i><a href="#">安全退出</a></li>
+<section class="Psection">
+    <section class="fslist_navtree">
+        <ul class="select">
+            <li class="select-list">
+                <dl id="select1">
+                    <dt>分类：</dt>
+                    <dd class="select-all selected"><a href="javascript:">全部</a></dd>
+                    <dd><a href="javascript:">火锅/干锅</a></dd>
+                    <dd><a href="javascript:">火锅/干锅</a></dd>
+                    <dd><a href="javascript:">火锅/干锅</a></dd>
+                    <dd><a href="javascript:">火锅/干锅</a></dd>
+                    <dd><a href="javascript:">火锅/干锅</a></dd>
+                    <dd><a href="javascript:">火锅/干锅</a></dd>
+                    <dd><a href="javascript:">火锅/干锅</a></dd>
+                    <dd><a href="javascript:">火锅/干锅</a></dd>
+                    <dd><a href="javascript:">火锅/干锅</a></dd>
+                    <dd><a href="javascript:">火锅/干锅</a></dd>
+                    <dd><a href="javascript:">火锅/干锅</a></dd>
+                </dl>
+            </li>
+            <li class="select-list">
+                <dl id="select2">
+                    <dt>位置：</dt>
+                    <dd class="select-all selected"><a href="javascript:">全部</a></dd>
+                    <dd><a href="javascript:">高新区</a></dd>
+                    <dd><a href="javascript:">未央区</a></dd>
+                    <dd><a href="javascript:">碑林区</a></dd>
+                    <dd><a href="javascript:">阎良区</a></dd>
+                    <dd><a href="javascript:">新城区</a></dd>
+                    <dd><a href="javascript:">雁塔区</a></dd>
+                    <dd><a href="javascript:">莲湖区</a></dd>
+                    <dd><a href="javascript:">灞桥区</a></dd>
+                    <dd><a href="javascript:">高陵区</a></dd>
+                    <dd><a href="javascript:">周至县</a></dd>
+                </dl>
+            </li>
+            <li class="select-list">
+                <dl id="select3">
+                    <dt>餐点：</dt>
+                    <dd class="select-all selected"><a href="javascript:">全部</a></dd>
+                    <dd><a href="javascript:">早餐</a></dd>
+                </dl>
+            </li>
+            <li class="select-list">
+                <dl id="select4">
+                    <dt>价位区间：</dt>
+                    <dd class="select-all selected"><a href="javascript:">全部</a></dd>
+                    <dd><a href="javascript:">20元以下</a></dd>
+                    <dd><a href="javascript:">20-40元</a></dd>
+                    <dd><a href="javascript:">40-60元</a></dd>
+                    <dd><a href="javascript:">60-80元</a></dd>
+                    <dd><a href="javascript:">80-100元</a></dd>
+                </dl>
+            </li>
+            <li class="select-result">
+                <dl>
+                    <dd class="select-no">已选择：</dd>
+                </dl>
+            </li>
         </ul>
-    </nav>
-    <article class="U-article Overflow">
-        <!--user order list-->
-        <section>
-            <table class="Myorder">
-                <th class="Font14 FontW">菜品名字</th>
-                <th class="Font14 FontW">下单时间</th>
-                <th class="Font14 FontW">数量</th>
-                <th class="Font14 FontW">订单总金额</th>
-                <th class="Font14 FontW">订单状态</th>
-                <th class="Font14 FontW">操作</th>
-                <c:forEach items="${detailorderList}" var="detailorderList">
-                <tr>
-                        <td class="FontW"><a href="user_order.html">${detailorderList.food.fname}</a></td>
-                        <td>${detailorderList.dodate}</td>
-                        <td>${detailorderList.donum}</td>
-                        <td>${detailorderList.dopri}</td>
-                        <c:if test="${detailorderList.dostatus == 0}">
-                            <td>等待商家接单</td>
-                            <td>等待商家接单</td>
-                        </c:if>
-                        <c:if test="${detailorderList.dostatus == 1}">
-                            <td>商家已接单，美食正在来的路上</td>
-                            <td><a href="<%=basePath%>userBuySureFood.html?doid=${detailorderList.doid}">确认订单</a></td>
-                        </c:if>
-                        <c:if test="${detailorderList.dostatus == 2}">
-                            <td>未留言评价</td>
-                            <td><span onclick="toBuyAddEvaluate('添加留言','<%=basePath%>toBuyAddEvaluate.html?doid=${detailorderList.doid}',800,300)">留言</span> | <a href="#">删除</a></td>
-                        </c:if>
-                        <c:if test="${detailorderList.dostatus == 3}">
-                            <td>已留言评价</td>
-                            <td>已留言评价</td>
-                        </c:if>
+    </section>
+    <section class="Fslmenu">
+        <a href="#" title="默认排序">
+  <span>
+  <span>默认排序</span>
+  <span></span>
+  </span>
+        </a>
+        <a href="#" title="评价">
+  <span>
+  <span>评价</span>
+  <span class="s-up"></span>
+  </span>
+        </a>
+        <a href="#" title="销量">
+  <span>
+  <span>销量</span>
+  <span class="s-up"></span>
+  </span>
+        </a>
+        <a href="#" title="价格排序">
+  <span>
+  <span>价格</span>
+  <span class="s-down"></span>
+  </span>
+        </a>
+        <a href="#" title="发布时间排序">
+  <span>
+  <span>发布时间</span>
+  <span class="s-up"></span>
+  </span>
+        </a>
+    </section>
+    <section class="Fsl">
+        <ul>
+            <c:forEach items="${storesListByNameAndStid }" var="storesListByNameAndStid">
+                <li>
+                    <a href="shop.html" target="_blank" title="调用产品名/店铺名"><img src="/pic/${storesListByNameAndStid.stdesc }"></a>
+                    <hgroup>
+                        <h3>店铺名字：${storesListByNameAndStid.stname}</h3>
+                    </hgroup>
+                    <p>${storesListByNameAndStid.storestype.stypename}</p>
+                    <p>${storesListByNameAndStid.staddress}</p>
+                </li>
+            </c:forEach>
 
-                </tr>
-                </c:forEach>
-            </table>
-            <div class="TurnPage">
+        </ul>
+        <aside>
+            <div class="title">热门商家</div>
+            <div class="C-list">
+                <a href="shop.html" target="_blank" title="店铺名称"><img src="upload/cc.jpg"></a>
+                <p><a href="shop.html" target="_blank">[大雁塔]店铺名称</a></p>
+                <p>
+                    <span>人均：20~50元</span>
+                    <span style=" float:right">
+    <img src="images/star-on.png">
+    <img src="images/star-on.png">
+    <img src="images/star-on.png">
+    <img src="images/star-on.png">
+    <img src="images/star-off.png">
+    <span class="ALscore">4.8</span>
+   </span>
+                </p>
             </div>
-        </section>
-    </article>
+            <div class="C-list">
+                <a href="shop.html" target="_blank" title="店铺名称"><img src="upload/cc.jpg"></a>
+                <p><a href="shop.html" target="_blank">[大雁塔]店铺名称</a></p>
+                <p>
+                    <span>人均：20~50元</span>
+                    <span style=" float:right">
+    <img src="images/star-on.png">
+    <img src="images/star-on.png">
+    <img src="images/star-on.png">
+    <img src="images/star-on.png">
+    <img src="images/star-off.png">
+    <span class="ALscore">4.8</span>
+   </span>
+                </p>
+            </div>
+        </aside>
+        <div class="TurnPage">
+            <a href="#">
+                <span class="Prev"><i></i>首页</span>
+            </a>
+            <a href="#"><span class="PNumber">1</span></a>
+            <a href="#"><span class="PNumber">2</span></a>
+            <a href="#">
+                <span class="Next">最后一页<i></i></span>
+            </a>
+        </div>
+    </section>
 </section>
 <!--End content-->
 <div class="F-link">

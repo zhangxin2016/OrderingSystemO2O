@@ -318,4 +318,17 @@
     UPDATE food SET fdelete = 1
     WHERE fid = #{fid}
   </update>
+  <select id="findFoodListByNameAndStid" parameterType="com.zx.model.Food" resultMap="BaseResultMap">
+    SELECT * FROM food
+    WHERE  fdelete = 0
+    AND stid = #{stid}
+    AND fname LIKE concat(concat('%',#{fname}),'%')
+  </select>
+  <select id="findFoodListByNameAndStidPage" parameterType="com.zx.util.Page" resultMap="BaseResultMap">
+    SELECT * FROM food
+    WHERE  fdelete = 0
+    AND stid = #{id}
+    AND fname LIKE concat(concat('%',#{name}),'%')
+    LIMIT #{start},#{maxRows}
+  </select>
 </mapper>

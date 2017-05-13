@@ -95,5 +95,15 @@ public class FoodServiceImpl implements FoodService {
         return foodMapper.deleteFoodByFid(fid);
     }
 
+    @Override
+    public List<Food> findFoodListByNameAndStid(Food food) throws Exception {
+        return foodMapper.findFoodListByNameAndStid(food);
+    }
+
+    @Override
+    public List<Food> findFoodListByNameAndStidPage(Page page) throws Exception {
+        return foodMapper.findFoodListByNameAndStidPage(page);
+    }
+
 
 }

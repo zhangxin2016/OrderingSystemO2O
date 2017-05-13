@@ -67,7 +67,9 @@
                     <a href="javascript:;" onClick="selectsearch(this,'food_name')">食物名</a>
                 </div>
                 <div class="Search_area">
-                    <input type="search" id="fkeyword" name="keyword" placeholder="请输入您所需查找的餐厅名称或食物名称..." class="searchbox" />
+                    <input type="hidden" value="<%=basePath%>frontSearchFoodByName.html" id="urlsearchFoodByName">
+                    <input type="hidden" value="<%=basePath%>frontSearchStoresByName.html" id="urlsearchStoresByName">
+                    <input type="search" id="fnamesearch" name="fname" placeholder="请输入您所需查找的餐厅名称或食物名称..." class="searchbox" />
                     <input type="submit" class="searchbutton" value="搜 索" />
                 </div>
             </form>
