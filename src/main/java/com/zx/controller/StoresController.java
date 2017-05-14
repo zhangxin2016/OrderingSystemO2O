@@ -240,4 +240,50 @@ public class StoresController {
         request.setAttribute("storesListByNameAndStid",storesListByNameAndStid);
         return "front/food/searchstores";
     }
+
+    @RequestMapping("/userBuyToStores")
+    public String userBuyToStores(Map<String,Object> map,HttpSession session, HttpServletRequest request,Integer fid,Integer stid) throws Exception {
+        Food food = foodService.findFoodById(fid);
+        Stores stores = new Stores();
+        if(food!=null){
+            stores = storesService.getStoresByStid(food.getStid());
+        }else{
+            stores = storesService.getStoresByStid(stid);
+        }
+        System.out.println("stores:==="+stores);
+        request.setAttribute("userSellStores",stores);
+        List<Food> foodList = new ArrayList<Food>();
+        String currentPage=request.getParameter("currentPage");
+        int i = 0;
+        if (stores!=null) {
+            //根据店铺展示商品（分页）
+            Page page = new Page(stores.getStid(),foodService.findFoodCountByStid(stores.getStid()), 4);
+            if(currentPage == null){
+                foodList = foodService.findFoodByStid(page);
+                map.put("foodListByUserBuyToStores", foodList);
+                i=1;
+            }else{
+                i=Integer.parseInt(currentPage);
+                page.setCurrentPage(i);
+                foodList = foodService.findFoodByStid(page);
+                map.put("foodListByUserBuyToStores", foodList);
+            }
+            map.put("page", page);
+            map.put("i", i); // 将键和值放在Map中
+        }
+        //评论
+        List<Evaluate> evaluatesListByDoid = new ArrayList<Evaluate>();
+        for(Food food1 : foodList) {
+            List<Detailorder> detailorderList = detailOrderService.findDetailListByFid(food1.getFid());
+            for(Detailorder detailorder : detailorderList) {
+                Evaluate evaluate = evaluateService.findEvaluateByDoid(detailorder.getDoid());
+                if (evaluate!=null){
+                    evaluatesListByDoid.add(evaluate);
+                }
+            }
+        }
+        request.setAttribute("evaluatesListFromUser",evaluatesListByDoid);
+        return "front/stores/userbuystores";
+    }
+
 }

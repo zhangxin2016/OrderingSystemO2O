@@ -1,6 +1,8 @@
 package com.zx.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.zx.model.Food;
 import com.zx.model.Stores;
 import com.zx.service.FoodService;
@@ -206,5 +208,29 @@ public class FoodController {
         }
         request.setAttribute("foodListByNameAndStid",foodListByNameAndStid);
         return "front/food/searchfood";
+    }
+    /*
+     * 前端展示所有菜品
+     */
+    @RequestMapping("/frontFindAllFood")
+    public String frontFindAllFood(String fname,HttpSession session,HttpServletRequest request) throws Exception {
+        GetIp fetcher=new GetIp(IPADDRESS);
+        AddressPort addressPort = new AddressPort();
+        String result = addressPort.addressByIp(fetcher.getMyExternalIpAddress());
+        JSONObject jsStr = JSONObject.parseObject(result);
+        Unicode unicode = new Unicode();
+        String city = unicode.decodeUnicode(jsStr.getString("city"));
+        System.out.println("city:"+city);
+        List<Stores> storesList = storesService.getStoresByAddress(city);
+        List<Food> foodAllListByStid = new ArrayList<Food>();
+        for(Stores stores : storesList){
+            List<Food> listFood = foodService.findAllByStid(stores.getStid());
+            for (Food food1:listFood){
+                foodAllListByStid.add(food1);
+            }
+        }
+        System.out.println("foodAllListByStid=============="+foodAllListByStid);
+        request.setAttribute("foodAllListByStid",foodAllListByStid);
+        return "front/food/foodlist";
     }
 }

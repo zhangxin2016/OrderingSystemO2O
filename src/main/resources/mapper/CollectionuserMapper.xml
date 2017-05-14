@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zx.mapper.CollectionuserMapper" >
+  <resultMap id="BaseResultMap" type="com.zx.model.Collectionuser" >
+    <id column="collid" property="collid" jdbcType="INTEGER" />
+    <result column="fid" property="fid" jdbcType="INTEGER" />
+    <result column="stid" property="stid" jdbcType="INTEGER" />
+    <result column="uid" property="uid" jdbcType="INTEGER" />
+    <result column="colldate" property="colldate" jdbcType="TIMESTAMP" />
+    <result column="colldelete" property="colldelete" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    collid, fid, stid, uid, colldate, colldelete
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.zx.model.CollectionuserExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from collectionuser
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from collectionuser
+    where collid = #{collid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from collectionuser
+    where collid = #{collid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.zx.model.CollectionuserExample" >
+    delete from collectionuser
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.zx.model.Collectionuser" >
+    insert into collectionuser (collid, fid, stid, 
+      uid, colldate, colldelete
+      )
+    values (#{collid,jdbcType=INTEGER}, #{fid,jdbcType=INTEGER}, #{stid,jdbcType=INTEGER}, 
+      #{uid,jdbcType=INTEGER}, #{colldate,jdbcType=TIMESTAMP}, #{colldelete,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.zx.model.Collectionuser" >
+    insert into collectionuser
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="collid != null" >
+        collid,
+      </if>
+      <if test="fid != null" >
+        fid,
+      </if>
+      <if test="stid != null" >
+        stid,
+      </if>
+      <if test="uid != null" >
+        uid,
+      </if>
+      <if test="colldate != null" >
+        colldate,
+      </if>
+      <if test="colldelete != null" >
+        colldelete,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="collid != null" >
+        #{collid,jdbcType=INTEGER},
+      </if>
+      <if test="fid != null" >
+        #{fid,jdbcType=INTEGER},
+      </if>
+      <if test="stid != null" >
+        #{stid,jdbcType=INTEGER},
+      </if>
+      <if test="uid != null" >
+        #{uid,jdbcType=INTEGER},
+      </if>
+      <if test="colldate != null" >
+        #{colldate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="colldelete != null" >
+        #{colldelete,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.zx.model.CollectionuserExample" resultType="java.lang.Integer" >
+    select count(*) from collectionuser
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update collectionuser
+    <set >
+      <if test="record.collid != null" >
+        collid = #{record.collid,jdbcType=INTEGER},
+      </if>
+      <if test="record.fid != null" >
+        fid = #{record.fid,jdbcType=INTEGER},
+      </if>
+      <if test="record.stid != null" >
+        stid = #{record.stid,jdbcType=INTEGER},
+      </if>
+      <if test="record.uid != null" >
+        uid = #{record.uid,jdbcType=INTEGER},
+      </if>
+      <if test="record.colldate != null" >
+        colldate = #{record.colldate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.colldelete != null" >
+        colldelete = #{record.colldelete,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update collectionuser
+    set collid = #{record.collid,jdbcType=INTEGER},
+      fid = #{record.fid,jdbcType=INTEGER},
+      stid = #{record.stid,jdbcType=INTEGER},
+      uid = #{record.uid,jdbcType=INTEGER},
+      colldate = #{record.colldate,jdbcType=TIMESTAMP},
+      colldelete = #{record.colldelete,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zx.model.Collectionuser" >
+    update collectionuser
+    <set >
+      <if test="fid != null" >
+        fid = #{fid,jdbcType=INTEGER},
+      </if>
+      <if test="stid != null" >
+        stid = #{stid,jdbcType=INTEGER},
+      </if>
+      <if test="uid != null" >
+        uid = #{uid,jdbcType=INTEGER},
+      </if>
+      <if test="colldate != null" >
+        colldate = #{colldate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="colldelete != null" >
+        colldelete = #{colldelete,jdbcType=INTEGER},
+      </if>
+    </set>
+    where collid = #{collid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zx.model.Collectionuser" >
+    update collectionuser
+    set fid = #{fid,jdbcType=INTEGER},
+      stid = #{stid,jdbcType=INTEGER},
+      uid = #{uid,jdbcType=INTEGER},
+      colldate = #{colldate,jdbcType=TIMESTAMP},
+      colldelete = #{colldelete,jdbcType=INTEGER}
+    where collid = #{collid,jdbcType=INTEGER}
+  </update>
+  <select id="findCollectionListByUid" parameterType="com.zx.model.Collectionuser" resultMap="BaseResultMap">
+    SELECT collectionuser.*,food.* FROM food,collectionuser
+    WHERE collectionuser.fid = food.fid
+    AND collectionuser.colldelete = 0
+    AND collectionuser.uid = #{uid}
+  </select>
+  <select id="findCollectionStoresListByUid" parameterType="com.zx.model.Collectionuser" resultMap="BaseResultMap">
+    SELECT collectionuser.*,stores.* FROM stores,collectionuser
+    WHERE collectionuser.stid = stores.stid
+    AND collectionuser.colldelete = 0
+    AND collectionuser.uid = #{uid}
+  </select>
+</mapper>

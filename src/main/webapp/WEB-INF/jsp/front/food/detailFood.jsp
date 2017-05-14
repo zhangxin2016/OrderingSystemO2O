@@ -81,6 +81,32 @@
                 });
 
         }
+        function addcollection(fid){
+            $.ajax(
+                {
+                    type: "post",  //get或post
+                    async : false,  //可选，默认true  true或false
+                    url:  "<%=path %>/addCollectionFood.html",   //请求的服务器地址
+                    //dataType: "text",
+                    dataType: "json",	//返回的数据类型
+                    data:
+                        {					//请求携带的参数，一个或者多个均可
+                            //$("#ajaxForm").serialize();  form实体提交
+                            foodId:fid,
+                        } ,
+                    success:function(data)
+                    {
+                        if(data==0){
+                            layer.msg('收藏成功', {icon: 1,time: 1000});
+                            return;
+                        }else if(data==1){
+                            layer.msg('您已经收藏过该菜品了', {icon: 1,time: 1000});
+                            return;
+                        }
+                    }
+                });
+
+        }
     </script>
     <style type="text/css">
         .gw_num{border: 1px solid #dbdbdb;width: 110px;line-height: 26px;overflow: hidden;}
@@ -128,10 +154,7 @@
                     <input type="submit" class="searchbutton" value="搜 索"/>
                 </div>
             </form>
-            <p class="hotkeywords"><a href="#" title="酸辣土豆丝">酸辣土豆丝</a><a href="#" title="这里是产品名称">螃蟹炒年糕</a><a href="#"
-                                                                                                              title="这里是产品名称">牛奶炖蛋</a><a
-                    href="#" title="这里是产品名称">芝麻酱凉面</a><a href="#" title="这里是产品名称">滑蛋虾仁</a><a href="#" title="这里是产品名称">蒜汁茄子</a>
-            </p>
+
         </div>
     </div>
     <nav class="menu_bg">
@@ -147,10 +170,10 @@
 <section class="slp">
     <section class="food-hd">
         <div class="foodpic">
-            <img src="upload/02.jpg" id="showimg">
-            <%--<ul class="smallpic">
-                <li><img src="upload/02.jpg" onmouseover="show(this)" onmouseout="hide()"></li>
-            </ul>--%>
+            <img src="/pic/${food.fpic }" id="showimg">
+            <ul class="smallpic">
+                <li><span onclick="addcollection(${food.fid })"><button class="btn btn-default" type="submit"style="width: 100px; background-color: #f3ab26 " >收藏菜品</button></span></li>
+            </ul>
         </div>
         <div class="foodtext">
             <div class="foodname_a">
@@ -185,7 +208,7 @@
                         份</span>
                     <div class="Buybutton">
                         <input name="" type="button" value="加入购物车" onclick="addcart(${food.fid })" class="BuyB" id="addcartlayer">
-                        <a href="shop.html"><span class="Backhome">进入店铺首页</span></a>
+                        <a href="<%=basePath%>userBuyToStores.html?fid=${food.fid }"><span class="Backhome">进入店铺首页</span></a>
                     </div>
                 </div>
             </form>
@@ -214,7 +237,6 @@
                     <ul class="title-list fr cf ">
                         <li class="on">详细说明</li>
                         <li>评价详情</li>
-                        <li>成交记录</li>
                         <p><b></b></p>
                     </ul>
                 </div>
@@ -222,7 +244,7 @@
                     <!--case1-->
                     <div class="menutab show">
                         <div class="cont_padding">
-                            <img src="upload/tds.jpg">
+                            <img src="/pic/${food.fpic }" width="300px">
                             <p>测试信息，可删除！</p>
                             <p>1. 将土豆洗净刮皮。</p>
                             <p>2. 先将土豆切成整齐的大薄片这样是切出均匀的丝的要点。</p>
@@ -258,34 +280,7 @@
                         </div>
                     </div>
                     <!--case4-->
-                    <div class="menutab">
-                        <div class="cont_padding">
 
-                            <table width="888">
-                                <th width="35%">买家</th>
-                                <th width="20%">价格</th>
-                                <th width="15%">数量</th>
-                                <th width="30%">成交时间</th>
-                                <tr height="40">
-                                    <td>d***t</td>
-                                    <td>￥59</td>
-                                    <td>1</td>
-                                    <td>2014-9-18 11:13:07</td>
-                                </tr>
-                            </table>
-
-                        </div>
-                        <div class="TurnPage">
-                            <a href="#">
-                                <span class="Prev"><i></i>首页</span>
-                            </a>
-                            <a href="#"><span class="PNumber">1</span></a>
-                            <a href="#"><span class="PNumber">2</span></a>
-                            <a href="#">
-                                <span class="Next">最后一页<i></i></span>
-                            </a>
-                        </div>
-                    </div>
                 </div>
             </div>
         </article>

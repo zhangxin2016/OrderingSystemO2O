@@ -14,8 +14,8 @@
     <meta name="description" content="DeathGhost.cn::H5 WEB前端设计开发!"/>
     <meta name="author" content="DeathGhost"/>
     <link href="style/style.css" rel="stylesheet" type="text/css"/>
- <%--   <script type="text/javascript" src="js/public.js"></script>
-    <script type="text/javascript" src="js/jqpublic.js"></script>--%>
+    <%--   <script type="text/javascript" src="js/public.js"></script>
+       <script type="text/javascript" src="js/jqpublic.js"></script>--%>
     <script type="text/javascript" src="js/jquery.js"></script>
     <!--
     Author: DeathGhost
@@ -134,41 +134,42 @@
     </section>
     <section class="Fslmenu">
         <a href="#" title="默认排序">
-  <span>
-  <span>默认排序</span>
-  <span></span>
-  </span>
+            <span>
+                <span>默认排序</span>
+                <span></span>
+            </span>
         </a>
         <a href="#" title="评价">
-  <span>
-  <span>评价</span>
-  <span class="s-up"></span>
-  </span>
+          <span>
+              <span>评价</span>
+              <span class="s-up"></span>
+          </span>
         </a>
         <a href="#" title="销量">
-  <span>
-  <span>销量</span>
-  <span class="s-up"></span>
-  </span>
+          <span>
+              <span>销量</span>
+              <span class="s-up"></span>
+          </span>
         </a>
         <a href="#" title="价格排序">
-  <span>
-  <span>价格</span>
-  <span class="s-down"></span>
-  </span>
+          <span>
+              <span>价格</span>
+              <span class="s-down"></span>
+          </span>
         </a>
         <a href="#" title="发布时间排序">
-  <span>
-  <span>发布时间</span>
-  <span class="s-up"></span>
-  </span>
+          <span>
+              <span>发布时间</span>
+              <span class="s-up"></span>
+          </span>
         </a>
     </section>
     <section class="Fsl">
         <ul>
             <c:forEach items="${storesListByNameAndStid }" var="storesListByNameAndStid">
                 <li>
-                    <a href="shop.html" target="_blank" title="调用产品名/店铺名"><img src="/pic/${storesListByNameAndStid.stdesc }"></a>
+                    <a href="shop.html" target="_blank" title="调用产品名/店铺名"><img
+                            src="/pic/${storesListByNameAndStid.stdesc }"></a>
                     <hgroup>
                         <h3>店铺名字：${storesListByNameAndStid.stname}</h3>
                     </hgroup>

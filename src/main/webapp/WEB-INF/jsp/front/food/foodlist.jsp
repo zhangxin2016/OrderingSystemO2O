@@ -17,8 +17,6 @@
  <%--   <script type="text/javascript" src="js/public.js"></script>--%>
     <script type="text/javascript" src="js/jquery.js"></script>
 <%--    <script type="text/javascript" src="js/jqpublic.js"></script>--%>
-    <%-- 前台分页 --%>
-
 </head>
 <body>
 <header>
@@ -70,58 +68,19 @@
         <ul class="select">
         </ul>
     </section>
-    <section class="Fslmenu">
-        <a href="#" title="默认排序">
-            <span>
-                <span>默认排序</span>
-                <span></span>
-            </span>
-        </a>
-        <a href="#" title="评价">
-          <span>
-              <span>评价</span>
-              <span class="s-up"></span>
-          </span>
-        </a>
-        <a href="#" title="销量">
-          <span>
-              <span>销量</span>
-              <span class="s-up"></span>
-          </span>
-        </a>
-        <a href="#" title="价格排序">
-          <span>
-              <span>价格</span>
-              <span class="s-down"></span>
-          </span>
-        </a>
-        <a href="#" title="发布时间排序">
-          <span>
-              <span>发布时间</span>
-              <span class="s-up"></span>
-          </span>
-        </a>
-    </section>
-    <section class="CateL Overflow" id="foodListTable" >
-        <div class="panel-body">
-            <div id="example" class="table table-bordered table-striped table-hover">
-                <ul>
-                    <c:forEach items="${foodListByNameAndStid }" var="foodListByNameAndStid">
-                        <li>
-                            <a href="<%=basePath%>getFoodById.html?fid=${foodListByNameAndStid.fid}" target="_blank" title="酸辣土豆丝">
-                                <img src="/pic/${foodListByNameAndStid.fpic }">
-                                <p class="Overflow">菜品名字：${foodListByNameAndStid.fname }</p>
-                                <p class="Overflow">菜品价格：￥${foodListByNameAndStid.fprice }</p>
-                            </a>
-                        </li>
-                    </c:forEach>
-                </ul>
-            </div>
-
-        </div>
+    <section class="CateL Overflow">
+        <ul>
+            <c:forEach items="${foodAllListByStid }" var="foodAllListByStid">
+                <li>
+                    <a href="<%=basePath%>getFoodById.html?fid=${foodAllListByStid.fid}" target="_blank" title="酸辣土豆丝">
+                        <img src="/pic/${foodAllListByStid.fpic }">
+                        <p class="Overflow">菜品名字：${foodAllListByStid.fname }</p>
+                        <p class="Overflow">菜品价格：￥${foodAllListByStid.fprice }</p>
+                    </a>
+                </li>
+            </c:forEach>
+        </ul>
         <div class="TurnPage">
-
-
         </div>
     </section>
     <aside class="CateR">

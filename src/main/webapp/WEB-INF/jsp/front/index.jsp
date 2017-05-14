@@ -156,7 +156,7 @@
                     <a href="#">西餐</a>
                     <a href="#">甜点</a>
                     <a href="#">日韩料理</a>
-                    <span><a href="#" target="_blank">more ></a></span>
+                    <span><a href="<%=basePath%>frontFindAllFood.html" target="_blank">more ></a></span>
                 </p>
             </ul>
             <div id="Indexcontent">
