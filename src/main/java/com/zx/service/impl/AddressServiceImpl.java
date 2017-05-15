@@ -25,8 +25,8 @@ public class AddressServiceImpl implements AddressService{
     }
 
     @Override
-    public void delete(int adid) {
-        addressMapper.deleteByPrimaryKey(adid);
+    public void delete(Address address) {
+        addressMapper.updateByPrimaryKeySelective(address);
     }
 
     @Override

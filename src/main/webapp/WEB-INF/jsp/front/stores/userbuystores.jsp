@@ -208,13 +208,12 @@
     <section class="Topmenubg">
         <div class="Topnav">
             <div class="LeftNav">
-                <c:if test="${userSell.usname==null}">
-                    <a href="<%=basePath%>userSellToRegister.html">注册</a>
-                    |<a href="<%=basePath%>userSellToLogin.html">登录</a>
+                <c:if test="${user.uname==null}">
+                    <a href="<%=basePath%>user/userBuyRegister.html">注册</a>
+                    |<a href="<%=basePath%>user/userBuylogin.html">登录</a>
                 </c:if>
-                <c:if test="${userSell.usname!=null}">
-                欢迎您，${userSell.usname }<a href="<%=basePath%>userSellLogout.html">退出
-                </a>
+                <c:if test="${user.uname!=null}">
+                    欢迎您，${user.uname }<a href="<%=basePath%>Logout.html">退出</a>
                 </c:if>
             <a href="#">QQ客服</a><a href="#">微信客服</a><a href="#">手机客户端</a>
         </div>

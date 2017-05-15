@@ -19,4 +19,6 @@ public class Address {
     private String adname;
 
     private Integer uid;
+
+    private Integer addelete;
 }

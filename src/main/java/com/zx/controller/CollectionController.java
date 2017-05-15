@@ -66,16 +66,32 @@ public class CollectionController {
     @RequestMapping("/findCollectionListByUid")
     public String findCollectionListByUid(HttpServletRequest request, HttpSession session){
         UserBuy userBuy = (UserBuy) session.getAttribute("user");
-        List<Collectionuser> collectionList = collectionService.findCollectionListByUid(userBuy.getUid());
-        request.setAttribute("collectionList",collectionList);
+        List<Collectionuser> collectionFoodList = collectionService.findCollectionListByUid(userBuy.getUid());
+        request.setAttribute("collectionFoodList",collectionFoodList);
         return "front/user/usercollectionfood";
     }
+    @RequestMapping("/findCollectionStoresListByUid")
+    public String findCollectionStoresListByUid(HttpServletRequest request, HttpSession session){
+        UserBuy userBuy = (UserBuy) session.getAttribute("user");
+        List<Collectionuser> collectionStoresList = collectionService.findCollectionStoresListByUid(userBuy.getUid());
+        request.setAttribute("collectionStoresList",collectionStoresList);
+        return "front/user/usercollectionstores";
+    }
     @RequestMapping("/deleteCollectionFood")
-    public void deleteCollectionFood(Integer collid,HttpServletRequest request, HttpSession session){
+    public String deleteCollectionFood(Integer collid,HttpServletRequest request, HttpSession session){
         Collectionuser collection = new Collectionuser();
         collection.setColldelete(1);
         collection.setCollid(collid);
         collectionService.deleteCollectionFood(collection);
+        return "redirect:findCollectionListByUid.html";
+    }
+    @RequestMapping("/deleteCollectionStores")
+    public String deleteCollectionStores(Integer collid,HttpServletRequest request, HttpSession session){
+        Collectionuser collection = new Collectionuser();
+        collection.setColldelete(1);
+        collection.setCollid(collid);
+        collectionService.deleteCollectionFood(collection);
+        return "redirect:findCollectionStoresListByUid.html";
     }
 
     @RequestMapping("/addCollectionStores")

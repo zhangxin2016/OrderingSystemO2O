@@ -13,7 +13,7 @@ public interface AddressService {
     //收货地址的增加
     void add(Address address);
     //删除地址
-    void delete(int adid);
+    void delete(Address address);
     //修改地址
     void update(Address address);
     //地址id 收货地址查询

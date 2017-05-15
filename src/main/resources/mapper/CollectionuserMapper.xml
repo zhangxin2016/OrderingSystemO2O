@@ -8,6 +8,27 @@
     <result column="uid" property="uid" jdbcType="INTEGER" />
     <result column="colldate" property="colldate" jdbcType="TIMESTAMP" />
     <result column="colldelete" property="colldelete" jdbcType="INTEGER" />
+    <collection property="food" ofType="com.zx.model.Food">
+      <id column="fid" property="fid" jdbcType="INTEGER" />
+      <result column="fname" property="fname" jdbcType="VARCHAR" />
+      <result column="stid" property="stid" jdbcType="INTEGER" />
+      <result column="fprice" property="fprice" jdbcType="INTEGER" />
+      <result column="fcollection" property="fcollection" jdbcType="INTEGER" />
+      <result column="fsalesvolume" property="fsalesvolume" jdbcType="INTEGER" />
+      <result column="fstatus" property="fstatus" jdbcType="INTEGER" />
+      <result column="fpic" property="fpic" jdbcType="VARCHAR" />
+      <result column="fdelete" property="fdelete" jdbcType="INTEGER" />
+    </collection>
+    <collection property="stores" ofType="com.zx.model.Stores">
+      <id column="stid" property="stid" jdbcType="INTEGER" />
+      <result column="staddress" property="staddress" jdbcType="VARCHAR" />
+      <result column="stname" property="stname" jdbcType="VARCHAR" />
+      <result column="stdesc" property="stdesc" jdbcType="VARCHAR" />
+      <result column="stypeid" property="stypeid" jdbcType="INTEGER" />
+      <result column="stdelete" property="stdelete" jdbcType="INTEGER" />
+      <result column="usid" property="usid" jdbcType="INTEGER" />
+      <result column="uscoll" property="uscoll" jdbcType="VARCHAR" />
+    </collection>
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
