@@ -46,7 +46,7 @@ public class FoodController {
                                          @RequestParam(value="lineSize",defaultValue="5") Integer lineSize ,
                                          @RequestParam(value="keyWord",defaultValue="") String keyWord, HttpServletRequest request)
     {
-        ModelAndView mv=new ModelAndView("front/food/");
+        ModelAndView mv=new ModelAndView("back/food/foodsList");
         Map<String,Object> map=null;
         try{
             map=this.foodService.getAllFood(currentPage, lineSize, keyWord);
@@ -67,6 +67,18 @@ public class FoodController {
         }
         return mv  ;
     }
+    /*
+     * 后端根据菜品ID获取店铺信息
+     */
+
+    @RequestMapping("/getStoresByFood")
+    public String getStoresByFood(Integer fid,HttpSession session, HttpServletRequest request) throws Exception {
+        System.out.println("stid======"+fid);
+        Food food = foodService.findStoresByFood(fid);
+        request.setAttribute("findstoresByFood",food);
+        return "back/food/findstoresbyfood";
+    }
+
     /*
      *根据ID获取食物
      */

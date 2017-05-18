@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -285,5 +286,38 @@ public class StoresController {
         request.setAttribute("evaluatesListFromUser",evaluatesListByDoid);
         return "front/stores/userbuystores";
     }
+    /*
+     *  后端展示所有店铺
+     */
+    @RequestMapping("/getAllStores")
+    public ModelAndView getAllStores(@RequestParam(value="currentPage",defaultValue="1") Integer currentPage,
+                                         @RequestParam(value="lineSize",defaultValue="5") Integer lineSize ,
+                                         @RequestParam(value="keyWord",defaultValue="") String keyWord, HttpServletRequest request)
+    {
+        ModelAndView mv=new ModelAndView("back/Stores/storesList");
+        Map<String,Object> map=null;
+        try{
+            map=this.storesService.findAllStores(currentPage, lineSize, keyWord);
+            System.out.println("map.get(stores)"+map.get("stores"));
+            mv.addObject("stores", map.get("stores"));
+            mv.addObject("pageInfo", map.get("pageInfo"));
+            System.out.printf("map.get(pageInfo)"+map.get("pageInfo"));
+            mv.addObject("lineSizes", new int[]{5,10,15,20,25,30});
+            mv.addObject("keyWord", keyWord);
+        }catch(Exception e){
+            System.out.printf("店铺列表出现异常！");
+        }
+        return mv;
+    }
+    /*
+     * 后端根据店铺ID获取信息
+     */
 
+    @RequestMapping("/getStoresByStid")
+    public String getStoresByStid(Integer stid,HttpSession session, HttpServletRequest request) throws Exception {
+        System.out.println("stid======"+stid);
+        Stores stores = storesService.findStoresByStid(stid);
+        request.setAttribute("findstores",stores);
+        return "back/Stores/findstores";
+    }
 }

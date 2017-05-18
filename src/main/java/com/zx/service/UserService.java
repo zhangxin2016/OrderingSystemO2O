@@ -4,6 +4,7 @@ import com.zx.model.UserBuy;
 import com.zx.util.Page;
 
 import java.util.List;
+import java.util.Map;
 
 public interface UserService {
     /**
@@ -76,6 +77,8 @@ public interface UserService {
      * @返回类型： List<UserBuy>
      */
     List<UserBuy> findByName(String username);
+
+    Map<String,Object> findAllUserBuyBack(Integer currentPage, Integer lineSize, String keyWord) throws Exception;
 
 
 }

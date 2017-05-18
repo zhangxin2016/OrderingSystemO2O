@@ -1,8 +1,12 @@
 package com.zx.service.impl;
 
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.zx.mapper.UserBuyMapper;
 import com.zx.mapper.UserMapper1;
 import com.zx.model.UserBuy;
@@ -115,5 +119,19 @@ public class UserServiceImpl implements UserService {
 		return userMapper.updateByPrimaryKey(u);
 	}
 
-
+	@Override
+	public Map<String, Object> findAllUserBuyBack(Integer currentPage, Integer lineSize, String keyWord) throws Exception {
+		Map<String,Object> map=new HashMap<String, Object>();    //map集合保存分页信息和数据
+		PageHelper.startPage(currentPage, lineSize);     //设置分页参数
+		if("".equals(keyWord) || keyWord==null){    //组织关键词
+			keyWord="%"+keyWord+"%";
+		}else{
+			keyWord="%"+keyWord+"%";
+		}
+		List<UserBuy> userBuysList=this.userMapper.findAllUserBuyBack(keyWord);   //模糊查询
+		PageInfo<UserBuy> pageInfo=new PageInfo<UserBuy>(userBuysList); //获取分页信息
+		map.put("userBuysList", userBuysList);
+		map.put("pageInfo", pageInfo);
+		return map;
+	}
 }

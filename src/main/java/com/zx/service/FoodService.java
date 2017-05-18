@@ -37,4 +37,6 @@ public interface FoodService {
     List<Food> findFoodListByNameAndStid(Food food) throws Exception;
     //前台搜索菜品(分页)
     List<Food> findFoodListByNameAndStidPage(Page page) throws Exception;
+
+    Food findStoresByFood(Integer fid) throws Exception;
 }

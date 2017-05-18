@@ -105,5 +105,10 @@ public class FoodServiceImpl implements FoodService {
         return foodMapper.findFoodListByNameAndStidPage(page);
     }
 
+    @Override
+    public Food findStoresByFood(Integer fid) throws Exception {
+        return foodMapper.findStoresByFood(fid);
+    }
+
 
 }

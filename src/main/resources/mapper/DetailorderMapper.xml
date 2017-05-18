@@ -375,4 +375,29 @@
       AND detailorder.dodelete=0
       AND detailorder.fid=#{fid}
   </select>
+
+  <select id="getAllDetailOrderBack" parameterType="com.zx.util.Page" resultMap="DetailOrderResultMap">
+    SELECT orders.*, detailorder.*, food.*,address.*,user_buy.*
+     from detailorder,orders,food,address,user_buy
+      WHERE detailorder.fid=food.fid
+      AND detailorder.oid=orders.oid
+      AND detailorder.adid=address.adid
+      AND orders.uid = user_buy.uid
+      AND detailorder.dodelete=0
+      LIMIT #{start},#{maxRows}
+  </select>
+  <select id="getAllDetailOrderCounts" resultType="Integer">
+    SELECT count(doid) FROM detailorder
+  </select>
+  <select id="selectdetailOrderListByDoid" parameterType="Integer" resultMap="DetailOrderResultMap" >
+    select orders.*, detailorder.*, food.*,address.*,user_buy.*
+    from detailorder,orders,food,address,user_buy
+    WHERE detailorder.fid=food.fid
+    AND detailorder.oid=orders.oid
+    AND detailorder.adid=address.adid
+    AND orders.uid = user_buy.uid
+    AND detailorder.dodelete=0
+    AND detailorder.doid=#{doid}
+  </select>
+
 </mapper>

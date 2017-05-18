@@ -38,4 +38,6 @@ public interface UserBuyMapper {
     //根据名称搜索用户信息
     List<UserBuy> findByName(String uname);
 
+    List<UserBuy> findAllUserBuyBack(String keyWord)throws Exception ;
+
 }

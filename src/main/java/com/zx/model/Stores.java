@@ -28,4 +28,6 @@ public class Stores {
 
     private Storestype storestype;
 
+    private UserSell userSell;
+
 }

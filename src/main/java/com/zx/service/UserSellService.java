@@ -2,6 +2,8 @@ package com.zx.service;
 
 import com.zx.model.UserSell;
 
+import java.util.Map;
+
 /**
  * Created by Xin on 2017/4/11.
  */
@@ -23,4 +25,9 @@ public interface UserSellService {
      * @description :验证用户是否存在，防止重名
      */
     UserSell checkRegister(String name);
+
+    //获取所有
+    Map<String,Object> findAllUserSellBack(Integer currentPage, Integer lineSize, String keyWord) throws Exception;
+
+    UserSell findStoresByUserSell(Integer usid) throws Exception;
 }

@@ -116,13 +116,7 @@
 					class="table table-border table-bordered table-hover table-bg table-sort">
 					<thead>
 						<tr class="text-c">
-							<td width="20">
-								<div class="skin-minimal">
-									<div class="check-box">
-										<input type="checkbox" id="wert" onclick="checkAll()"
-											style="width:18px;height: 18px" /> <label for="checkbox-0">&nbsp</label>
-									</div>
-								</div></td>
+
 							<th width="80" class="hidden-xs">店铺类别ID</th>
 							<th width="100" class="hidden-xs">店铺类别名称</th>
 							<%--<th width="150">权限</th>--%>
@@ -134,12 +128,6 @@
 					<tbody id="table_all">
 						<c:forEach items="${storestypes}" var="Storestype">
 							<tr class="text-c">
-								<td><div class="skin-minimal">
-										<div class="check-box">
-											<input type="checkbox" name="wangjuan" value="${Storestype.stypeid}"
-												style="width:18px;height: 18px" /> <label for="checkbox-1">&nbsp</label>
-										</div>
-									</div></td>
 								<td>${Storestype.stypeid}</td>
 								<td class="hidden-xs">${Storestype.stypename}</td>
 								<%--<td>${arr.authority}</td>--%>

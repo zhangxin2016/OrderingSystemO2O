@@ -285,4 +285,9 @@
       AND evaluate.doid=#{doid}
   </select>
 
+  <select id="findAllEvaluateBack" parameterType="java.lang.String" resultType="com.zx.model.Evaluate">
+    SELECT * FROM evaluate
+    WHERE doid LIKE #{keyWord} AND edelete = 0
+    OR ebuycontent LIKE #{keyWord} AND edelete = 0
+  </select>
 </mapper>

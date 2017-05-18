@@ -336,6 +336,10 @@
   <select id="findByName" parameterType="java.lang.String" resultMap="BaseResultMap">
     select * from user_buy where uname =#{uname}
   </select>
-
+  <select id="findAllUserBuyBack" parameterType="java.lang.String" resultType="com.zx.model.UserBuy">
+    SELECT * FROM user_buy
+    WHERE uphone LIKE #{keyWord} AND udel = 0
+    OR UPPER(uname) LIKE #{keyWord} AND udel = 0
+  </select>
 
 </mapper>

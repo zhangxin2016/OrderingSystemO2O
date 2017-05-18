@@ -48,4 +48,6 @@ public interface FoodMapper {
     List<Food> findFoodListByNameAndStid(Food food)throws Exception;
     //前台搜索菜品根据名字（分页）
     List<Food> findFoodListByNameAndStidPage(Page page)throws Exception;
+
+    Food findStoresByFood(Integer fid);
 }

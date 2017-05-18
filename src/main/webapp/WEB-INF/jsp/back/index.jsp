@@ -83,9 +83,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<dt><i class="Hui-iconfont">&#xe616;</i> 菜品管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
 			<dd>
 				<ul>
-					<li><a _href="<%=basePath%>category/test.html" data-title="分类管理" href="javascript:void(0)">分类管理</a></li>
-					<li><a _href="<%=basePath%>display/listDisplay.html" data-title="展示表管理" href="javascript:void(0)">展示表管理</a></li>
-					<li><a _href="<%=basePath%>backitem/listAll.html" data-title="商品管理" href="javascript:void(0)">商品管理</a></li>
+					<li><a _href="<%=basePath%>getAllFoodFront.html" data-title="菜品管理" href="javascript:void(0)">菜品管理</a></li>
 				</ul>
 			</dd>
 		</dl>
@@ -94,7 +92,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<dd>
 				<ul>
 					<li><a _href="<%=basePath%>getAllStorestype.html" data-title="分类管理"   href="javascript:void(0)">分类管理</a></li>
-					<li><a _href="<%=basePath%>backitem/listAll.html" data-title="商品管理" href="javascript:void(0)">店铺管理</a></li>
+					<li><a _href="<%=basePath%>getAllStores.html" data-title="店铺管理" href="javascript:void(0)">店铺管理</a></li>
 
 				</ul>
 			</dd>
@@ -104,8 +102,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<dd>
 				<ul>
 					<li><a _href="<%=basePath%>back/admin/fenye.html" data-title="管理员管理" href="javascript:void(0)">管理员管理</a></li>
-					<li><a _href="picture-list.html" data-title="权限管理" href="javascript:void(0)">权限管理</a></li>
-					<li><a _href="<%=basePath%>back/user/list.html" data-title="用户管理" href="javascript:void(0)">用户管理</a></li>
+					<li><a _href="<%=basePath%>getAllUserSellBack.html" data-title="商家管理" href="javascript:void(0)">商家管理</a></li>
+					<li><a _href="<%=basePath%>findAllUserBuyBack.html" data-title="用户管理" href="javascript:void(0)">用户管理</a></li>
 				</ul>
 			</dd>
 		</dl>
@@ -113,9 +111,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<dt><i class="Hui-iconfont">&#xe620;</i> 业务管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
 			<dd>
 				<ul>
-					<li><a _href="<%=basePath%>back/order/list.html" data-title="订单管理" href="javascript:void(0)">订单管理</a></li>
-					<li><a _href="<%=basePath%>back/refund/list.html" data-title="退货管理" href="javascript:void(0)">退货管理</a></li>
-					<li><a _href="<%=basePath%>back/notice/fenye.html" data-title="公告管理" href="javascript:void(0)">公告管理</a></li>
+					<li><a _href="<%=basePath%>getAllDetailOrderBack.html" data-title="订单管理" href="javascript:void(0)">订单管理</a></li>
 				</ul>
 			</dd>
 		</dl>
@@ -123,7 +119,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<dt><i class="Hui-iconfont">&#xe622;</i> 评论管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
 			<dd>
 				<ul>
-					<li><a _href="feedback-list.html" data-title="意见反馈" href="javascript:void(0)">意见反馈</a></li>
+					<li><a _href="<%=basePath%>getAllEvaluateBack.html" data-title="评论管理" href="javascript:void(0)">评论管理</a></li>
 				</ul>
 			</dd>
 		</dl>
@@ -146,9 +142,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<dd>
 				<ul>
 					<li><a _href="system-base.html" data-title="修改密码" href="javascript:void(0)">修改密码</a></li>
-					<li><a _href="system-data.html" data-title="数据字典" href="javascript:void(0)">数据字典</a></li>
-					<li><a _href="system-shielding.html" data-title="屏蔽词" href="javascript:void(0)">屏蔽词</a></li>
-					<li><a _href="system-log.html" data-title="系统日志" href="javascript:void(0)">系统日志</a></li>
 				</ul>
 			</dd>
 		</dl>

@@ -181,8 +181,8 @@
 
   <select id="findAll" parameterType="java.lang.String" resultType="Storestype">
              SELECT * FROM storestype
-             WHERE stypedel = 0
-             AND stypeid LIKE #{keyWord} OR UPPER(stypename) LIKE #{keyWord}
+             WHERE stypeid LIKE #{keyWord} AND stypedel = 0
+             OR UPPER(stypename) LIKE #{keyWord} AND stypedel = 0
   </select>
 
   <select id="findAllStorestype" resultType="Storestype">

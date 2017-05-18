@@ -1,5 +1,6 @@
 <%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%
 	String path = request.getContextPath();
 	String basePath = request.getScheme() + "://"
@@ -30,18 +31,27 @@
 	rel="stylesheet" type="text/css" />
 <link href="<%=basePath%>lib/icheck/icheck.css" rel="stylesheet"
 	type="text/css" />
-<link href="<%=basePath%>lib/laypage/1.2/skin/laypage.css"
-	rel="stylesheet" type="text/css" />
+<link href="<%=basePath%>lib/laypage/1.2/skin/laypage.css" rel="stylesheet" type="text/css" />
 <!--[if IE 6]>
 <script type="text/javascript" src="<%=basePath%>http://lib.h-ui.net/DD_belatedPNG_0.0.8a-min.js" ></script>
 <script>DD_belatedPNG.fix('*');</script>
 <![endif]-->
-<title>管理员信息列表</title>
+<title>用户信息列表</title>
 <script type="text/javascript"
 	src="<%=basePath%>lib/jquery/1.9.1/jquery.js"></script>
 <script type="text/javascript"
 	src="<%=basePath%>lib/jquery/1.9.1/jquery.min.js"></script>
 <script type="text/javascript" src="js/jquery.js"></script>
+	<!--  Bootstrap-->
+	<!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+	<link rel="stylesheet" href="<%=basePath%>css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+	<script src="http://cdn.bootcss.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="<%=basePath%>js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+	<!-- 自定义分页的JS插件 -->
+	<script type="text/javascript" src="<%=basePath%>js/pagination.js"></script>
+	<script type="text/javascript" src="<%=basePath%>js/teacher_del.js"></script>
+	<script type="text/javascript" src="<%=basePath%>js/jquery-1.9.1.min.js"></script>
 <!-- 控制页面格式 -->
 <style>
 .Huifold .item {
@@ -76,6 +86,7 @@
 }
 </style>
 </head>
+
 <body>
 
 
@@ -83,57 +94,111 @@
 		<!--选项卡开始-->
 		<div id="tab_demo" class="HuiTab">
 			<div class="tabBar cl">
-				<span class="l">
-						<a class="btn btn-primary radius"  href="javascript:;"
-					onclick="admin_add('添加管理员','<%=basePath%>back/admin/add-admin.html','800','500')"
-					class="btn btn-primary radius"><i class="Hui-iconfont">&#xe600;</i>
-						添加管理员</a> </span>
+
 			</div>
 			<div style="margin-top: 5px;margin-bottom: 2px;">
-				<form method="post" action="<%=basePath%>back/admin/search.html" style="margin 0,10,0,10;">
-					<input type="text" placeholder="请输入管理员编号" class="input-text ac_input"
-						name="id" value="" id="search_text" autocomplete="off"
+				<!-------------------------------分页插件↓(根据业务需要添加)----------------------------------------------------------------->
+				<form method="post" <%--action="<%=basePath%>back/admin/search.html"--%> style="margin: 10px">
+					<input type="text" id="keyWordInput" placeholder="请输入关键词" value="${keyWord}"class="input-text ac_input"
+						name="id" value=""  autocomplete="off"
 						style="width:20%;">
-					<button type="submit" class="btn btn-default" id="search_button">搜索</button>
+					<button type="submit" class="btn btn-default" id="searchBtn">搜索</button>
 				</form>
+				<!-------------------------------分页插件↑------------------------------------------------------------------->
+
 			</div>
 			<div class="tabCon">
 				<table
 					class="table table-border table-bordered table-hover table-bg table-sort">
 					<thead>
 						<tr class="text-c">
-							<th width="80" class="hidden-xs">ID</th>
-							<th width="100" class="hidden-xs">管理员名称</th>
-							<th width="100">管理员密码</th>
+
+							<th width="80" class="hidden-xs1">用户头像</th>
+							<th width="100" class="hidden-xs2">用户名</th>
+							<th width="100" class="hidden-xs3">用户真实姓名</th>
+							<th width="100" class="hidden-xs3">密码</th>
+							<th width="100" class="hidden-xs4">用户身份证号</th>
+							<th width="100" class="hidden-xs4">用户电话</th>
+							<th width="100" class="hidden-xs4">用户email</th>
+							<th width="100" class="hidden-xs4">用户性别</th>
+							<th width="100" class="hidden-xs4">用户年龄</th>
 							<%--<th width="150">权限</th>--%>
-							<th width="150">操作</th>
+							<%--<th width="150">操作</th>--%>
 
 						</tr>
 
 					</thead>
 					<tbody id="table_all">
-						<c:forEach items="${list }" var="arr">
+						<c:forEach items="${userBuysList}" var="userBuysList">
 							<tr class="text-c">
-								<td>${arr.aid}</td>
-								<td class="hidden-xs">${arr.aname}</td>
-								<td>${arr.apassword}</td>
+
+								<td class="hidden-xs3"><%--<img src="/pic/${userBuysList.fpic}" width="100px" height="60px">--%></td>
+								<td class="hidden-xs1">${userBuysList.uname}</td>
+								<td class="hidden-xs2">${userBuysList.utruename}</td>
+								<td class="hidden-xs4">${userBuysList.upassword}</td>
+								<td class="hidden-xs4">${userBuysList.uidcard}</td>
+								<td class="hidden-xs4">${userBuysList.uphone}</td>
+								<td class="hidden-xs4">${userBuysList.umail}</td>
+								<td class="hidden-xs4">${userBuysList.usex}</td>
+								<td class="hidden-xs4">${userBuysList.uage}</td>
 								<%--<td>${arr.authority}</td>--%>
-								<td class="td-manage"><a title="编辑"
+								<%--<td class="td-manage"><a title="查看店铺信息"
 									href="javascript:;"
-									onclick="admin_edit('管理员编辑','get.html?aid=${arr.aid }','${arr.aid }','800','500')"
-									class="ml-5" style="text-decoration:none"><i
-										class="Hui-iconfont">&#xe6df;</i> </a> <a title="删除"
-									href="${pageContext.request.contextPath }/back/admin/deleteByPrimaryKey.html?aid=${arr.aid }"
-									<%--href="javascript:;"--%>
-									onclick="javascript:if (confirm('确定删除吗？')) { 'return true';}else{'return false';};" class="ml-5"
-									style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i>
-								</a></td>
+									onclick="findStoresByFood('店铺信息','<%=basePath%>getStoresByFood.html?fid=${foods.fid }','500','300')"
+									class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i> </a>
+									</td>--%>
 							</tr>
 						</c:forEach>
 					</tbody>
-					
-
 				</table>
+				<td colspan="8">
+					<!-------------------------------分页插件↓----------------------------------------------------------------->
+					<form action="<%=basePath%>findAllUserBuyBack.html" method="POST" name="spForm" id="spForm">
+						<input type="hidden" id="currentPage" name="currentPage" value="${pageInfo.pageNum}">
+						<input type="hidden" id="lineSize" name="lineSize" value="${pageInfo.pageSize}">
+						<input type="hidden" id="keyWord" name="keyWord" value="${keyWord}">
+						<button type="button" class="btn btn-primary" value="${pageInfo.firstPage}"
+						${pageInfo.pageNum==1?"disabled='disabled'":""}>
+							首页
+						</button>
+						<button type="button" class="btn btn-success"
+								value="${pageInfo.prePage}"
+						${pageInfo.prePage==0?"disabled='disabled'":""}>
+							上一页
+						</button>
+						&nbsp;&nbsp;&nbsp;跳转到第&nbsp;<div class="btn-group">
+						<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" id="cpBtn">
+							${pageInfo.pageNum}&nbsp;&nbsp;<span class="caret"></span>
+						</button>
+						<ul class="dropdown-menu" role="menu" id="cpMenu">
+							<c:forEach begin="1" end="${pageInfo.pages}" var="page">
+								<li><a href="#">${page}</a></li>
+							</c:forEach>
+						</ul>
+					</div>&nbsp;页&nbsp;&nbsp;&nbsp;
+						&nbsp;&nbsp;&nbsp;每页显示&nbsp;<div class="btn-group">
+						<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" id="lsBtn">
+							${pageInfo.pageSize}&nbsp;&nbsp;<span class="caret"></span>
+						</button>
+						<ul class="dropdown-menu" role="menu" id="lsMenu">
+							<c:forEach items="${lineSizes}" var="lineSize">
+								<li><a href="#">${lineSize}</a></li>
+							</c:forEach>
+						</ul>
+					</div>&nbsp;条&nbsp;&nbsp;&nbsp;
+						<button type="button" class="btn btn-info"
+								value="${pageInfo.nextPage}"
+						${pageInfo.nextPage==0?"disabled='disabled'":""}>
+							下一页
+						</button>
+						<button type="button" class="btn btn-danger"value="${pageInfo.lastPage}"
+						${pageInfo.pageNum==pageInfo.lastPage?"disabled='disabled'":""}>
+							尾页
+						</button>
+						&nbsp;共 &nbsp;${pageInfo.size}/${pageInfo.total} &nbsp;条
+					</form>
+					<!-------------------------------分页插件↑------------------------------------------------------------------->
+				</td>
 
 				<div id="pageSplit" style="text-align:center; margin-top: 2%"></div>
 				
@@ -141,9 +206,10 @@
 
 
 		</div>
+
 		<!--选项卡结束-->
 		<!-- 分页功能 start -->  
-    <div align="center">  
+    <%--<div align="center">
         <font size="2">共 ${page.totalPage} 页</font> &nbsp;<font size="2"> 当前第 ${i} 页</font> &nbsp;
         
 	        <c:choose>
@@ -163,7 +229,7 @@
 	        </c:otherwise>
 	        </c:choose> 
          
-    </div>  
+    </div>  --%>
     <!-- 分页功能 End -->  
 		
 	</div>
@@ -321,17 +387,9 @@
 			$("#wert").attr("checked",$(":checkbox[name='wangjuan']").length == $(":checkbox[name='wangjuan']:checked").length)
 		});
 		}) */
-
-		
-//弹窗		
-		/*管理员添加*/
-function admin_add(title,url,w,h){
-	layer_show(title,url,w,h);
-}
-/*管理员编辑*/
-function admin_edit(title,url,id,w,h){
-	layer_show(title,url,w,h);
-}
+        function findStoresByFood(title,url,w,h){
+            layer_show(title,url,w,h);
+        }
 /*管理员删除*/
 function admin_del(obj,url,id){
 	layer.confirm('确认要删除吗？',function(index){

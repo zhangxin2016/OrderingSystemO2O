@@ -26,4 +26,6 @@ public class UserSell {
 
     private Integer usdel;
 
+    private Stores stores;
+
 }

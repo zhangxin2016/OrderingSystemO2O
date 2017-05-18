@@ -11,6 +11,16 @@
     <result column="fstatus" property="fstatus" jdbcType="INTEGER" />
     <result column="fpic" property="fpic" jdbcType="VARCHAR" />
     <result column="fdelete" property="fdelete" jdbcType="INTEGER" />
+    <collection property="stores" ofType="com.zx.model.Stores">
+      <id column="stid" property="stid" jdbcType="INTEGER" />
+      <result column="staddress" property="staddress" jdbcType="VARCHAR" />
+      <result column="stname" property="stname" jdbcType="VARCHAR" />
+      <result column="stdesc" property="stdesc" jdbcType="VARCHAR" />
+      <result column="stypeid" property="stypeid" jdbcType="INTEGER" />
+      <result column="stdelete" property="stdelete" jdbcType="INTEGER" />
+      <result column="usid" property="usid" jdbcType="INTEGER" />
+      <result column="uscoll" property="uscoll" jdbcType="VARCHAR" />
+    </collection>
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -274,8 +284,8 @@
   </update>
   <select id="findAll" parameterType="java.lang.String" resultType="Food">
     SELECT * FROM food
-    WHERE fdelete = 0
-    AND fid LIKE #{keyWord} OR UPPER(fname) LIKE #{keyWord}
+    WHERE  fprice LIKE #{keyWord} AND fdelete = 0
+    OR UPPER(fname) LIKE #{keyWord} AND fdelete = 0
   </select>
   <!--滚动条：根据IP地址获取销售数量前3的食品-->
   <select id="findAllBySalesvolume" parameterType="java.lang.Integer" resultType="Food">
@@ -330,5 +340,12 @@
     AND stid = #{id}
     AND fname LIKE concat(concat('%',#{name}),'%')
     LIMIT #{start},#{maxRows}
+  </select>
+
+  <select id="findStoresByFood" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    SELECT stores.*,food.* FROM stores,food
+    WHERE food.stid = stores.stid
+    AND fdelete = 0
+    AND food.fid = #{fid}
   </select>
 </mapper>

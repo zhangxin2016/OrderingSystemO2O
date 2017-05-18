@@ -6,6 +6,7 @@ import com.zx.mapper.DetailorderMapper;
 import com.zx.model.Detailorder;
 import com.zx.model.Storestype;
 import com.zx.service.DetailOrderService;
+import com.zx.util.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -71,6 +72,21 @@ public class DetailOrderServiceImpl implements DetailOrderService {
     @Override
     public List<Detailorder> findDetailListByFid(Integer fid) {
         return detailOrderMapper.selectdetailOrderListByFid(fid);
+    }
+
+    @Override
+    public List<Detailorder> getAllDetailOrderBack(Page page) {
+        return detailOrderMapper.getAllDetailOrderBack(page);
+    }
+
+    @Override
+    public Integer getAllDetailOrderCounts() {
+        return detailOrderMapper.getAllDetailOrderCounts();
+    }
+
+    @Override
+    public Detailorder finddetailOrderListByDoid(Integer doid) {
+        return detailOrderMapper.selectdetailOrderListByDoid(doid);
     }
 
     public static void main(String[] args) throws Exception {

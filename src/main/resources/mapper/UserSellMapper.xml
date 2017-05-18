@@ -10,6 +10,16 @@
     <result column="usidcard" property="usidcard" jdbcType="VARCHAR" />
     <result column="usaddress" property="usaddress" jdbcType="VARCHAR" />
     <result column="usdel" property="usdel" jdbcType="INTEGER" />
+    <collection property="stores" ofType="com.zx.model.Stores">
+      <id column="stid" property="stid" jdbcType="INTEGER" />
+      <result column="staddress" property="staddress" jdbcType="VARCHAR" />
+      <result column="stname" property="stname" jdbcType="VARCHAR" />
+      <result column="stdesc" property="stdesc" jdbcType="VARCHAR" />
+      <result column="stypeid" property="stypeid" jdbcType="INTEGER" />
+      <result column="stdelete" property="stdelete" jdbcType="INTEGER" />
+      <result column="usid" property="usid" jdbcType="INTEGER" />
+      <result column="uscoll" property="uscoll" jdbcType="VARCHAR" />
+    </collection>
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -269,5 +279,17 @@
     <where>
       usname=#{usname}
     </where>
+  </select>
+  <select id="findAllUserSellBack" parameterType="java.lang.String" resultType="com.zx.model.UserSell">
+    SELECT * FROM user_sell
+    WHERE usaddress LIKE #{keyWord} AND usdel = 0
+    OR UPPER(usname) LIKE #{keyWord} AND usdel = 0
+  </select>
+
+  <select id="findStoresByUserSell" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    SELECT stores.*,user_sell.* FROM stores,user_sell
+    WHERE user_sell.usid = stores.usid
+    AND usdel = 0
+    AND user_sell.usid = #{usid}
   </select>
 </mapper>

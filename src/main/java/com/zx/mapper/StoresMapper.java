@@ -35,4 +35,9 @@ public interface StoresMapper {
     //前台搜索菜品根据名字
     List<Stores> findStoresListByNameAndStid(Stores stores)throws Exception;
 
+    //后台展示所有
+    List<Stores> findAllStores(String keyWord)throws Exception;   //复杂查询
+
+    Stores findStoresByStid(Integer stid)throws Exception;
+
 }

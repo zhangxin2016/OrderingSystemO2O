@@ -29,4 +29,7 @@ public interface EvaluateMapper {
     int updateByPrimaryKey(Evaluate record);
 
     Evaluate selectEvaluateByDoid(Integer doid);
+
+    List<Evaluate> findAllEvaluateBack(String keyWord)throws Exception ;
+
 }

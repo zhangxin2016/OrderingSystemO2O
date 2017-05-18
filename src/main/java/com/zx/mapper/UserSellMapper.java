@@ -38,4 +38,9 @@ public interface UserSellMapper {
      * @description :注册验证
      */
     UserSell checkRegister(String name);
+
+    List<UserSell> findAllUserSellBack(String keyWord)throws Exception ;
+
+    UserSell findStoresByUserSell(Integer usid);
+
 }

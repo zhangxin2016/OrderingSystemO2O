@@ -18,6 +18,7 @@ import org.dom4j.DocumentException;
 import org.dom4j.DocumentHelper;
 import org.dom4j.Element;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -26,6 +27,7 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Map;
 
 /**
  * Created by Xin on 2017/3/15.
@@ -282,5 +284,30 @@ public class UserBuyController {
     public String login(){
 
         return "front/Login";
+    }
+
+    @RequestMapping("/findAllUserBuyBack")
+    public ModelAndView findAllUserBuyBack(@RequestParam(value="currentPage",defaultValue="1") Integer currentPage,
+                                   @RequestParam(value="lineSize",defaultValue="5") Integer lineSize ,
+                                   @RequestParam(value="keyWord",defaultValue="") String keyWord, HttpServletRequest request)
+    {
+        ModelAndView mv=new ModelAndView("back/userbuy/userbuyList");
+        Map<String,Object> map=null;
+        try{
+            map=this.userService.findAllUserBuyBack(currentPage, lineSize, keyWord);
+            System.out.println("map.get(userBuysList)"+map.get("userBuysList"));
+            mv.addObject("userBuysList", map.get("userBuysList"));
+            /**
+             * 下面的分页参数一定要传过去,不然没法使用分页插件
+             */
+            mv.addObject("pageInfo", map.get("pageInfo"));
+            System.out.printf("map.get(pageInfo)"+map.get("pageInfo"));
+            mv.addObject("lineSizes", new int[]{5,10,15,20,25,30});
+            mv.addObject("keyWord", keyWord)  ;
+        }catch(Exception e){
+            //mv.setViewName("err");
+            System.out.printf("用户列表出现异常！");
+        }
+        return mv  ;
     }
 }

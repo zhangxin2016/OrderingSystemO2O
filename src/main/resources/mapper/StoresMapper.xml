@@ -15,6 +15,16 @@
       <result column="stypename" property="stypename" jdbcType="VARCHAR" />
       <result column="stypedel" property="stypedel" jdbcType="INTEGER" />
     </collection>
+    <collection property="userSell" ofType="com.zx.model.UserSell">
+      <id column="usid" property="usid" jdbcType="INTEGER" />
+      <result column="usname" property="usname" jdbcType="VARCHAR" />
+      <result column="ustruename" property="ustruename" jdbcType="VARCHAR" />
+      <result column="uspassword" property="uspassword" jdbcType="VARCHAR" />
+      <result column="usphone" property="usphone" jdbcType="VARCHAR" />
+      <result column="usidcard" property="usidcard" jdbcType="VARCHAR" />
+      <result column="usaddress" property="usaddress" jdbcType="VARCHAR" />
+      <result column="usdel" property="usdel" jdbcType="INTEGER" />
+    </collection>
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -276,5 +286,17 @@
     AND stores.stdelete = 0
     AND stores.stid = #{stid}
     AND stores.stname LIKE concat(concat('%',#{stname}),'%')
+  </select>
+  <select id="findAllStores" parameterType="java.lang.String" resultType="Stores">
+    SELECT * FROM stores
+    WHERE staddress LIKE #{keyWord} AND stdelete = 0
+    OR UPPER(stname) LIKE #{keyWord} AND stdelete = 0
+  </select>
+  <select id="findStoresByStid" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    SELECT stores.*,storestype.* ,user_sell.* FROM stores,storestype,user_sell
+    WHERE stores.stypeid = storestype.stypeid
+    AND stores.usid = user_sell.usid
+    AND stdelete = 0
+    AND stores.stid = #{stid}
   </select>
 </mapper>

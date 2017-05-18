@@ -16,11 +16,14 @@ import org.dom4j.Element;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.Map;
 
 /**
  * Created by Xin on 2017/4/11.
@@ -148,5 +151,35 @@ public class UserSellController {
         //session.setAttribute("user", user);
         return "redirect:userSellToLogin.html";
     }
-
+    @RequestMapping("/getAllUserSellBack")
+    public ModelAndView getAllUserSellBack(@RequestParam(value="currentPage",defaultValue="1") Integer currentPage,
+                                   @RequestParam(value="lineSize",defaultValue="5") Integer lineSize ,
+                                   @RequestParam(value="keyWord",defaultValue="") String keyWord, HttpServletRequest request)
+    {
+        ModelAndView mv=new ModelAndView("back/usersell/usersellList");
+        Map<String,Object> map=null;
+        try{
+            map=this.userService.findAllUserSellBack(currentPage, lineSize, keyWord);
+            System.out.println("map.get(userSellsList)"+map.get("userSellsList"));
+            mv.addObject("userSellsList", map.get("userSellsList"));
+            /**
+             * 下面的分页参数一定要传过去,不然没法使用分页插件
+             */
+            mv.addObject("pageInfo", map.get("pageInfo"));
+            System.out.printf("map.get(pageInfo)"+map.get("pageInfo"));
+            mv.addObject("lineSizes", new int[]{5,10,15,20,25,30});
+            mv.addObject("keyWord", keyWord)  ;
+        }catch(Exception e){
+            //mv.setViewName("err");
+            System.out.printf("商家列表出现异常！");
+        }
+        return mv  ;
+    }
+    @RequestMapping("/getStoresByUserSell")
+    public String getStoresByUserSell(Integer usid,HttpSession session, HttpServletRequest request) throws Exception {
+        System.out.println("usid======"+usid);
+        UserSell userSell = userService.findStoresByUserSell(usid);
+        request.setAttribute("storesListByUserSell",userSell);
+        return "back/usersell/findstoresByUs";
+    }
 }

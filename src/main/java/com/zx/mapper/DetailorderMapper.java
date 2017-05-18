@@ -3,6 +3,8 @@ package com.zx.mapper;
 import com.zx.model.Detailorder;
 import com.zx.model.DetailorderExample;
 import java.util.List;
+
+import com.zx.util.Page;
 import org.apache.ibatis.annotations.Param;
 
 public interface DetailorderMapper {
@@ -37,4 +39,11 @@ public interface DetailorderMapper {
     List<Detailorder> selectdetailOrderList(Integer oid);
 
     List<Detailorder> selectdetailOrderListByFid(Integer fid);
+
+    List<Detailorder> getAllDetailOrderBack(Page page);
+
+    Integer getAllDetailOrderCounts();
+
+    Detailorder selectdetailOrderListByDoid(Integer doid);
+
 }

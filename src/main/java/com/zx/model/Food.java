@@ -28,4 +28,6 @@ public class Food {
 
     private Integer fdelete;
 
+    private Stores stores;
+
 }

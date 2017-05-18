@@ -1,6 +1,7 @@
 package com.zx.service;
 
 import com.zx.model.Detailorder;
+import com.zx.util.Page;
 
 import java.util.List;
 import java.util.Map;
@@ -24,4 +25,10 @@ public interface DetailOrderService {
     Detailorder findDetailOrderByDoid(Integer doid);
     Integer updateDetailOrder(Detailorder detailorder);
     List<Detailorder> findDetailListByFid(Integer fid);
+
+    List<Detailorder> getAllDetailOrderBack(Page page);
+
+    Integer getAllDetailOrderCounts();
+
+    Detailorder finddetailOrderListByDoid(Integer doid);
 }

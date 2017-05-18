@@ -113,4 +113,34 @@ public class DetailOrderController {
         return "redirect:listOrderDetailByFront.html";
     }
 
+    @RequestMapping("/getAllDetailOrderBack")
+    public String getAllDetailOrderBack(Map<String,Object> map ,HttpServletRequest request){
+        String currentPage=request.getParameter("currentPage");
+        int i = 0;
+        Page page = new Page(detailOrderService.getAllDetailOrderCounts(),5);
+        if(currentPage == null){
+            List<Detailorder> listDetailorder = detailOrderService.getAllDetailOrderBack(page);
+            map.put("listDetailorder", listDetailorder);
+            i=1;
+        }else{
+            i=Integer.parseInt(currentPage);
+            page.setCurrentPage(i);
+            List<Detailorder> listDetailorder = detailOrderService.getAllDetailOrderBack(page);
+            map.put("listDetailorder", listDetailorder);
+        }
+
+        map.put("page", page);
+        map.put("i", i); // 将键和值放在Map中
+
+        return "/back/order/detailorderList";
+    }
+
+    @RequestMapping("/finddetailOrderListByDoid")
+    public String finddetailOrderListByDoid(Integer doid,HttpSession session, HttpServletRequest request) throws Exception {
+        System.out.println("doid======"+doid);
+        Detailorder detailorder = detailOrderService.finddetailOrderListByDoid(doid);
+        request.setAttribute("finddetailOrderListByDoid",detailorder);
+        return "back/evaluate/finddetailorder";
+    }
+
 }

@@ -9,6 +9,8 @@ import com.zx.util.TextAntispamDetectionSample;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -123,5 +125,37 @@ public class EvaluateController {
         evaluateService.updateEvaluate(evaluate1);
         map.put("close", "close");//将 close 置入request 域，前台判断 request 域有 close 时候就关闭弹出层
         return "front/evaluate/replymessage";
+    }
+    @RequestMapping("/getAllEvaluateBack")
+    public ModelAndView getAllEvaluateBack(@RequestParam(value="currentPage",defaultValue="1") Integer currentPage,
+                                   @RequestParam(value="lineSize",defaultValue="5") Integer lineSize ,
+                                   @RequestParam(value="keyWord",defaultValue="") String keyWord, HttpServletRequest request)
+    {
+        ModelAndView mv=new ModelAndView("back/evaluate/evaluateList");
+        Map<String,Object> map=null;
+        try{
+            map=this.evaluateService.findAllEvaluateBack(currentPage, lineSize, keyWord);
+            System.out.println("map.get(evaluateListBack)"+map.get("evaluateListBack"));
+            mv.addObject("evaluateListBack", map.get("evaluateListBack"));
+            /**
+             * 下面的分页参数一定要传过去,不然没法使用分页插件
+             */
+            System.out.println("");
+            mv.addObject("pageInfo", map.get("pageInfo"));
+            mv.addObject("lineSizes", new int[]{5,10,15,20,25,30});
+            mv.addObject("keyWord", keyWord)  ;
+        }catch(Exception e){
+            //mv.setViewName("err");
+            System.out.printf("评论列表出现异常！");
+        }
+        return mv  ;
+    }
+    @RequestMapping("/deleteEvaluate")
+    public String deleteEvaluate(Integer eid, HttpServletRequest request){
+        Evaluate evaluate = new Evaluate();
+        evaluate.setEid(eid);
+        evaluate.setEdelete(1);
+        evaluateService.deleteEvaluate(evaluate);
+        return "redirect:getAllEvaluateBack.html";
     }
 }
