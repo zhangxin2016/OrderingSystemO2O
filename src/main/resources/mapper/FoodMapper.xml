@@ -124,6 +124,9 @@
       )
   </insert>
   <insert id="insertSelective" parameterType="com.zx.model.Food" >
+    <selectKey keyProperty="fid" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
     insert into food
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="fid != null" >

@@ -145,6 +145,10 @@
             window.location.reload();
             layer.msg("增加店铺成功！");
         }
+        function addFoods_callback(){
+            window.location.reload();
+            layer.msg("增加菜品成功！");
+        }
 
         function replyEvaluate_callback(){
             window.location.reload();

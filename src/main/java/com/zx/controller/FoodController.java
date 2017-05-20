@@ -1,5 +1,6 @@
 package com.zx.controller;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+import redis.clients.jedis.Jedis;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -39,6 +41,7 @@ public class FoodController {
     private StoresService storesService;
 
     private String IPADDRESS = "http://ip.chemdrug.com/";
+    Jedis jedis = new Jedis("120.76.114.25",6379,30000);
     //全部食品展示
     //分页功能
     @RequestMapping("/getAllFoodFront")
@@ -84,8 +87,20 @@ public class FoodController {
      */
     @RequestMapping("/getFoodById")
     public String getFoodById(HttpServletRequest request,Integer fid) throws Exception{
-        Food food = foodService.findFoodById(fid);
-        request.setAttribute("food", food);
+        String foodString = jedis.get("foodid"+fid);
+        if (foodString!=null){
+            Food food = JSON.parseObject(foodString,Food.class);
+            System.out.println("redisfood======"+food);
+            request.setAttribute("food", food);
+        }else{
+            Food food = foodService.findFoodById(fid);
+            System.out.println("mysqlfood======"+food);
+            request.setAttribute("food", food);
+            JSONObject json = (JSONObject) JSONObject.toJSON(food);
+            String jsonString =json.toString();
+            jedis.set("foodid"+food.getFid(),jsonString);
+        }
+        //Food food = foodService.findFoodById(fid);
         return "/front/food/detailFood";
     }
     /*
@@ -126,6 +141,12 @@ public class FoodController {
             food.setStid(stidToAddFood);
             System.out.println("food==="+food);
             foodService.addFood(food);
+            System.out.println("foodId==========="+food.getFid());
+            Food food1 = foodService.findFoodById(food.getFid());
+            JSONObject json = (JSONObject) JSONObject.toJSON(food1);
+            String foodString=json.toString();
+            jedis.set("foodid"+food1.getFid(),foodString);
+            System.out.println("food1+============"+food1);
             map.put("close", "close");//将 close 置入request 域，前台判断 request 域有 close 时候就关闭弹出层
         }
         return "front/stores/foodadd";
@@ -180,6 +201,9 @@ public class FoodController {
             food.setFstatus(fstatus);
             food.setFdelete(0);
             foodService.updateFood(fid1,food);
+            JSONObject json = (JSONObject) JSONObject.toJSON(food);
+            String foodString=json.toString();
+            jedis.set("foodid"+fid1,foodString);
             map.put("close", "close");//将 close 置入request 域，前台判断 request 域有 close 时候就关闭弹出层
             System.out.println("editfood:===="+food);
         }
@@ -192,6 +216,7 @@ public class FoodController {
     @RequestMapping("/frontDeleteFood")
     public String frontDeleteFood(Integer fid) throws Exception {
         foodService.deleteFoodByFid(fid);
+        jedis.del("foodid"+fid);
         return "redirect:getStoresBySellId.html";
     }
     /*
