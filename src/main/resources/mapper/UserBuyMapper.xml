@@ -14,6 +14,7 @@
     <result column="uage" property="uage" jdbcType="INTEGER" />
     <result column="udel" property="udel" jdbcType="INTEGER" />
     <result column="ucredit" property="ucredit" jdbcType="INTEGER" />
+    <result column="udate" property="udate" jdbcType="TIMESTAMP" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -75,7 +76,7 @@
   </sql>
   <sql id="Base_Column_List" >
     uid, uname, utruename, upassword, uidcard, uphone, umail, upic, usex, uage, udel, 
-    ucredit
+    ucredit,udate
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.zx.model.UserBuyExample" >
     select
@@ -111,12 +112,13 @@
     insert into user_buy (uid, uname, utruename, 
       upassword, uidcard, uphone, 
       umail, upic, usex, 
-      uage, udel, ucredit
+      uage, udel, ucredit,udate
       )
     values (#{uid,jdbcType=INTEGER}, #{uname,jdbcType=VARCHAR}, #{utruename,jdbcType=VARCHAR}, 
       #{upassword,jdbcType=VARCHAR}, #{uidcard,jdbcType=VARCHAR}, #{uphone,jdbcType=VARCHAR},
       #{umail,jdbcType=VARCHAR}, #{upic,jdbcType=VARCHAR}, #{usex,jdbcType=VARCHAR}, 
-      #{uage,jdbcType=INTEGER}, #{udel,jdbcType=INTEGER}, #{ucredit,jdbcType=INTEGER}
+      #{uage,jdbcType=INTEGER}, #{udel,jdbcType=INTEGER}, #{ucredit,jdbcType=INTEGER},
+      #{udate,jdbcType=TIMESTAMP}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.zx.model.UserBuy" >
@@ -151,6 +153,9 @@
       </if>
       <if test="uage != null" >
         uage,
+      </if>
+      <if test="udate != null" >
+        udate,
       </if>
       <!--<if test="udel != null" >
         udel,
@@ -189,6 +194,9 @@
       </if>
       <if test="uage != null" >
         #{uage,jdbcType=INTEGER},
+      </if>
+      <if test="udate != null" >
+        #{udate,jdbcType=TIMESTAMP},
       </if>
       <!--<if test="udel != null" >
         #{udel,jdbcType=INTEGER},
@@ -243,6 +251,9 @@
       <if test="record.ucredit != null" >
         ucredit = #{record.ucredit,jdbcType=INTEGER},
       </if>
+      <if test="record.udate != null" >
+        ucredit = #{record.udate,jdbcType=TIMESTAMP},
+      </if>
     </set>
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -262,6 +273,7 @@
       uage = #{record.uage,jdbcType=INTEGER},
       udel = #{record.udel,jdbcType=INTEGER},
       ucredit = #{record.ucredit,jdbcType=INTEGER}
+      udate = #{record.udate,jdbcType=TIMESTAMP}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -302,6 +314,9 @@
       <if test="ucredit != null" >
         ucredit = #{ucredit,jdbcType=INTEGER},
       </if>
+      <if test="udate != null" >
+        udate = #{udate,jdbcType=TIMESTAMP},
+      </if>
     </set>
     where uid = #{uid,jdbcType=INTEGER}
   </update>
@@ -318,6 +333,7 @@
       uage = #{uage,jdbcType=INTEGER},
       udel = #{udel,jdbcType=INTEGER},
       ucredit = #{ucredit,jdbcType=INTEGER}
+      udate = #{udate,jdbcType=TIMESTAMP}
     where uid = #{uid,jdbcType=INTEGER}
   </update>
 
@@ -341,5 +357,12 @@
     WHERE uphone LIKE #{keyWord} AND udel = 0
     OR UPPER(uname) LIKE #{keyWord} AND udel = 0
   </select>
-
+  <!--图表-->
+  <select id="chartUserByDate" resultType="com.zx.model.OrderChart" >
+    SELECT COUNT(*) AS counts,DATE_FORMAT(udate,'%y-%m-%d') AS timeDate
+    FROM user_buy
+    WHERE DATE_SUB(CURDATE(), INTERVAL 60 DAY) &lt;= udate
+    GROUP BY DATE_FORMAT(udate,'%y-%m-%d')
+    ORDER BY DATE_FORMAT(udate,'%y-%m-%d') DESC
+  </select>
 </mapper>

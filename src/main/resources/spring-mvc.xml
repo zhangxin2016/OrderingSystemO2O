@@ -42,7 +42,14 @@
 	<!-- 在实际开发中通常都需配置 mvc:annotation-driven 标签 -->
 	<!--<mvc:view-controller path="/back/login.html" view-name="back/login"/>-->
 	<!--<mvc:view-controller path="/Index.html" view-name="front/Index"/>-->
-	<mvc:annotation-driven></mvc:annotation-driven>
+	<mvc:annotation-driven>
+		<!-- 消息转换器 -->
+		<!--<mvc:message-converters register-defaults="true">
+			<bean class="org.springframework.http.converter.StringHttpMessageConverter">
+				<property name="supportedMediaTypes" value="text/html;charset=UTF-8"/>
+			</bean>
+		</mvc:message-converters>-->
+	</mvc:annotation-driven>
 	
 	
 	<!-- 配置多个视图解析器开始 -->

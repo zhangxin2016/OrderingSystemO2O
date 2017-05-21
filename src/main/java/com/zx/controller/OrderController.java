@@ -1,7 +1,10 @@
 package com.zx.controller;
 
+import com.alibaba.fastjson.JSON;
 import com.zx.model.*;
 import com.zx.service.*;
+import com.zx.util.KafkaConsumer;
+import com.zx.util.KafkaProduct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -29,10 +32,11 @@ public class OrderController {
     @Autowired
     private AddressService addressService;
     List<Order> ordersList = new ArrayList<Order>();
-    int sumTotal=0;
-    int sumNum=0;
+
     @RequestMapping("/addFoodOrders")
     public String addFoodOrders(HttpSession session, String pays, HttpServletRequest request, Integer[] cartid, ModelMap modelMap) throws Exception {
+        int sumTotal=0;
+        int sumNum=0;
         Order orders = new Order();
         String domessage = request.getParameter("domessage");
         Integer addressID = Integer.parseInt(request.getParameter("addressIn"));
@@ -69,6 +73,10 @@ public class OrderController {
             detailorder.setDodate(new Date());
             detailorder.setDomessage(domessage);
             detailOrderService.addDetailorder(detailorder);
+            /*String msgDetailorder = JSON.toJSONString(detailorder);
+            KafkaProduct kafkaProduct = new KafkaProduct();
+            kafkaProduct.produceMsg(msgDetailorder,"kafkatopic");
+            System.out.println("kafkatopic==============="+msgDetailorder);*/
             //进行商品表销售数量增加
             Food food = new Food();
             food.setFsalesvolume(foods.getFsalesvolume()+cart1.getNum());
@@ -84,6 +92,10 @@ public class OrderController {
             ordersService.updateOrders(orders2);
             System.out.println("----------------------"+orders2);
         }
+       /* String msgOrder = JSON.toJSONString(ordersList.get(ordersList.size()-1));
+        KafkaProduct kafkaProduct = new KafkaProduct();
+        kafkaProduct.produceMsg(msgOrder,"ordertopic");;
+        System.out.println("ordertopic==============="+msgOrder);*/
         modelMap.put("pays", pays);
         modelMap.put("addressOrderSuccess",address);
         return "front/food/paysuccess";

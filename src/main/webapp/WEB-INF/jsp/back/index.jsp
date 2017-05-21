@@ -127,24 +127,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<dt><i class="Hui-iconfont">&#xe61a;</i> 系统统计<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
 			<dd>
 				<ul>
-					<li><a _href="<%=basePath%>systemAnaynes/goComparable.html" data-title="折线图" href="javascript:void(0)">年销量对比分析</a></li>
-					<li><a _href="charts-2.html" data-title="时间轴折线图" href="javascript:void(0)">时间轴折线图</a></li>
-					<li><a _href="charts-3.html" data-title="区域图" href="javascript:void(0)">区域图</a></li>
-					<li><a _href="charts-4.html" data-title="柱状图" href="javascript:void(0)">柱状图</a></li>
-					<li><a _href="charts-5.html" data-title="饼状图" href="javascript:void(0)">饼状图</a></li>
-					<li><a _href="<%=basePath%>systemAnaynes/goSystem.html" data-title="3D柱状图" href="javascript:void(0)">销量（收藏）分析</a></li>
-					<li><a _href="charts-7.html" data-title="3D饼状图" href="javascript:void(0)">3D饼状图</a></li>
+					<li><a _href="<%=basePath%>toFindFoodChart.html" data-title="时间轴折线图" href="javascript:void(0)">菜品统计</a></li>
+					<li><a _href="<%=basePath%>findDetailChartByDate.html" data-title="柱状图" href="javascript:void(0)">订单统计</a></li>
 				</ul>
 			</dd>
 		</dl>
-		<dl id="menu-system">
-			<dt><i class="Hui-iconfont">&#xe62e;</i> 设置<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
-			<dd>
-				<ul>
-					<li><a _href="system-base.html" data-title="修改密码" href="javascript:void(0)">修改密码</a></li>
-				</ul>
-			</dd>
-		</dl>
+
 	</div>
 </aside>
 <div class="dislpayArrow hidden-xs"><a class="pngfix" href="javascript:void(0);" onClick="displaynavbar(this)"></a></div>

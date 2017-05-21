@@ -55,6 +55,10 @@ dependencies {
     //敏感字
     compile group: 'com.aliyun', name: 'aliyun-java-sdk-core', version: '3.0.7'
     compile group: 'com.aliyun', name: 'aliyun-java-sdk-green', version: '2.6.0'
+    //redis
     compile group: 'redis.clients', name: 'jedis', version: '2.9.0'
+    //kafka
+    compile group: 'org.apache.kafka', name: 'kafka-clients', version: '0.10.1.0'
+    compile group: 'org.apache.kafka', name: 'kafka_2.11', version: '0.10.1.0'
 
 }

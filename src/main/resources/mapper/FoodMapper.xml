@@ -351,4 +351,8 @@
     AND fdelete = 0
     AND food.fid = #{fid}
   </select>
+  <!--图表-->
+  <select id="chartByFood" resultType="com.zx.chart.FoodChart" >
+    SELECT fcollection AS coll,fsalesvolume AS sal,fname as fname FROM food
+  </select>
 </mapper>

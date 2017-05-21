@@ -1,5 +1,6 @@
 package com.zx.mapper;
 
+import com.zx.chart.FoodChart;
 import com.zx.model.Food;
 import com.zx.model.FoodExample;
 import java.util.List;
@@ -50,4 +51,6 @@ public interface FoodMapper {
     List<Food> findFoodListByNameAndStidPage(Page page)throws Exception;
 
     Food findStoresByFood(Integer fid);
+
+    List<FoodChart> chartByFood();
 }

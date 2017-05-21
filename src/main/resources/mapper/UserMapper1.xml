@@ -14,6 +14,7 @@
 		<result column="uage" property="uage" jdbcType="INTEGER" />
 		<result column="udel" property="udel" jdbcType="INTEGER" />
 		<result column="ucredit" property="ucredit" jdbcType="INTEGER" />
+		<result column="udate" property="udate" jdbcType="TIMESTAMP" />
 	</resultMap>
 <!-- 登录验证 -->
   	<select id="getUserByNameAndPass" parameterType="com.zx.model.UserBuy"

@@ -1,9 +1,11 @@
 package com.zx.mapper;
 
+import com.zx.chart.DetailChartSal;
 import com.zx.model.Detailorder;
 import com.zx.model.DetailorderExample;
 import java.util.List;
 
+import com.zx.model.OrderChart;
 import com.zx.util.Page;
 import org.apache.ibatis.annotations.Param;
 
@@ -46,4 +48,7 @@ public interface DetailorderMapper {
 
     Detailorder selectdetailOrderListByDoid(Integer doid);
 
+    List<OrderChart> chartByDate();
+
+    List<DetailChartSal> DetailOrderChart();
 }

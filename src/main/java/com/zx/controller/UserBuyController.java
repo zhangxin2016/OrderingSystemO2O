@@ -172,6 +172,7 @@ public class UserBuyController {
         user.setUtruename(utruename);
         user.setUsex(usex);
         user.setUmail(umail);
+        user.setUdate(new Date());
         userService.register(user);
         //将user放入session
         //session.setAttribute("user", user);
@@ -231,8 +232,8 @@ public class UserBuyController {
         String content = new String("您的验证码是：" + mobile_code + "。请不要把验证码泄露给其他人。");
         System.out.println(content);
         NameValuePair[] data = {//提交短信
-                new NameValuePair("account", "C04592023"),
-                new NameValuePair("password", "986c0ef208ceaa636146a26e352763d3"), //密码可以使用明文密码或使用32位MD5加密
+                new NameValuePair("account", "C43407617"),
+                new NameValuePair("password", "295389a92d58ecc1e74954d0ac02a637"), //密码可以使用明文密码或使用32位MD5加密
                 //new NameValuePair("password", util.StringUtil.MD5Encode("密码")),
                 new NameValuePair("mobile", phone),
                 new NameValuePair("content", content),

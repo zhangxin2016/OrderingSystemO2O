@@ -1,5 +1,6 @@
 package com.zx.mapper;
 
+import com.zx.model.OrderChart;
 import com.zx.model.UserBuy;
 import com.zx.model.UserBuyExample;
 import java.util.List;
@@ -39,5 +40,7 @@ public interface UserBuyMapper {
     List<UserBuy> findByName(String uname);
 
     List<UserBuy> findAllUserBuyBack(String keyWord)throws Exception ;
+
+    List<OrderChart> chartUserByDate();
 
 }

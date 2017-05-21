@@ -400,4 +400,19 @@
     AND detailorder.doid=#{doid}
   </select>
 
+  <!--图表-->
+  <select id="chartByDate" resultType="com.zx.model.OrderChart" >
+    SELECT COUNT(*) AS counts,DATE_FORMAT(dodate,'%y-%m-%d %H:%i') AS timeDate
+    FROM detailorder
+    WHERE DATE_SUB(CURDATE(), INTERVAL 30 DAY) &lt;= dodate
+    GROUP BY DATE_FORMAT(dodate,'%y-%m-%d %H:%i')
+    ORDER BY DATE_FORMAT(dodate,'%y-%m-%d %H:%i') DESC
+  </select>
+  <select id="DetailOrderChart" resultType="com.zx.chart.DetailChartSal">
+    select sum(detailorder.donum) as donumsum,food.fname
+    from detailorder,food
+    where DATE_SUB(CURDATE(), INTERVAL 30 DAY) &lt;= detailorder.dodate
+    and detailorder.fid=food.fid
+    group by detailorder.fid
+  </select>
 </mapper>
