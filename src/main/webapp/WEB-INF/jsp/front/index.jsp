@@ -46,11 +46,9 @@
                 <c:if test="${user.uname!=null}">
                     欢迎您，${user.uname }<a href="<%=basePath%>Logout.html">退出</a>
                 </c:if>
-
-                <a href="#">QQ客服</a><a href="#">微信客服</a><a href="#">手机客户端</a>
             </div>
             <div class="RightNav">
-                <a href="<%=basePath%>indexToUserCenter.html">用户中心</a> <a href="user_orderlist.html" target="_blank" title="我的订单">我的订单</a> <a href="<%=basePath%>getUserAllCartList.html">购物车（0）</a> <a href="user_favorites.html" target="_blank" title="我的收藏">我的收藏</a> <a href="<%=basePath%>userSellToLogin.html">我是商家</a>
+                <a href="<%=basePath%>indexToUserCenter.html">用户中心</a><a href="<%=basePath%>getUserAllCartList.html">购物车（0）</a> <a href="<%=basePath%>userSellToLogin.html">我是商家</a>
             </div>
         </div>
     </section>
@@ -58,7 +56,6 @@
         <div class="Logo">
             <img src="<%=path %>/images/logo.jpg" title="DeathGhost" alt="模板">
             <i></i>
-            <span>西安市 [ <a href="#">莲湖区</a> ]</span>
         </div>
         <div class="Search">
             <form method="get" id="main_a_serach" onsubmit="return check_search(this)">
@@ -73,7 +70,6 @@
                     <input type="submit" class="searchbutton" value="搜 索" />
                 </div>
             </form>
-            <p class="hotkeywords"><a href="#" title="酸辣土豆丝">酸辣土豆丝</a><a href="#" title="这里是产品名称">螃蟹炒年糕</a><a href="#" title="这里是产品名称">牛奶炖蛋</a><a href="#" title="这里是产品名称">芝麻酱凉面</a><a href="#" title="这里是产品名称">滑蛋虾仁</a><a href="#" title="这里是产品名称">蒜汁茄子</a></p>
         </div>
     </div>
     <nav class="menu_bg">
@@ -92,8 +88,8 @@
         <div class="C-time">
             <img src="<%=path %>/upload/dc.jpg"/>
         </div>
-        <a href="list.html" target="_blank"><img src="<%=path %>/images/by_button.png"></a>
-        <a href="list.html" target="_blank"><img src="<%=path %>/images/dc_button.png"></a>
+        <a target="_blank"><img src="<%=path %>/images/by_button.png"></a>
+        <a target="_blank"><img src="<%=path %>/images/dc_button.png"></a>
     </aside>
     <div class="F-middle">
         <ul class="rslides f426x240">
@@ -104,10 +100,10 @@
     </div>
 
     <aside class="N-right">
-        <div class="N-title">公司新闻 <i>COMPANY NEWS</i></div>
+        <div class="N-title">订餐系统 <i>020</i></div>
         <ul class="Newslist">
-            <li><i></i><a href="article_read.html" target="_blank" title="这里调用新闻标题...">欢迎访问DeathGhost博客站...</a></li>
-            <li><i></i><a href="article_read.html" target="_blank" title="这里调用新闻标题...">H5WEB前端开发 移动WEB模板设计...</a></li>
+            <li><i></i><a target="_blank" title="这里调用新闻标题...">欢迎访问订餐系统.</a></li>
+            <li><i></i><a target="_blank" title="这里调用新闻标题...">吃饭，我们是认真的</a></li>
         </ul>
         <ul class="Orderlist" id="UpRoll">
             <li>
@@ -152,11 +148,8 @@
                 <li class="current">点菜</li>
                 <li>餐馆</li>
                 <p class="class_B">
-                    <a href="#">中餐</a>
-                    <a href="#">西餐</a>
-                    <a href="#">甜点</a>
-                    <a href="#">日韩料理</a>
-                    <span><a href="<%=basePath%>frontFindAllFood.html" target="_blank">more ></a></span>
+                    <span></span>
+                    <span><a href="<%=basePath%>frontFindAllFood.html" target="_blank" style="float: right">more ></a></span>
                 </p>
             </ul>
             <div id="Indexcontent">
@@ -191,27 +184,27 @@
                             </c:forEach>
                         </div>
                         <div class="bestshop">
-                            <a href="shop.html" target="_blank" title="店铺名称">
+                            <a  target="_blank" title="店铺名称">
                                 <figure>
                                     <img src="<%=path %>/upload/wpjnewlogo.jpg">
                                 </figure>
                             </a>
-                            <a href="shop.html" target="_blank" title="店铺名称">
+                            <a  target="_blank" title="店铺名称">
                                 <figure>
                                     <img src="<%=path %>/upload/weijia.jpg">
                                 </figure>
                             </a>
-                            <a href="shop.html" target="_blank" title="店铺名称">
+                            <a target="_blank" title="店铺名称">
                                 <figure>
                                     <img src="<%=path %>/upload/wpjnewlogo.jpg">
                                 </figure>
                             </a>
-                            <a href="shop.html" target="_blank" title="店铺名称">
+                            <a target="_blank" title="店铺名称">
                                 <figure>
                                     <img src="<%=path %>/upload/weijia.jpg">
                                 </figure>
                             </a>
-                            <a href="shop.html" target="_blank" title="店铺名称">
+                            <a target="_blank" title="店铺名称">
                                 <figure>
                                     <img src="<%=path %>/upload/wpjnewlogo.jpg">
                                 </figure>
@@ -237,63 +230,17 @@
                             <a href="#">蓝田县 </a>
                         </p>
                         <div class="DCcontent">
-                            <a href="shop.html" target="_blank" title="TITLE:店名">
-                                <figure>
-                                    <img src="<%=path %>/upload/cc.jpg">
-                                    <figcaption>
-                                        <span class="title">老重庆川菜馆</span>
-                                        <span class="price">预定折扣：<i>8.9折</i></span>
-                                    </figcaption>
-                                    <p class="p1"><q>仅售169元！价值289元的4-5人餐，提供免费WiFi。</q></p>
-                                    <p class="p2">
-                                        店铺评分：
-                                        <img src="<%=path %>/images/star-on.png">
-                                        <img src="<%=path %>/images/star-on.png">
-                                        <img src="<%=path %>/images/star-on.png">
-                                        <img src="<%=path %>/images/star-on.png">
-                                        <img src="<%=path %>/images/star-off.png">
-                                    </p>
-                                    <p class="p3">店铺地址：西安市雁塔区丈八路***老重庆川菜馆...</p>
-                                </figure>
-                            </a>
-                            <a href="shop.html" target="_blank" title="TITLE:店名">
-                                <figure>
-                                    <img src="<%=path %>/upload/cc.jpg">
-                                    <figcaption>
-                                        <span class="title">老重庆川菜馆</span>
-                                        <span class="price">预定折扣：<i>8.9折</i></span>
-                                    </figcaption>
-                                    <p class="p1"><q>仅售169元！价值289元的4-5人餐，提供免费WiFi。</q></p>
-                                    <p class="p2">
-                                        店铺评分：
-                                        <img src="<%=path %>/images/star-on.png">
-                                        <img src="<%=path %>/images/star-on.png">
-                                        <img src="<%=path %>/images/star-on.png">
-                                        <img src="<%=path %>/images/star-on.png">
-                                        <img src="<%=path %>/images/star-off.png">
-                                    </p>
-                                    <p class="p3">店铺地址：西安市雁塔区丈八路***老重庆川菜馆...</p>
-                                </figure>
-                            </a>
-                            <a href="shop.html" target="_blank" title="TITLE:店名">
-                                <figure>
-                                    <img src="<%=path %>/upload/cc.jpg">
-                                    <figcaption>
-                                        <span class="title">老重庆川菜馆</span>
-                                        <span class="price">预定折扣：<i>8.9折</i></span>
-                                    </figcaption>
-                                    <p class="p1"><q>仅售169元！价值289元的4-5人餐，提供免费WiFi。</q></p>
-                                    <p class="p2">
-                                        店铺评分：
-                                        <img src="<%=path %>/images/star-on.png">
-                                        <img src="<%=path %>/images/star-on.png">
-                                        <img src="<%=path %>/images/star-on.png">
-                                        <img src="<%=path %>/images/star-on.png">
-                                        <img src="<%=path %>/images/star-off.png">
-                                    </p>
-                                    <p class="p3">店铺地址：西安市雁塔区丈八路***老重庆川菜馆...</p>
-                                </figure>
-                            </a>
+                            <c:forEach items="${storesListIndex}" var="storesListIndex">
+                                <a href="<%=basePath%>userBuyToStores.html?stid=${storesListIndex.stid }" target="_blank" title="TITLE:店名">
+                                    <figure>
+                                        <img src="/pic/${storesListIndex.stdesc }">
+                                        <figcaption>
+                                            <span class="title">${storesListIndex.stname}</span>
+                                        </figcaption>
+                                        <p class="p3">店铺地址：${storesListIndex.staddress}</p>
+                                    </figure>
+                                </a>
+                            </c:forEach>
                         </div>
                     </li>
                 </ul>
@@ -320,10 +267,9 @@
 <!--End content-->
 <div class="F-link">
     <span>友情链接：</span>
-    <a href="http://www.deathghost.cn" target="_blank" title="DeathGhost">DeathGhost</a>
-    <a href="http://www.17sucai.com/pins/15966.html" target="_blank" title="免费后台管理模板">绿色清爽版通用型后台管理模板免费下载</a>
-    <a href="http://www.17sucai.com/pins/17567.html" target="_blank" title="果蔬菜类模板源码">HTML5果蔬菜类模板源码</a>
-    <a href="http://www.17sucai.com/pins/14931.html" target="_blank" title="黑色的cms商城网站后台管理模板">黑色的cms商城网站后台管理模板</a>
+    <a href="http://www.baidu.com" target="_blank" title="百度">百度</a>
+    <a href="https://www.ele.me/" target="_blank" title="饿了么">饿了么</a>
+    <a href="http://bj.meituan.com/" target="_blank" title="美团">美团</a>
 </div>
 <footer>
     <section class="Otherlink">

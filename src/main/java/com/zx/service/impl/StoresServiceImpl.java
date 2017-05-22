@@ -73,4 +73,9 @@ public class StoresServiceImpl implements StoresService {
         return storesMapper.findStoresByStid(stid);
     }
 
+    @Override
+    public List<Stores> findStoresByAddressOrderByUcollDesc(String staddress) {
+        return storesMapper.selectStoresByAddressOrderByUcollDesc(staddress);
+    }
+
 }

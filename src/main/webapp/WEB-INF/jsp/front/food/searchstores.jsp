@@ -9,13 +9,13 @@
 <html>
 <head>
     <meta charset="utf-8"/>
-    <title>DeathGhost-产品分类页面</title>
+    <title>搜索店铺</title>
     <meta name="keywords" content="DeathGhost,DeathGhost.cn,web前端设,移动WebApp开发"/>
     <meta name="description" content="DeathGhost.cn::H5 WEB前端设计开发!"/>
     <meta name="author" content="DeathGhost"/>
     <link href="style/style.css" rel="stylesheet" type="text/css"/>
-    <%--   <script type="text/javascript" src="js/public.js"></script>
-       <script type="text/javascript" src="js/jqpublic.js"></script>--%>
+     <script type="text/javascript" src="js/public.js"></script>
+       <script type="text/javascript" src="js/jqpublic.js"></script>
     <script type="text/javascript" src="js/jquery.js"></script>
     <!--
     Author: DeathGhost
@@ -27,13 +27,11 @@
     <section class="Topmenubg">
         <div class="Topnav">
             <div class="LeftNav">
-                <a href="register.html">注册</a>/<a href="login.html">登录</a><a href="#">QQ客服</a><a href="#">微信客服</a><a
-                    href="#">手机客户端</a>
+                <a href="register.html">注册</a>|<a href="login.html">登录</a>
             </div>
             <div class="RightNav">
-                <a href="user_center.html">用户中心</a> <a href="user_orderlist.html" target="_blank" title="我的订单">我的订单</a>
-                <a href="cart.html">购物车（0）</a> <a href="user_favorites.html" target="_blank" title="我的收藏">我的收藏</a> <a
-                    href="#">商家入驻</a>
+                <a href="user_center.html">用户中心</a>
+                <a href="cart.html">购物车（0）</a>
             </div>
         </div>
     </section>
@@ -50,9 +48,10 @@
                     <a href="javascript:;" onClick="selectsearch(this,'food_name')">食物名</a>
                 </div>
                 <div class="Search_area">
-                    <input type="search" id="fkeyword" name="keyword" placeholder="请输入您所需查找的餐厅名称或食物名称..."
-                           class="searchbox"/>
-                    <input type="submit" class="searchbutton" value="搜 索"/>
+                    <input type="hidden" value="<%=basePath%>frontSearchFoodByName.html" id="urlsearchFoodByName">
+                    <input type="hidden" value="<%=basePath%>frontSearchStoresByName.html" id="urlsearchStoresByName">
+                    <input type="search" id="fnamesearch" name="fname" placeholder="请输入您所需查找的餐厅名称或食物名称..." class="searchbox" />
+                    <input type="submit" class="searchbutton" value="搜 索" />
                 </div>
             </form>
             <p class="hotkeywords"><a href="#" title="酸辣土豆丝">酸辣土豆丝</a><a href="#" title="这里是产品名称">螃蟹炒年糕</a><a href="#"
@@ -73,64 +72,6 @@
 <!--Start content-->
 <section class="Psection">
     <section class="fslist_navtree">
-        <ul class="select">
-            <li class="select-list">
-                <dl id="select1">
-                    <dt>分类：</dt>
-                    <dd class="select-all selected"><a href="javascript:">全部</a></dd>
-                    <dd><a href="javascript:">火锅/干锅</a></dd>
-                    <dd><a href="javascript:">火锅/干锅</a></dd>
-                    <dd><a href="javascript:">火锅/干锅</a></dd>
-                    <dd><a href="javascript:">火锅/干锅</a></dd>
-                    <dd><a href="javascript:">火锅/干锅</a></dd>
-                    <dd><a href="javascript:">火锅/干锅</a></dd>
-                    <dd><a href="javascript:">火锅/干锅</a></dd>
-                    <dd><a href="javascript:">火锅/干锅</a></dd>
-                    <dd><a href="javascript:">火锅/干锅</a></dd>
-                    <dd><a href="javascript:">火锅/干锅</a></dd>
-                    <dd><a href="javascript:">火锅/干锅</a></dd>
-                </dl>
-            </li>
-            <li class="select-list">
-                <dl id="select2">
-                    <dt>位置：</dt>
-                    <dd class="select-all selected"><a href="javascript:">全部</a></dd>
-                    <dd><a href="javascript:">高新区</a></dd>
-                    <dd><a href="javascript:">未央区</a></dd>
-                    <dd><a href="javascript:">碑林区</a></dd>
-                    <dd><a href="javascript:">阎良区</a></dd>
-                    <dd><a href="javascript:">新城区</a></dd>
-                    <dd><a href="javascript:">雁塔区</a></dd>
-                    <dd><a href="javascript:">莲湖区</a></dd>
-                    <dd><a href="javascript:">灞桥区</a></dd>
-                    <dd><a href="javascript:">高陵区</a></dd>
-                    <dd><a href="javascript:">周至县</a></dd>
-                </dl>
-            </li>
-            <li class="select-list">
-                <dl id="select3">
-                    <dt>餐点：</dt>
-                    <dd class="select-all selected"><a href="javascript:">全部</a></dd>
-                    <dd><a href="javascript:">早餐</a></dd>
-                </dl>
-            </li>
-            <li class="select-list">
-                <dl id="select4">
-                    <dt>价位区间：</dt>
-                    <dd class="select-all selected"><a href="javascript:">全部</a></dd>
-                    <dd><a href="javascript:">20元以下</a></dd>
-                    <dd><a href="javascript:">20-40元</a></dd>
-                    <dd><a href="javascript:">40-60元</a></dd>
-                    <dd><a href="javascript:">60-80元</a></dd>
-                    <dd><a href="javascript:">80-100元</a></dd>
-                </dl>
-            </li>
-            <li class="select-result">
-                <dl>
-                    <dd class="select-no">已选择：</dd>
-                </dl>
-            </li>
-        </ul>
     </section>
     <section class="Fslmenu">
         <a href="#" title="默认排序">
@@ -168,7 +109,7 @@
         <ul>
             <c:forEach items="${storesListByNameAndStid }" var="storesListByNameAndStid">
                 <li>
-                    <a href="shop.html" target="_blank" title="调用产品名/店铺名"><img
+                    <a href="<%=basePath%>userBuyToStores.html?stid=${storesListByNameAndStid.stid }" target="_blank" title="调用产品名/店铺名"><img
                             src="/pic/${storesListByNameAndStid.stdesc }"></a>
                     <hgroup>
                         <h3>店铺名字：${storesListByNameAndStid.stname}</h3>

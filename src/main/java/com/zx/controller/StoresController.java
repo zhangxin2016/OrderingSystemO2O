@@ -241,7 +241,7 @@ public class StoresController {
         request.setAttribute("storesListByNameAndStid",storesListByNameAndStid);
         return "front/food/searchstores";
     }
-
+    //根据食物ID 进入店铺
     @RequestMapping("/userBuyToStores")
     public String userBuyToStores(Map<String,Object> map,HttpSession session, HttpServletRequest request,Integer fid,Integer stid) throws Exception {
         Food food = foodService.findFoodById(fid);
@@ -286,6 +286,7 @@ public class StoresController {
         request.setAttribute("evaluatesListFromUser",evaluatesListByDoid);
         return "front/stores/userbuystores";
     }
+
     /*
      *  后端展示所有店铺
      */

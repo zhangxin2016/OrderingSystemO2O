@@ -68,6 +68,17 @@ public class UserCotroller {
 		//System.out.println("根据fsalesvolume排序：");
 		Collections.sort(foodsListByStid, new sortList<Food>("Fsalesvolume",false));
 		readList(foodsListByStid,foodsListBySalesvolume);
+		//首页店铺收藏前三位
+		List<Stores> storesListindex = storesService.findStoresByAddressOrderByUcollDesc(city);
+		List<Stores> storesListIndex = new ArrayList<Stores>();
+		int t = 0;
+		for (Stores stores:storesListindex){
+			if (t<3){
+				storesListIndex.add(stores);
+			}
+			t++;
+		}
+		modelMap.put("storesListIndex",storesListIndex);
 		modelMap.put("foodsListByStid", foodsListByStid);
 		modelMap.put("foodsListBySalesvolume", foodsListBySalesvolume);
 		modelMap.put("foodsListByCollection", foodsListByCollection);

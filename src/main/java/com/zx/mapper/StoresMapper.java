@@ -30,6 +30,9 @@ public interface StoresMapper {
 
     //根据IP地址查看店铺信息
     List<Stores> selectStoresByAddress(String staddress);
+    //根据IP地址查看店铺信息 (stcoll 排序)
+    List<Stores> selectStoresByAddressOrderByUcollDesc(String staddress);
+
     //根据商家Id获取店铺
     Stores selectStoresByUsid(Integer usid);
     //前台搜索菜品根据名字

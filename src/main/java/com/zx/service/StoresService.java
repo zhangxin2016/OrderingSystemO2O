@@ -27,4 +27,7 @@ public interface StoresService {
 
     Stores findStoresByStid(Integer stid) throws Exception;
 
+    //根据IP地址查看店铺信息 (stcoll 排序)
+    List<Stores> findStoresByAddressOrderByUcollDesc(String staddress);
+
 }
