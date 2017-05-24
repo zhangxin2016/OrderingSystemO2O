@@ -337,14 +337,6 @@
     AND stid = #{stid}
     AND fname LIKE concat(concat('%',#{fname}),'%')
   </select>
-  <select id="findFoodListByNameAndStidPage" parameterType="com.zx.util.Page" resultMap="BaseResultMap">
-    SELECT * FROM food
-    WHERE  fdelete = 0
-    AND stid = #{id}
-    AND fname LIKE concat(concat('%',#{name}),'%')
-    LIMIT #{start},#{maxRows}
-  </select>
-
   <select id="findStoresByFood" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     SELECT stores.*,food.* FROM stores,food
     WHERE food.stid = stores.stid
@@ -354,5 +346,20 @@
   <!--图表-->
   <select id="chartByFood" resultType="com.zx.chart.FoodChart" >
     SELECT fcollection AS coll,fsalesvolume AS sal,fname as fname FROM food
+  </select>
+
+  <!--根据地区展示所有菜品-->
+  <select id="findFoodByStores" parameterType="com.zx.util.Page" resultMap="BaseResultMap">
+    SELECT stores.*,food.* FROM stores,food
+    WHERE food.stid = stores.stid
+    AND food.fdelete = 0
+    AND stores.staddress LIKE concat(concat('%',#{staddress}),'%')
+    LIMIT #{start},#{maxRows}
+  </select>
+  <select id="findFoodByStoresCount" parameterType="java.lang.String" resultType="Integer">
+    SELECT count(*) FROM stores,food
+    WHERE food.stid = stores.stid
+    AND food.fdelete = 0
+    AND stores.staddress LIKE concat(concat('%',#{staddress}),'%')
   </select>
 </mapper>

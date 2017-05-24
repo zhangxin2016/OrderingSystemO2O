@@ -32,12 +32,10 @@
                 <c:if test="${user.uname!=null}">
                     欢迎您，${user.uname }<a href="<%=basePath%>Logout.html">退出</a>
                 </c:if>
-                <a href="#">QQ客服</a><a href="#">微信客服</a><a href="#">手机客户端</a>
             </div>
             <div class="RightNav">
-                <a href="user_center.html">用户中心</a> <a href="user_orderlist.html" target="_blank" title="我的订单">我的订单</a>
-                <a href="cart.html">购物车（0）</a> <a href="user_favorites.html" target="_blank" title="我的收藏">我的收藏</a> <a
-                    href="#">商家入驻</a>
+                <a href="<%=basePath%>indexToUserCenter.html">用户中心</a>
+                <a href="<%=basePath%>getUserAllCartList.html">购物车</a>
             </div>
         </div>
     </section>
@@ -78,14 +76,14 @@
 <section class="Psection MT20">
     <nav class="U-nav Font14 FontW">
         <ul>
-            <li><i></i><a href="user_center.html">用户中心首页</a></li>
-            <li><i></i><a href="user_orderlist.html">我的订单</a></li>
-            <li><i></i><a href="user_address.html">收货地址</a></li>
-            <li><i></i><a href="user_message.html">我的留言</a></li>
-            <li><i></i><a href="user_coupon.html">我的优惠券</a></li>
-            <li><i></i><a href="user_favorites.html">我的收藏</a></li>
+            <li><i></i><a href="<%=basePath%>indexToUserCenter.html">用户中心首页</a></li>
+            <li><i></i><a href="<%=basePath%>listOrderDetailByFront.html">我的订单</a></li>
+            <li><i></i><a href="<%=basePath%>addressByUid.html">收货地址</a></li>
+            <li><i></i><a href="<%=basePath%>userFindMyEvaluate.html">我的留言</a></li>
+            <li><i></i><a href="<%=basePath%>findCollectionStoresListByUid.html">收藏的店铺</a></li>
+            <li><i></i><a href="<%=basePath%>findCollectionListByUid.html">收藏的菜品</a></li>
             <li><i></i><a href="user_account.html">账户管理</a></li>
-            <li><i></i><a href="#">安全退出</a></li>
+            <li><i></i><a href="<%=basePath%>Logout.html">安全退出</a></li>
         </ul>
     </nav>
     <article class="U-article Overflow">

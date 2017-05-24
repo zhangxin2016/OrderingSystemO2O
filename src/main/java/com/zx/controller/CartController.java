@@ -33,47 +33,57 @@ public class CartController {
     List<Cart> cartListByLot = new ArrayList<Cart>();
     @RequestMapping("/addFoodCart")
     public void addCart(HttpServletResponse response, Cart cart, HttpServletRequest request, @RequestParam("foodId") int foodid, @RequestParam("outcarnum") int num, HttpSession session)throws Exception{
-        List<Cart> cartList = new ArrayList<Cart>();
-        List<Integer> listCartFid = new ArrayList<Integer>();
-        cartList = cartService.findCartList(cart);
-        System.out.println("num++++++++++"+num);
-        UserBuy user = (UserBuy) session.getAttribute("user");
-        Food foods = foodService.findFoodById(foodid);
-        System.out.println("foods>>>>>>>>>>>"+foods);
-        for(Cart cartAll:cartList){
-            System.out.println(cartAll);
-            cartAll.getFid();
-            listCartFid.add(cartAll.getFid());
-            System.out.println("----------------------"+cartAll.getFid());
-        }
-        Cart cartByFid = new Cart();
-        if(listCartFid.contains(foods.getFid())==true){
-            cartByFid = cartService.findCartByFid(foods.getFid());
-            System.out.println("cart1===================="+cartByFid);
-            //cartByFid.getNum();
-            //cartByFid.getCtotal();
-            //cartByFid.setNum(num);
-            cartByFid.setNum(num+cartByFid.getNum());
-            cartByFid.setCtotal(foods.getFprice()*num+cartByFid.getCtotal());
-            cartService.updateCart(cartByFid);
-            int count = cartService.findCountCart(user.getUid());
-            response.getWriter().print(count);
-        }if(listCartFid.contains(foods.getFid())==false) {
-            cartByFid.setNum(num);
-            cartByFid.setCtotal(foods.getFprice()*num);
-            cartByFid.setFid(foods.getFid());
-            cartByFid.setUid(user.getUid());
-            cartService.addCart(cartByFid);
-            int count = cartService.findCountCart(user.getUid());
-            response.getWriter().print(count);
+        if (session.getAttribute("user")!=null) {
+            List<Cart> cartList = new ArrayList<Cart>();
+            List<Integer> listCartFid = new ArrayList<Integer>();
+            cartList = cartService.findCartList(cart);
+            System.out.println("num++++++++++" + num);
+            UserBuy user = (UserBuy) session.getAttribute("user");
+            Food foods = foodService.findFoodById(foodid);
+            System.out.println("foods>>>>>>>>>>>" + foods);
+            for (Cart cartAll : cartList) {
+                System.out.println(cartAll);
+                cartAll.getFid();
+                listCartFid.add(cartAll.getFid());
+                System.out.println("----------------------" + cartAll.getFid());
+            }
+            Cart cartByFid = new Cart();
+            if (listCartFid.contains(foods.getFid()) == true) {
+                cartByFid = cartService.findCartByFid(foods.getFid());
+                System.out.println("cart1====================" + cartByFid);
+                //cartByFid.getNum();
+                //cartByFid.getCtotal();
+                //cartByFid.setNum(num);
+                cartByFid.setNum(num + cartByFid.getNum());
+                cartByFid.setCtotal(foods.getFprice() * num + cartByFid.getCtotal());
+                cartService.updateCart(cartByFid);
+                int count = cartService.findCountCart(user.getUid());
+                response.getWriter().print(count);
+            }
+            if (listCartFid.contains(foods.getFid()) == false) {
+                cartByFid.setNum(num);
+                cartByFid.setCtotal(foods.getFprice() * num);
+                cartByFid.setFid(foods.getFid());
+                cartByFid.setUid(user.getUid());
+                cartService.addCart(cartByFid);
+                int count = cartService.findCountCart(user.getUid());
+                response.getWriter().print(count);
+            }
+        }else{
+            String con = "{\"con\":\"nologin\"}";
+            response.getWriter().print(con);
         }
     }
     @RequestMapping("/getUserAllCartList")
     public String getUserAllCart(HttpServletRequest request,Integer uid,HttpSession session) throws Exception{
-        UserBuy user = (UserBuy) session.getAttribute("user");
-        List<Cart> cartList = cartService.findCartListByUid(user.getUid());
-        request.setAttribute("cartList", cartList);
-        return "/front/food/cartList";
+        if (session.getAttribute("user")!=null) {
+            UserBuy user = (UserBuy) session.getAttribute("user");
+            List<Cart> cartList = cartService.findCartListByUid(user.getUid());
+            request.setAttribute("cartList", cartList);
+            return "/front/food/cartList";
+        }else{
+            return "front/login";
+        }
     }
     @RequestMapping("/cartAddCount")
     public void cartAddCount(HttpServletResponse response,@RequestParam("cartId") int cartId,@RequestParam("outcarnum") int num) throws Exception{
@@ -109,28 +119,32 @@ public class CartController {
     }
     @RequestMapping("/deleteCartLotSize")
     public String deleteCartLotSize(HttpSession session,HttpServletRequest request)throws Exception{
-        cartListByLot.clear();
-        String prid = request.getParameter("prid");
-        System.out.println("=======================");
-        String[] arry=prid.split(",");
-        for (int i = 0; i < arry.length; i++) {
-            String id=arry[i];
-            Cart cart = cartService.findCartByCid(Integer.parseInt(id));
-            cartListByLot.add(cart);
-            System.out.println(id);
-        }
-        for(Cart cart:cartListByLot){
-            System.out.println(cart);
-            cartService.findCartList(cart);
-        }
-        UserBuy user = (UserBuy) session.getAttribute("user");
-        List<Address> listAddressOrder = addressService.getuid(user.getUid());
-        request.setAttribute("listAddressOrder",listAddressOrder);
-        System.out.println("listAddress====="+listAddressOrder);
-        request.setAttribute("cartListByLot", cartListByLot);
-        System.out.println("============>>>>>>>>>>>>>"+request.getAttribute("cartListByLot"));
+        if (session.getAttribute("user")!=null) {
+            cartListByLot.clear();
+            String prid = request.getParameter("prid");
+            System.out.println("=======================");
+            String[] arry = prid.split(",");
+            for (int i = 0; i < arry.length; i++) {
+                String id = arry[i];
+                Cart cart = cartService.findCartByCid(Integer.parseInt(id));
+                cartListByLot.add(cart);
+                System.out.println(id);
+            }
+            for (Cart cart : cartListByLot) {
+                System.out.println(cart);
+                cartService.findCartList(cart);
+            }
+            UserBuy user = (UserBuy) session.getAttribute("user");
+            List<Address> listAddressOrder = addressService.getuid(user.getUid());
+            request.setAttribute("listAddressOrder", listAddressOrder);
+            System.out.println("listAddress=====" + listAddressOrder);
+            request.setAttribute("cartListByLot", cartListByLot);
+            System.out.println("============>>>>>>>>>>>>>" + request.getAttribute("cartListByLot"));
 		/*request.removeAttribute("cartList");*/
-        System.out.println("cartListByLot>>>>>>>>>>>>>"+cartListByLot);
-        return "/front/food/cartOrder";
+            System.out.println("cartListByLot>>>>>>>>>>>>>" + cartListByLot);
+            return "/front/food/cartOrder";
+        }else{
+            return "front/login";
+        }
     }
 }

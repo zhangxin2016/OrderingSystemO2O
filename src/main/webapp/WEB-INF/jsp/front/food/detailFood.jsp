@@ -72,10 +72,14 @@
                             foodId:fid,
                             outcarnum:$("#"+fid).val()
                         } ,
-                    success:function(data)
-                    {
-                        $("#cartUserCount").html(data);
-                        layer.msg('加入购物车成功', {icon: 1,time: 1000});
+                    success:function(data){
+                        var con = data.con;
+                        if (con=="nologin"){
+                            layer.msg('请先登录', {icon: 1,time: 1000})
+                        }else {
+                            $("#cartUserCount").html(data);
+                            layer.msg('加入购物车成功', {icon: 1,time: 1000});
+                        }
                         return;
                     }
                 });
@@ -101,6 +105,9 @@
                             return;
                         }else if(data==1){
                             layer.msg('您已经收藏过该菜品了', {icon: 1,time: 1000});
+                            return;
+                        }else if(data==2){
+                            layer.msg('请先登录', {icon: 1,time: 1000});
                             return;
                         }
                     }
@@ -130,9 +137,8 @@
                 </c:if>
             </div>
             <div class="RightNav">
-                <a href="user_center.html">用户中心</a> <a href="user_orderlist.html" target="_blank" title="我的订单">我的订单</a>
-                <a href="cart.html">购物车</a><a id="cartUserCount"></a><a href="user_favorites.html" target="_blank" title="我的收藏">我的收藏</a> <a
-                    href="#">商家入驻</a>
+                <a href="<%=basePath%>indexToUserCenter.html">用户中心</a>
+                <a href="<%=basePath%>getUserAllCartList.html">购物车</a><a id="cartUserCount"></a>
             </div>
         </div>
     </section>

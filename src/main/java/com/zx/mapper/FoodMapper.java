@@ -47,9 +47,10 @@ public interface FoodMapper {
     int deleteFoodByFid(Integer fid) throws Exception;;
     //前台搜索菜品根据名字
     List<Food> findFoodListByNameAndStid(Food food)throws Exception;
-    //前台搜索菜品根据名字（分页）
-    List<Food> findFoodListByNameAndStidPage(Page page)throws Exception;
 
+    //根据地区获取所有菜品
+    List<Food> findFoodByStores(Page page) throws Exception;
+    Integer findFoodByStoresCount(String staddress);
     Food findStoresByFood(Integer fid);
 
     List<FoodChart> chartByFood();

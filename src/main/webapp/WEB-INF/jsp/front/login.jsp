@@ -126,10 +126,17 @@
     <section class="Topmenubg">
         <div class="Topnav">
             <div class="LeftNav">
-                <a href="register.html">注册</a>/<a href="login.html">登录</a><a href="#">QQ客服</a><a href="#">微信客服</a><a href="#">手机客户端</a>
+                <c:if test="${user.uname==null}">
+                    <a href="<%=basePath%>user/userBuyRegister.html">注册</a>
+                    |<a href="<%=basePath%>user/userBuylogin.html">登录</a>
+                </c:if>
+                <c:if test="${user.uname!=null}">
+                    欢迎您，${user.uname }<a href="<%=basePath%>Logout.html">退出</a>
+                </c:if>
             </div>
             <div class="RightNav">
-                <a href="user_center.html">用户中心</a> <a href="user_orderlist.html" target="_blank" title="我的订单">我的订单</a> <a href="cart.html">购物车（0）</a> <a href="user_favorites.html" target="_blank" title="我的收藏">我的收藏</a> <a href="#">商家入驻</a>
+                <a href="<%=basePath%>indexToUserCenter.html">用户中心</a>
+                <a href="<%=basePath%>getUserAllCartList.html">购物车</a>
             </div>
         </div>
     </section>

@@ -79,16 +79,6 @@ public class FoodServiceImpl implements FoodService {
         return foodMapper.findFoodByStid(page);
     }
 
-    /*@Override
-    public Map<String, Object> findFoodByStid(Integer currentPage, Integer lineSize, Integer stid) throws Exception {
-        Map<String,Object> map=new HashMap<String, Object>();    //map集合保存分页信息和数据
-        PageHelper.startPage(currentPage, lineSize);     //设置分页参数
-        List<Food> foodList=this.foodMapper.findFoodByStid(stid);   //模糊查询
-        PageInfo<Food> pageInfo=new PageInfo<Food>(foodList) ; //获取分页信息
-        map.put("foodList", foodList);
-        map.put("pageInfo", pageInfo);
-        return map;
-    }*/
 
     @Override
     public Integer deleteFoodByFid(Integer fid) throws Exception {
@@ -100,9 +90,15 @@ public class FoodServiceImpl implements FoodService {
         return foodMapper.findFoodListByNameAndStid(food);
     }
 
+
     @Override
-    public List<Food> findFoodListByNameAndStidPage(Page page) throws Exception {
-        return foodMapper.findFoodListByNameAndStidPage(page);
+    public List<Food> findFoodByStores(Page page) throws Exception {
+        return foodMapper.findFoodByStores(page);
+    }
+
+    @Override
+    public Integer findFoodByStoresCount(String staddress) {
+        return foodMapper.findFoodByStoresCount(staddress);
     }
 
     @Override

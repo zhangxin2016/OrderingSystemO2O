@@ -32,50 +32,62 @@ public class CollectionController {
     @RequestMapping("/addCollectionFood")
     public void addCollectionFood(HttpServletRequest request, HttpSession session,HttpServletResponse response,
                                   @RequestParam("foodId") int foodid) throws Exception {
-        UserBuy userBuy = (UserBuy) session.getAttribute("user");
-        //Integer fid = Integer.parseInt(request.getParameter("fid"));
-        Food food1 = foodService.findFoodById(foodid);
-        Food food = new Food();
-        food.setFcollection(food1.getFcollection()+1);
-        food.setFid(foodid);
-        foodService.updateFood(foodid,food);
-        System.out.println("food+======="+food);
-        Collectionuser collection = new Collectionuser();
-        collection.setUid(userBuy.getUid());
-        collection.setFid(foodid);
-        collection.setColldate(new Date());
-        System.out.println("collection========="+collection);
-        List<Collectionuser> collectionuserList = collectionService.findCollectionListByUid(userBuy.getUid());
-        System.out.println("uid"+userBuy.getUid());
-        System.out.println("collectionuserList"+collectionuserList);
-        int result = 0;
-        for(Collectionuser collectionuser:collectionuserList){
-            System.out.println("Fid========"+collectionuser.getFid());
-            System.out.println("foodid========"+foodid);
-            if (collectionuser.getFid() == foodid) {
-                result = 1;
+        if(session.getAttribute("user")!=null) {
+            UserBuy userBuy = (UserBuy) session.getAttribute("user");
+            //Integer fid = Integer.parseInt(request.getParameter("fid"));
+            Food food1 = foodService.findFoodById(foodid);
+            Food food = new Food();
+            food.setFcollection(food1.getFcollection() + 1);
+            food.setFid(foodid);
+            foodService.updateFood(foodid, food);
+            System.out.println("food+=======" + food);
+            Collectionuser collection = new Collectionuser();
+            collection.setUid(userBuy.getUid());
+            collection.setFid(foodid);
+            collection.setColldate(new Date());
+            System.out.println("collection=========" + collection);
+            List<Collectionuser> collectionuserList = collectionService.findCollectionListByUid(userBuy.getUid());
+            System.out.println("uid" + userBuy.getUid());
+            System.out.println("collectionuserList" + collectionuserList);
+            int result = 0;
+            for (Collectionuser collectionuser : collectionuserList) {
+                System.out.println("Fid========" + collectionuser.getFid());
+                System.out.println("foodid========" + foodid);
+                if (collectionuser.getFid() == foodid) {
+                    result = 1;
+                }
             }
-        }
-        if(result == 1){
-            response.getWriter().print(result);
+            if (result == 1) {
+                response.getWriter().print(result);
+            } else {
+                collectionService.addCollection(collection);
+                response.getWriter().print(result);
+            }
         }else{
-            collectionService.addCollection(collection);
-            response.getWriter().print(result);
+            response.getWriter().print(2);
         }
     }
     @RequestMapping("/findCollectionListByUid")
     public String findCollectionListByUid(HttpServletRequest request, HttpSession session){
-        UserBuy userBuy = (UserBuy) session.getAttribute("user");
-        List<Collectionuser> collectionFoodList = collectionService.findCollectionListByUid(userBuy.getUid());
-        request.setAttribute("collectionFoodList",collectionFoodList);
-        return "front/user/usercollectionfood";
+        if (session.getAttribute("user")!=null) {
+            UserBuy userBuy = (UserBuy) session.getAttribute("user");
+            List<Collectionuser> collectionFoodList = collectionService.findCollectionListByUid(userBuy.getUid());
+            request.setAttribute("collectionFoodList", collectionFoodList);
+            return "front/user/usercollectionfood";
+        }else {
+            return "front/login";
+        }
     }
     @RequestMapping("/findCollectionStoresListByUid")
     public String findCollectionStoresListByUid(HttpServletRequest request, HttpSession session){
-        UserBuy userBuy = (UserBuy) session.getAttribute("user");
-        List<Collectionuser> collectionStoresList = collectionService.findCollectionStoresListByUid(userBuy.getUid());
-        request.setAttribute("collectionStoresList",collectionStoresList);
-        return "front/user/usercollectionstores";
+        if(session.getAttribute("user")!=null) {
+            UserBuy userBuy = (UserBuy) session.getAttribute("user");
+            List<Collectionuser> collectionStoresList = collectionService.findCollectionStoresListByUid(userBuy.getUid());
+            request.setAttribute("collectionStoresList", collectionStoresList);
+            return "front/user/usercollectionstores";
+        }else {
+            return "front/login";
+        }
     }
     @RequestMapping("/deleteCollectionFood")
     public String deleteCollectionFood(Integer collid,HttpServletRequest request, HttpSession session){
@@ -97,32 +109,36 @@ public class CollectionController {
     @RequestMapping("/addCollectionStores")
     public void addCollectionStores(HttpServletRequest request, HttpSession session,HttpServletResponse response,
                                   @RequestParam("storesid") int storesid) throws Exception {
-        UserBuy userBuy = (UserBuy) session.getAttribute("user");
-        //Integer fid = Integer.parseInt(request.getParameter("fid"));
-        Stores stores = storesService.getStoresByStid(storesid);
-        Stores stores1 = new Stores();
-        stores1.setStid(storesid);
-        stores1.setUscoll(stores.getUscoll()+1);
-        storesService.updateStorseByStid(stores1);
-        Collectionuser collection = new Collectionuser();
-        collection.setUid(userBuy.getUid());
-        collection.setStid(storesid);
-        collection.setColldate(new Date());
-        System.out.println("collection========="+collection);
-        List<Collectionuser> collectionuserList = collectionService.findCollectionStoresListByUid(userBuy.getUid());
-        System.out.println("uid"+userBuy.getUid());
-        System.out.println("collectionuserList"+collectionuserList);
-        int result = 0;
-        for(Collectionuser collectionuser:collectionuserList){
-            if(collectionuser.getStid()==storesid){
-                result = 1;
+        if (session.getAttribute("user")!=null) {
+            UserBuy userBuy = (UserBuy) session.getAttribute("user");
+            //Integer fid = Integer.parseInt(request.getParameter("fid"));
+            Stores stores = storesService.getStoresByStid(storesid);
+            Stores stores1 = new Stores();
+            stores1.setStid(storesid);
+            stores1.setUscoll(stores.getUscoll() + 1);
+            storesService.updateStorseByStid(stores1);
+            Collectionuser collection = new Collectionuser();
+            collection.setUid(userBuy.getUid());
+            collection.setStid(storesid);
+            collection.setColldate(new Date());
+            System.out.println("collection=========" + collection);
+            List<Collectionuser> collectionuserList = collectionService.findCollectionStoresListByUid(userBuy.getUid());
+            System.out.println("uid" + userBuy.getUid());
+            System.out.println("collectionuserList" + collectionuserList);
+            int result = 0;
+            for (Collectionuser collectionuser : collectionuserList) {
+                if (collectionuser.getStid() == storesid) {
+                    result = 1;
+                }
             }
-        }
-        if(result == 0){
-            collectionService.addCollection(collection);
-            response.getWriter().print(result);
-        }else{
-            response.getWriter().print(result);
+            if (result == 0) {
+                collectionService.addCollection(collection);
+                response.getWriter().print(result);
+            } else {
+                response.getWriter().print(result);
+            }
+        }else {
+            response.getWriter().print(2);
         }
     }
 }

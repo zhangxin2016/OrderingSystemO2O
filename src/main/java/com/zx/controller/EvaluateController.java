@@ -3,8 +3,11 @@ package com.zx.controller;
 import com.alibaba.fastjson.JSONObject;
 import com.zx.model.Detailorder;
 import com.zx.model.Evaluate;
+import com.zx.model.Order;
+import com.zx.model.UserBuy;
 import com.zx.service.DetailOrderService;
 import com.zx.service.EvaluateService;
+import com.zx.service.OrderService;
 import com.zx.util.TextAntispamDetectionSample;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,7 +19,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -28,6 +33,8 @@ public class EvaluateController {
     private EvaluateService evaluateService;
     @Autowired
     private DetailOrderService detailOrderService;
+    @Autowired
+    private OrderService ordersService;
     /*
     * 转到买家添加评论页面
     */
@@ -106,7 +113,7 @@ public class EvaluateController {
         return "front/evaluate/replymessage";
     }
     /*
-     * 买家添加评论
+     * 商家回复评论
      */
     @RequestMapping("/addSellEvaluate")
     public String addSellEvaluate(Map<String,Object> map, HttpSession session,
@@ -150,6 +157,9 @@ public class EvaluateController {
         }
         return mv  ;
     }
+    /*
+        管理员删除评论
+     */
     @RequestMapping("/deleteEvaluate")
     public String deleteEvaluate(Integer eid, HttpServletRequest request){
         Evaluate evaluate = new Evaluate();
@@ -157,5 +167,34 @@ public class EvaluateController {
         evaluate.setEdelete(1);
         evaluateService.deleteEvaluate(evaluate);
         return "redirect:getAllEvaluateBack.html";
+    }
+    /*
+        用户查看我的评论
+     */
+    @RequestMapping("/userFindMyEvaluate")
+    public String userFindMyEvaluate(Integer eid, HttpServletRequest request,HttpSession session) throws Exception {
+        if (session.getAttribute("user")!=null) {
+            UserBuy user = (UserBuy) session.getAttribute("user");
+            List<Order> orderList = ordersService.orderByUser(user.getUid());
+            List<Detailorder> detailorderListAll = new ArrayList<Detailorder>();
+            List<Evaluate> evaluateList = new ArrayList<Evaluate>();
+            for (Order order:orderList){
+                List<Detailorder> detailorderList = detailOrderService.findDetailOrderList1(order.getOid());
+                for(Detailorder detailorder:detailorderList){
+                    detailorderListAll.add(detailorder);
+                }
+            }
+            for(Detailorder detailorder:detailorderListAll){
+                Evaluate evaluate = evaluateService.findEvaluateByDoid(detailorder.getDoid());
+                if (evaluate!=null){
+                    evaluateList.add(evaluate);
+                }
+
+            }
+            request.setAttribute("myEvaluateList",evaluateList);
+            return "front/user/userevaluatelist";
+        }else{
+            return "front/login";
+        }
     }
 }

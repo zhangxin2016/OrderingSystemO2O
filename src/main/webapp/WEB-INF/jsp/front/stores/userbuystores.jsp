@@ -195,6 +195,10 @@
                             layer.msg('您已经收藏过该店铺了', {icon: 1,time: 1000});
                             return;
                         }
+                        else if(data==2){
+                            layer.msg('您还没有登录呢！', {icon: 1,time: 1000});
+                            return;
+                        }
                     }
                 });
 

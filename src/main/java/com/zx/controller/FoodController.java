@@ -42,7 +42,7 @@ public class FoodController {
 
     private String IPADDRESS = "http://ip.chemdrug.com/";
     Jedis jedis = new Jedis("120.76.114.25",6379,30000);
-    //全部食品展示
+    //后台全部食品展示
     //分页功能
     @RequestMapping("/getAllFoodFront")
     public ModelAndView getAllFood(@RequestParam(value="currentPage",defaultValue="1") Integer currentPage,
@@ -223,7 +223,7 @@ public class FoodController {
      * 前端搜索菜品
      */
     @RequestMapping("/frontSearchFoodByName")
-    public String frontSearchFood(String fname,HttpSession session,
+    public String frontSearchFood(Map<String,Object> map ,String fname,HttpSession session,
                                   HttpServletRequest request) throws Exception {
         GetIp fetcher=new GetIp(IPADDRESS);
         AddressPort addressPort = new AddressPort();
@@ -234,20 +234,25 @@ public class FoodController {
         System.out.println("city:"+city);
         List<Stores> storesList = storesService.getStoresByAddress(city);
         List<Food> foodListByNameAndStid = new ArrayList<Food>();
+        System.out.println(storesList+"=========");
         for(Stores stores : storesList){
             Food food = new Food();
             food.setStid(stores.getStid());
             food.setFname(fname);
+            System.out.println("food=="+food);
             List<Food> listFood = foodService.findFoodListByNameAndStid(food);
+            System.out.println("listFood:=="+listFood);
             for (Food food1:listFood){
                 foodListByNameAndStid.add(food1);
             }
         }
-        request.setAttribute("foodListByNameAndStid",foodListByNameAndStid);
+        System.out.println("foodListByNameAndStid"+foodListByNameAndStid);
+       request.setAttribute("foodslistFrontSearch",foodListByNameAndStid);
         return "front/food/searchfood";
     }
     /*
      * 前端展示所有菜品
+     * 已经弃用
      */
     @RequestMapping("/frontFindAllFood")
     public String frontFindAllFood(String fname,HttpSession session,HttpServletRequest request) throws Exception {
@@ -268,6 +273,36 @@ public class FoodController {
         }
         System.out.println("foodAllListByStid=============="+foodAllListByStid);
         request.setAttribute("foodAllListByStid",foodAllListByStid);
+        return "front/food/foodlist";
+    }
+
+    /*
+     * 前端展示所有菜品(分页)
+     */
+    @RequestMapping("/frontFindAllFoodFenye")
+    public String frontFindAllFoodFenye(Map<String,Object> map ,HttpServletRequest request) throws Exception {
+        GetIp fetcher=new GetIp(IPADDRESS);
+        AddressPort addressPort = new AddressPort();
+        String result = addressPort.addressByIp(fetcher.getMyExternalIpAddress());
+        JSONObject jsStr = JSONObject.parseObject(result);
+        Unicode unicode = new Unicode();
+        String city = unicode.decodeUnicode(jsStr.getString("city"));
+        System.out.println("city:"+city);
+        String currentPage=request.getParameter("currentPage");
+        int i = 0;
+        Page page = new Page(city,foodService.findFoodByStoresCount(city), 6);
+        if(currentPage == null){
+            List<Food> foodslistFront = foodService.findFoodByStores(page);
+            map.put("foodslistFront", foodslistFront);
+            i=1;
+        }else{
+            i=Integer.parseInt(currentPage);
+            page.setCurrentPage(i);
+            List<Food> foodslistFront = foodService.findFoodByStores(page);
+            map.put("foodslistFront", foodslistFront);
+        }
+        map.put("page", page);
+        map.put("i", i); // 将键和值放在Map中
         return "front/food/foodlist";
     }
 }

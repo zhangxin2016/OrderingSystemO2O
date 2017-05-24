@@ -61,18 +61,22 @@ public class DetailOrderController {
 
     @RequestMapping("/listOrderDetailByFront")
     public String listOrderDetailByFront(Map<String,Object> map ,HttpServletRequest request,HttpSession session) throws Exception {
-        UserBuy user = (UserBuy) session.getAttribute("user");
-        List<Order> orderList = ordersService.orderByUser(user.getUid());
-        List<Detailorder> detailorderList = new ArrayList<>();
-        List<Detailorder> detailorderListByOid = new ArrayList<>();
-        for(Order order:orderList){
-            detailorderListByOid = detailOrderService.findDetailOrderList1(order.getOid());
-            for(Detailorder detailorder:detailorderListByOid){
-                detailorderList.add(detailorder);
+        if (session.getAttribute("user")!=null) {
+            UserBuy user = (UserBuy) session.getAttribute("user");
+            List<Order> orderList = ordersService.orderByUser(user.getUid());
+            List<Detailorder> detailorderList = new ArrayList<>();
+            List<Detailorder> detailorderListByOid = new ArrayList<>();
+            for (Order order : orderList) {
+                detailorderListByOid = detailOrderService.findDetailOrderList1(order.getOid());
+                for (Detailorder detailorder : detailorderListByOid) {
+                    detailorderList.add(detailorder);
+                }
             }
+            request.setAttribute("detailorderList", detailorderList);
+            return "front/user/userorderlist";
+        }else {
+            return "front/login";
         }
-        request.setAttribute("detailorderList",detailorderList);
-        return "front/user/userorderlist";
     }
 
     @RequestMapping("/userSellSendFood")

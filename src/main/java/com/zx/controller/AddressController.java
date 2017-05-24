@@ -24,10 +24,14 @@ public class AddressController {
     private UserService userService;
     @RequestMapping("addressByUid")
     public String addressByUid(HttpSession session, ModelMap modelMap){
-        UserBuy user = (UserBuy) session.getAttribute("user");
-        List<Address> listAddress = addressService.getuid(user.getUid());
-        modelMap.put("listAddress",listAddress);
-        return "front/user/useraddress";
+        if(session.getAttribute("user")!=null) {
+            UserBuy user = (UserBuy) session.getAttribute("user");
+            List<Address> listAddress = addressService.getuid(user.getUid());
+            modelMap.put("listAddress", listAddress);
+            return "front/user/useraddress";
+        }else{
+            return "front/login";
+        }
     }
     /*
     * 转到用户添加地址

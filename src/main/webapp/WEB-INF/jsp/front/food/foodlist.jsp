@@ -14,22 +14,28 @@
     <meta name="description" content="DeathGhost.cn::H5 WEB前端设计开发!"/>
     <meta name="author" content="DeathGhost"/>
     <link href="style/style.css" rel="stylesheet" type="text/css"/>
- <%--   <script type="text/javascript" src="js/public.js"></script>--%>
+    <link href="css/buttons.css" rel="stylesheet" type="text/css"/>
+    <script type="text/javascript" src="js/public.js"></script>
     <script type="text/javascript" src="js/jquery.js"></script>
-<%--    <script type="text/javascript" src="js/jqpublic.js"></script>--%>
+    <link rel="stylesheet" type="text/css" href="css/zxf_page.css">
+    <script type="text/javascript" src="js/jqpublic.js"></script>
 </head>
 <body>
 <header>
     <section class="Topmenubg">
         <div class="Topnav">
             <div class="LeftNav">
-                <a href="register.html">注册</a>/<a href="login.html">登录</a><a href="#">QQ客服</a><a href="#">微信客服</a><a
-                    href="#">手机客户端</a>
+                <c:if test="${user.uname==null}">
+                    <a href="<%=basePath%>user/userBuyRegister.html">注册</a>
+                    |<a href="<%=basePath%>user/userBuylogin.html">登录</a>
+                </c:if>
+                <c:if test="${user.uname!=null}">
+                    欢迎您，${user.uname }<a href="<%=basePath%>Logout.html">退出</a>
+                </c:if>
             </div>
             <div class="RightNav">
-                <a href="user_center.html">用户中心</a> <a href="user_orderlist.html" target="_blank" title="我的订单">我的订单</a>
-                <a href="cart.html">购物车（0）</a> <a href="user_favorites.html" target="_blank" title="我的收藏">我的收藏</a> <a
-                    href="#">商家入驻</a>
+                <a href="<%=basePath%>indexToUserCenter.html">用户中心</a>
+                <a href="<%=basePath%>getUserAllCartList.html">购物车</a>
             </div>
         </div>
     </section>
@@ -70,7 +76,7 @@
     </section>
     <section class="CateL Overflow">
         <ul>
-            <c:forEach items="${foodAllListByStid }" var="foodAllListByStid">
+            <c:forEach items="${foodslistFront }" var="foodAllListByStid">
                 <li>
                     <a href="<%=basePath%>getFoodById.html?fid=${foodAllListByStid.fid}" target="_blank" title="酸辣土豆丝">
                         <img src="/pic/${foodAllListByStid.fpic }">
@@ -81,6 +87,36 @@
             </c:forEach>
         </ul>
         <div class="TurnPage">
+            <span class="disabled">共 ${page.totalPage} 页</span>&nbsp;&nbsp;|&nbsp;&nbsp;
+            <span class="disabled"> 当前第 ${i} 页</span>&nbsp;&nbsp;&nbsp;&nbsp;
+            <a href="<%=basePath%>frontFindAllFoodFenye.html?currentPage=1">
+                首页&nbsp;&nbsp;&nbsp;&nbsp;
+            </a>
+            <c:choose>
+                <c:when test="${i eq '1'}">
+                    上一页&nbsp;&nbsp;&nbsp;&nbsp;
+                </c:when>
+                <c:otherwise>
+                    <a href="<%=basePath%>frontFindAllFoodFenye.html?currentPage=${i-1}">
+                        上一页&nbsp;&nbsp;&nbsp;&nbsp;
+                    </a>
+                </c:otherwise>
+            </c:choose>
+
+            <c:choose>
+                <c:when test="${i eq page.totalPage}">
+                    下一页&nbsp;&nbsp;&nbsp;&nbsp;
+                </c:when>
+                <c:otherwise>
+                    <a href="<%=basePath%>frontFindAllFoodFenye.html?currentPage=${i+1}">
+                       下一页&nbsp;&nbsp;&nbsp;&nbsp;
+                    </a>
+                </c:otherwise>
+            </c:choose>
+            <a href="<%=basePath%>frontFindAllFoodFenye.html?currentPage=${page.totalPage}">
+                尾页&nbsp;&nbsp;&nbsp;&nbsp;
+            </a>
+            <span class="disabled"> 共${page.totalNumber}条</span>
         </div>
     </section>
     <aside class="CateR">

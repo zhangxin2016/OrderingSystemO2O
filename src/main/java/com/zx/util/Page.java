@@ -12,12 +12,12 @@ public class Page {
 		this.id = id;
 	}
 	//模糊查询（备用）
-	private String name;
-	public String getName() {
-		return name;
+	private String staddress;
+	public String getStaddress() {
+		return staddress;
 	}
-	public void setName(String name) {
-		this.name = name;
+	public void setStaddress(String staddress) {
+		this.staddress = staddress;
 	}
 
 	private int totalNumber;
@@ -46,10 +46,25 @@ public class Page {
 		this.maxRows = maxRows;
 		this.totalPage = getTotalPage();
 	}
-	public Page(int id,String name,int totalNumber, int maxRows) {
+	public Page(int id,String staddress,int totalNumber, int maxRows) {
 		super();
 		this.id = id;
-		this.name=name;
+		this.staddress=staddress;
+		this.totalNumber = totalNumber;
+		this.maxRows = maxRows;
+		this.totalPage = getTotalPage();
+	}
+
+	public Page(String staddress,int totalNumber, int maxRows) {
+		super();
+		this.staddress=staddress;
+		this.totalNumber = totalNumber;
+		this.maxRows = maxRows;
+		this.totalPage = getTotalPage();
+	}
+	public Page(String staddress,String name,int totalNumber, int maxRows) {
+		super();
+		this.staddress=staddress;
 		this.totalNumber = totalNumber;
 		this.maxRows = maxRows;
 		this.totalPage = getTotalPage();

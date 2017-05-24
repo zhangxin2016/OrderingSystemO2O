@@ -9,18 +9,36 @@
 <html>
 <head>
     <meta charset="utf-8"/>
-    <title>DeathGhost-用户中心</title>
+    <title>用户中心-我的评论</title>
     <meta name="keywords" content="DeathGhost,DeathGhost.cn,web前端设,移动WebApp开发"/>
     <meta name="description" content="DeathGhost.cn::H5 WEB前端设计开发!"/>
     <meta name="author" content="DeathGhost"/>
     <link href="style/style.css" rel="stylesheet" type="text/css"/>
-    <script type="text/javascript" src="js/public.js"></script>
+    <%--<script type="text/javascript" src="js/public.js"></script>--%>
     <script type="text/javascript" src="js/jquery.js"></script>
-    <script type="text/javascript" src="js/jqpublic.js"></script>
-    <!--
-    Author: DeathGhost
-    Author URI: http://www.deathghost.cn
-    -->
+    <%--<script type="text/javascript" src="js/jqpublic.js"></script>--%>
+    <script type="text/javascript" src="<%=basePath%>lib/laypage/1.2/laypage.js"></script>
+    <script type="text/javascript" src="<%=basePath%>lib/layer/2.1/layer.js"></script>
+    <script>
+        function toBuyAddEvaluate(title,url,w,h){
+            layer.open({
+                type: 2,
+                area: [w+'px', h +'px'],
+                fix: false, //不固定
+                maxmin: false,
+                shade:0.2,
+                shadeClose: false,
+                title: title,
+                move: false,
+                content: [url,'no']
+            });
+        }
+        function AddEvaluate_callback(){
+            window.location.reload();
+            layer.msg("留言成功！");
+        }
+    </script>
+
 </head>
 <body>
 <header>
@@ -89,19 +107,33 @@
         </ul>
     </nav>
     <article class="U-article Overflow">
-        <!--"引用“user_page/user_index.html”"-->
-        <section class="usercenter">
-            <span class="Weltitle Block Font16 CorRed FontW Lineheight35">Welcome欢迎光临！</span>
-            <div class="U-header MT20 Overflow">
-                <img src="upload/testuser.jpg">
-                <p class="Font14 FontW">${user.uname} 欢迎您回到 用户中心！</p>
+        <!--user order list-->
+        <section>
+            <table class="Myorder">
+                <th class="Font14 FontW">菜品名字</th>
+                <th class="Font14 FontW">评论内容</th>
+                <th class="Font14 FontW">评论时间</th>
+                <th class="Font14 FontW">商家回复内容</th>
+                <th class="Font14 FontW">商家回复时间</th>
+                <c:forEach items="${myEvaluateList}" var="myEvaluateList">
+                <tr>
+                        <td class="FontW">${myEvaluateList.detailorder.food.fname}</td>
+                        <td>${myEvaluateList.ebuycontent}</td>
+                        <td>${myEvaluateList.ebuydate}</td>
+                        <c:if test="${myEvaluateList.esellcontent == null}">
+                            <td>商家未回复</td>
+                            <td></td>
+                        </c:if>
+                        <c:if test="${myEvaluateList.esellcontent != null}">
+                            <td>${myEvaluateList.esellcontent}</td>
+                            <td>${myEvaluateList.eselldate}</td>
+                        </c:if>
+
+                </tr>
+                </c:forEach>
+            </table>
+            <div class="TurnPage">
             </div>
-            <ul class="s-States Overflow FontW" id="Lbn">
-                <li class="Font14 FontW">幸福业务在线提醒：</li>
-                <li><a href="#">未发货( ${countByNoSend } )</a></li>
-                <li><a href="#">待签收( ${countByNoSigh } )</a></li>
-                <li><a href="#">未评价( ${countByNoEvaluate } )</a></li>
-            </ul>
         </section>
     </article>
 </section>

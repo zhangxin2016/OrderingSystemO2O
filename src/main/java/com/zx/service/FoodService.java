@@ -35,8 +35,8 @@ public interface FoodService {
     Integer deleteFoodByFid(Integer fid) throws Exception;
     //前台搜索菜品
     List<Food> findFoodListByNameAndStid(Food food) throws Exception;
-    //前台搜索菜品(分页)
-    List<Food> findFoodListByNameAndStidPage(Page page) throws Exception;
-
+    //根据地区获取所有菜品
+    List<Food> findFoodByStores(Page page) throws Exception;
+    Integer findFoodByStoresCount(String staddress);
     Food findStoresByFood(Integer fid) throws Exception;
 }

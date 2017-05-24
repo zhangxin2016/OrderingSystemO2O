@@ -30,20 +30,24 @@ public class userCenterController {
     //用户中心首页显示订单状态数量
     @RequestMapping("/indexToUserCenter.html")
     public String indexToUserCenter(HttpSession session, HttpServletRequest request, HttpServletResponse response) throws Exception {
-        UserBuy user = (UserBuy) session.getAttribute("user");
-        List<Order> orderList = ordersService.orderByUser(user.getUid());
-        int countByNoSend = 0;
-        int countByNoSigh = 0;
-        int countByNoEvaluate = 0;
-        for(Order order:orderList){
-            countByNoSend = countByNoSend + detailOrderService.countByNoSend(order.getOid());
-            countByNoSigh = countByNoSigh + detailOrderService.countByNoSigh(order.getOid());
-            countByNoEvaluate = countByNoEvaluate + detailOrderService.countByNoEvaluate(order.getOid());
+        if(session.getAttribute("user")!=null) {
+            UserBuy user = (UserBuy) session.getAttribute("user");
+            List<Order> orderList = ordersService.orderByUser(user.getUid());
+            int countByNoSend = 0;
+            int countByNoSigh = 0;
+            int countByNoEvaluate = 0;
+            for (Order order : orderList) {
+                countByNoSend = countByNoSend + detailOrderService.countByNoSend(order.getOid());
+                countByNoSigh = countByNoSigh + detailOrderService.countByNoSigh(order.getOid());
+                countByNoEvaluate = countByNoEvaluate + detailOrderService.countByNoEvaluate(order.getOid());
+            }
+            request.setAttribute("countByNoSend", countByNoSend);
+            request.setAttribute("countByNoSigh", countByNoSigh);
+            request.setAttribute("countByNoEvaluate", countByNoEvaluate);
+            return "front/user/usercenter";
+        }else{
+            return "front/login";
         }
-        request.setAttribute("countByNoSend", countByNoSend);
-        request.setAttribute("countByNoSigh", countByNoSigh);
-        request.setAttribute("countByNoEvaluate", countByNoEvaluate);
-        return "front/user/usercenter";
     }
     //用户中心显示我的订单（明细）
     @RequestMapping("myOrder")

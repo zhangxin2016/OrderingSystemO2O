@@ -48,7 +48,9 @@
                 </c:if>
             </div>
             <div class="RightNav">
-                <a href="<%=basePath%>indexToUserCenter.html">用户中心</a><a href="<%=basePath%>getUserAllCartList.html">购物车（0）</a> <a href="<%=basePath%>userSellToLogin.html">我是商家</a>
+                <a href="<%=basePath%>indexToUserCenter.html">用户中心</a>
+                <a href="<%=basePath%>getUserAllCartList.html">购物车</a>
+                <a href="<%=basePath%>userSellToLogin.html">我是商家</a>
             </div>
         </div>
     </section>
@@ -149,7 +151,7 @@
                 <li>餐馆</li>
                 <p class="class_B">
                     <span></span>
-                    <span><a href="<%=basePath%>frontFindAllFood.html" target="_blank" style="float: right">more ></a></span>
+                    <span><a href="<%=basePath%>frontFindAllFoodFenye.html" target="_blank" style="float: right">more ></a></span>
                 </p>
             </ul>
             <div id="Indexcontent">
