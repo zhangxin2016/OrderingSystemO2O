@@ -48,8 +48,8 @@
         <div class="Search">
             <form method="get" id="main_a_serach" onsubmit="return check_search(this)">
                 <div class="Search_nav" id="selectsearch">
-                    <a href="javascript:;" onClick="selectsearch(this,'restaurant_name')" class="choose">餐厅</a>
-                    <a href="javascript:;" onClick="selectsearch(this,'food_name')">食物名</a>
+                    <a href="javascript:;" onClick="selectsearch(this,'restaurant_name')">餐厅</a>
+                    <a href="javascript:;" onClick="selectsearch(this,'food_name')" class="choose">食物名</a>
                 </div>
                 <div class="Search_area">
                     <input type="hidden" value="<%=basePath%>frontSearchFoodByName.html" id="urlsearchFoodByName">

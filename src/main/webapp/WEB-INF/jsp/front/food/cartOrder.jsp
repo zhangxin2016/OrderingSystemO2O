@@ -90,24 +90,6 @@
     <!--配送方式及支付，则显示如下-->
     <!--check order or add other information-->
     <div class="pay_delivery">
-        <span class="flow_title">配送方式：</span>
-        <table>
-            <th width="30%">配送方式</th>
-            <th width="30%">运费</th>
-            <th width="40%">说明</th>
-            <tr>
-                <td>送货上门</td>
-                <td>￥0.00</td>
-                <td>配送说明信息...</td>
-            </tr>
-        </table>
-        <span class="flow_title">在线支付方式：</span>
-        <form action="#">
-            <ul>
-                <li><input type="radio" name="pay" id="alipay" value="alipay"/><label for="alipay"><i
-                        class="alipay"></i></label></li>
-            </ul>
-        </form>
     </div>
     <form action="${pageContext.request.contextPath }/addFoodOrders.html" method="post">
         <input type="hidden" id="paysuccess" name="pays" />
@@ -161,11 +143,7 @@
 </script>
 <!--End content-->
 <div class="F-link">
-    <span>友情链接：</span>
-    <a href="http://www.deathghost.cn" target="_blank" title="DeathGhost">DeathGhost</a>
-    <a href="http://www.17sucai.com/pins/15966.html" target="_blank" title="免费后台管理模板">绿色清爽版通用型后台管理模板免费下载</a>
-    <a href="http://www.17sucai.com/pins/17567.html" target="_blank" title="果蔬菜类模板源码">HTML5果蔬菜类模板源码</a>
-    <a href="http://www.17sucai.com/pins/14931.html" target="_blank" title="黑色的cms商城网站后台管理模板">黑色的cms商城网站后台管理模板</a>
+
 </div>
 <footer>
     <section class="Otherlink">
