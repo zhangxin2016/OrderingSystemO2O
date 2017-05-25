@@ -223,7 +223,7 @@ public class FoodController {
      * 前端搜索菜品
      */
     @RequestMapping("/frontSearchFoodByName")
-    public String frontSearchFood(Map<String,Object> map ,String fname,HttpSession session,
+    public String frontSearchFood(String fname,HttpSession session,
                                   HttpServletRequest request) throws Exception {
         GetIp fetcher=new GetIp(IPADDRESS);
         AddressPort addressPort = new AddressPort();
@@ -234,19 +234,15 @@ public class FoodController {
         System.out.println("city:"+city);
         List<Stores> storesList = storesService.getStoresByAddress(city);
         List<Food> foodListByNameAndStid = new ArrayList<Food>();
-        System.out.println(storesList+"=========");
         for(Stores stores : storesList){
             Food food = new Food();
             food.setStid(stores.getStid());
             food.setFname(fname);
-            System.out.println("food=="+food);
             List<Food> listFood = foodService.findFoodListByNameAndStid(food);
-            System.out.println("listFood:=="+listFood);
             for (Food food1:listFood){
                 foodListByNameAndStid.add(food1);
             }
         }
-        System.out.println("foodListByNameAndStid"+foodListByNameAndStid);
        request.setAttribute("foodslistFrontSearch",foodListByNameAndStid);
         return "front/food/searchfood";
     }
