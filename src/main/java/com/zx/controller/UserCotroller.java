@@ -12,6 +12,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -32,7 +33,7 @@ public class UserCotroller {
 	
 	//@ResponseBody
 	@RequestMapping("frontindex.html")
-	public String frontindex(ModelMap modelMap) throws Exception {
+	public String frontindex(ModelMap modelMap, HttpSession session) throws Exception {
 		GetIp fetcher=new GetIp(IPADDRESS);
 		System.out.println(fetcher.getMyExternalIpAddress());
 		AddressPort addressPort = new AddressPort();
@@ -82,6 +83,7 @@ public class UserCotroller {
 		modelMap.put("foodsListByStid", foodsListByStid);
 		modelMap.put("foodsListBySalesvolume", foodsListBySalesvolume);
 		modelMap.put("foodsListByCollection", foodsListByCollection);
+		session.setAttribute("cityNow",city);
 		return "front/index";
 	}
 	@RequestMapping("userBuylogin.html")

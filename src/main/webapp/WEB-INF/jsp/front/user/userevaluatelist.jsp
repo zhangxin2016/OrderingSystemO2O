@@ -63,7 +63,7 @@
         <div class="Logo">
             <img src="images/logo.jpg" title="DeathGhost" alt="模板">
             <i></i>
-            <span>西安市 [ <a href="#">莲湖区</a> ]</span>
+            <span>${cityNow}</span>
         </div>
         <div class="Search">
             <form method="get" id="main_a_serach" onsubmit="return check_search(this)">
@@ -119,14 +119,14 @@
                 <tr>
                         <td class="FontW">${myEvaluateList.detailorder.food.fname}</td>
                         <td>${myEvaluateList.ebuycontent}</td>
-                        <td>${myEvaluateList.ebuydate}</td>
+                        <td><fmt:formatDate value="${myEvaluateList.ebuydate}" type="both"/></td>
                         <c:if test="${myEvaluateList.esellcontent == null}">
                             <td>商家未回复</td>
                             <td></td>
                         </c:if>
                         <c:if test="${myEvaluateList.esellcontent != null}">
                             <td>${myEvaluateList.esellcontent}</td>
-                            <td>${myEvaluateList.eselldate}</td>
+                            <td><fmt:formatDate value="${myEvaluateList.eselldate}" type="both"/></td>
                         </c:if>
 
                 </tr>

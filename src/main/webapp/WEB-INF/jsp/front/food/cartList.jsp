@@ -200,7 +200,7 @@
         <div class="Logo">
             <img src="images/logo.jpg" title="DeathGhost" alt="模板">
             <i></i>
-            <span>西安市 [ <a href="#">莲湖区</a> ]</span>
+            <span>${cityNow}</span>
         </div>
         <div class="Search">
             <form method="get" id="main_a_serach" onsubmit="return check_search(this)">

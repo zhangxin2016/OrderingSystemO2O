@@ -146,7 +146,7 @@
         <div class="Logo">
             <img src="images/logo.jpg" title="DeathGhost" alt="模板">
             <i></i>
-            <span>西安市 [ <a href="#">莲湖区</a> ]</span>
+            <span>${cityNow}</span>
         </div>
         <div class="Search">
             <form method="get" id="main_a_serach" onsubmit="return check_search(this)">
@@ -222,16 +222,13 @@
         <div class="viewhistory">
             <span class="VHtitle">看了又看</span>
             <ul class="Fsulist">
-                <li>
-                    <a href="detailsp.html" target="_blank" title="酱爆茄子"><img src="upload/03.jpg"></a>
-                    <p>酱爆茄子</p>
-                    <p>￥12.80</p>
-                </li>
-                <li>
-                    <a href="detailsp.html" target="_blank" title="酱爆茄子"><img src="upload/02.jpg"></a>
-                    <p>酱爆茄子</p>
-                    <p>￥12.80</p>
-                </li>
+                <c:forEach items="${foodListLook }" var="foodListLook">
+                    <li>
+                        <a href="<%=basePath%>getFoodById.html?fid=${foodListLook.fid}" target="_blank" title=""><img src="/pic/${foodListLook.fpic }"></a>
+                        <p>${foodListLook.fname }</p>
+                        <p>${foodListLook.fprice }</p>
+                    </li>
+                </c:forEach>
             </ul>
         </div>
     </section>
@@ -241,47 +238,32 @@
             <div class="shopcontent">
                 <div class="title2 cf">
                     <ul class="title-list fr cf ">
-                        <li class="on">详细说明</li>
-                        <li>评价详情</li>
+                        <li class="on">评价详情</li>
                         <p><b></b></p>
                     </ul>
                 </div>
                 <div class="menutab-wrap">
-                    <!--case1-->
+                    <!--case2-->
                     <div class="menutab show">
                         <div class="cont_padding">
-                            <img src="/pic/${food.fpic }" width="300px">
-                            <p>测试信息，可删除！</p>
-                            <p>1. 将土豆洗净刮皮。</p>
-                            <p>2. 先将土豆切成整齐的大薄片这样是切出均匀的丝的要点。</p>
-                            <p>3. 将土豆片切成细丝。</p>
-                            <p>4. 用清水将切好的土豆丝泡去淀粉，（这样炒出的土豆丝清爽不粘）</p>
-                            <p>5. 将葱切末、辣椒剪成小段、蒜切末、红椒切丝、姜切末。</p>
-                        </div>
-                    </div>
-                    <!--case2-->
-                    <div class="menutab">
-                        <div class="cont_padding">
                             <table class="Dcomment">
-                                <th width="80%">评价内容</th>
-                                <th width="20%" style="text-align:right">评价人</th>
-                                <tr>
-                                    <td>
-                                        还不错，速度倒是挺速度倒是挺快速度倒是挺快速度倒是挺快速度倒是挺快速度倒是挺快速度倒是挺快速度倒是挺快速度倒是挺快速度倒是挺快速度倒是挺快速度倒是挺快快...
-                                        <time>2016-05-31 22:30:39</time>
-                                    </td>
-                                    <td align="right">DEATHGHOST</td>
-                                </tr>
+                                <th width="50%">评价内容</th>
+                                <th width="50%" style="text-align:right">回复内容</th>
+                                <c:forEach items="${foodDetailEvaluateList }" var="foodDetailEvaluateList">
+                                    <tr>
+                                        <td>${foodDetailEvaluateList.ebuycontent }
+                                            <time><fmt:formatDate value="${foodDetailEvaluateList.ebuydate }"
+                                                                  type="both"/></time>
+                                        </td>
+                                        <td align="right">${foodDetailEvaluateList.esellcontent }
+                                            <time><fmt:formatDate value="${foodDetailEvaluateList.eselldate }"
+                                                                  type="both"/></time>
+                                        </td>
+                                    </tr>
+                                </c:forEach>
                             </table>
                             <div class="TurnPage">
-                                <a href="#">
-                                    <span class="Prev"><i></i>首页</span>
-                                </a>
-                                <a href="#"><span class="PNumber">1</span></a>
-                                <a href="#"><span class="PNumber">2</span></a>
-                                <a href="#">
-                                    <span class="Next">最后一页<i></i></span>
-                                </a>
+
                             </div>
                         </div>
                     </div>

@@ -372,7 +372,7 @@
       AND detailorder.oid=orders.oid
       AND detailorder.adid=address.adid
       AND orders.uid = user_buy.uid
-      AND detailorder.dodelete=0
+      /*AND detailorder.dodelete=0*/
       AND detailorder.fid=#{fid}
   </select>
 
@@ -383,7 +383,7 @@
       AND detailorder.oid=orders.oid
       AND detailorder.adid=address.adid
       AND orders.uid = user_buy.uid
-      AND detailorder.dodelete=0
+      /*AND detailorder.dodelete=0*/
       LIMIT #{start},#{maxRows}
   </select>
   <select id="getAllDetailOrderCounts" resultType="Integer">

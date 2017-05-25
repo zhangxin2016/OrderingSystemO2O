@@ -137,6 +137,19 @@
                 content: [url,'no']
             });
         }
+        function toEditUserSell(title,url,w,h){
+            layer.open({
+                type: 2,
+                area: [w+'px', h +'px'],
+                fix: false, //不固定
+                maxmin: false,
+                shade:0.2,
+                shadeClose: false,
+                title: title,
+                move: false,
+                content: [url,'no']
+            });
+        }
         function editStores_callback(){
             window.location.reload();
             layer.msg("修改成功！");
@@ -153,6 +166,10 @@
         function replyEvaluate_callback(){
             window.location.reload();
             layer.msg("回复留言成功！");
+        }
+        function edituserSell_callback(){
+            window.location.reload();
+            layer.msg("修改信息成功！");
         }
 
     </script>
@@ -171,10 +188,9 @@
                 欢迎您，${userSell.usname }<a href="<%=basePath%>userSellLogout.html">退出
                 </a>
                 </c:if>
-            <a href="#">QQ客服</a><a href="#">微信客服</a><a href="#">手机客户端</a>
         </div>
             <div class="RightNav">
-                <a href="user_center.html">用户中心</a> <a href="user_orderlist.html" target="_blank" title="我的订单">我的订单</a> <a href="cart.html">购物车（0）</a> <a href="user_favorites.html" target="_blank" title="我的收藏">我的收藏</a> <a href="#">商家入驻</a>
+
             </div>
         </div>
     </section>
@@ -182,20 +198,6 @@
         <div class="Logo">
             <img src="images/logo.jpg"  title="DeathGhost" alt="模板">
             <i></i>
-            <span>西安市 [ <a href="#">莲湖区</a> ]</span>
-        </div>
-        <div class="Search">
-            <form method="get" id="main_a_serach" onsubmit="return check_search(this)">
-                <div class="Search_nav" id="selectsearch">
-                    <a href="javascript:;" onClick="selectsearch(this,'restaurant_name')" class="choose">餐厅</a>
-                    <a href="javascript:;" onClick="selectsearch(this,'food_name')">食物名</a>
-                </div>
-                <div class="Search_area">
-                    <input type="search" id="fkeyword" name="keyword" placeholder="请输入您所需查找的餐厅名称或食物名称..." class="searchbox" />
-                    <input type="submit" class="searchbutton" value="搜 索" />
-                </div>
-            </form>
-            <p class="hotkeywords"><a href="#" title="酸辣土豆丝">酸辣土豆丝</a><a href="#" title="这里是产品名称">螃蟹炒年糕</a><a href="#" title="这里是产品名称">牛奶炖蛋</a><a href="#" title="这里是产品名称">芝麻酱凉面</a><a href="#" title="这里是产品名称">滑蛋虾仁</a><a href="#" title="这里是产品名称">蒜汁茄子</a></p>
         </div>
     </div>
     <nav class="menu_bg">
@@ -257,6 +259,7 @@
                         <li>累计评论</li>
                         <li>商家详情</li>
                         <li>订单详情</li>
+                        <li>商家信息</li>
                         <p><b></b></p>
                     </ul>
                 </div>
@@ -313,7 +316,7 @@
                                 </div>
                                 <div class="C-content">
                                     <q>${evaluatesListByDoid.ebuycontent}</q>
-                                    <i>留言日期：${evaluatesListByDoid.ebuydate}</i>
+                                    <i>留言日期：<fmt:formatDate value="${evaluatesListByDoid.ebuydate}" type="both"/></i>
                                 </div>
                                 <div class="username">
                                     <c:if test="${evaluatesListByDoid.esellcontent==null}">
@@ -358,7 +361,8 @@
                                 </div>
                                 <div class="username">
                                     <c:if test="${detailorderList.dostatus == 0}">
-                                        <a href="<%=basePath%>userSellSendFood.html?doid=${detailorderList.doid}"> 开始送餐</a>
+                                        <a href="<%=basePath%>userSellSendFood.html?doid=${detailorderList.doid}"> 开始送餐|</a>
+                                        <a href="<%=basePath%>userSellExitOrder.html?doid=${detailorderList.doid}"> 退回订单</a>
                                     </c:if>
                                     <c:if test="${detailorderList.dostatus == 1}">
                                         订单状态：待确认收货
@@ -369,10 +373,34 @@
                                     <c:if test="${detailorderList.dostatus == 3}">
                                         订单状态：买家已评价
                                     </c:if>
+                                    <c:if test="${detailorderList.dostatus == 4}">
+                                        订单状态：买家已取消订单
+                                    </c:if>
+                                    <c:if test="${detailorderList.dostatus == 5}">
+                                        订单状态：商家退回订单
+                                    </c:if>
                                 </div>
                             </div>
                         </c:forEach>
                     </div>
+
+                    <!--商家信息-->
+                    <div class="menutab">
+                        <div class="shopdetails">
+
+                            <div class="shopdetailsT">
+
+                                <p><span onclick="toEditUserSell('修改商家信息','<%=basePath%>toEditUserSellInStores.html?usid=${userSellInformation.usid}',800,700)">操作--->>修改信息</span></p>
+                                <input type="hidden" id="" value=""/>
+                                <p><span>姓名：${userSellInformation.usname}</span></p>
+                                <p><span>真实姓名：</span>${userSellInformation.ustruename}</p>
+                                <p><span>电话：</span>${userSellInformation.usphone}</p>
+                                <p><span>身份证号码：</span>${userSellInformation.usidcard}</p>
+                                <p><span>地址：</span>${userSellInformation.usaddress}</p>
+                            </div>
+                        </div>
+                    </div>
+
 
                 </div>
             </div>

@@ -116,6 +116,49 @@ public class DetailOrderController {
         detailOrderService.updateDetailOrder(detailorder1);
         return "redirect:listOrderDetailByFront.html";
     }
+    /*
+     *  用户取消订单
+     */
+    @RequestMapping("/userBuyExitOrder")
+    public String userBuyExitOrder(Map<String,Object> map ,Integer doid,HttpServletRequest request,HttpSession session) throws Exception {
+        //Integer doid = Integer.valueOf(request.getParameter("doid"));
+        Detailorder detailorder = detailOrderService.findDetailOrderByDoid(doid);
+        Detailorder detailorder1 = new Detailorder();
+        detailorder1.setDoid(doid);
+        detailorder1.setAdid(detailorder.getAdid());
+        detailorder1.setDonum(detailorder.getDonum());
+        detailorder1.setDopri(detailorder.getDopri());
+        detailorder1.setDostatus(4);//4表示用户取消订单
+        detailorder1.setFid(detailorder.getFid());
+        detailorder1.setOid(detailorder.getOid());
+        detailorder1.setDodate(detailorder.getDodate());
+        detailorder1.setDodelete(detailorder.getDodelete());
+        detailorder1.setDomessage(detailorder.getDomessage());
+        detailOrderService.updateDetailOrder(detailorder1);
+        return "redirect:listOrderDetailByFront.html";
+    }
+
+    /*
+     *  用户取消订单
+     */
+    @RequestMapping("/userSellExitOrder")
+    public String userSellExitOrder(Map<String,Object> map ,Integer doid,HttpServletRequest request,HttpSession session) throws Exception {
+        //Integer doid = Integer.valueOf(request.getParameter("doid"));
+        Detailorder detailorder = detailOrderService.findDetailOrderByDoid(doid);
+        Detailorder detailorder1 = new Detailorder();
+        detailorder1.setDoid(doid);
+        detailorder1.setAdid(detailorder.getAdid());
+        detailorder1.setDonum(detailorder.getDonum());
+        detailorder1.setDopri(detailorder.getDopri());
+        detailorder1.setDostatus(5);//5表示卖家不接受订单
+        detailorder1.setFid(detailorder.getFid());
+        detailorder1.setOid(detailorder.getOid());
+        detailorder1.setDodate(detailorder.getDodate());
+        detailorder1.setDodelete(detailorder.getDodelete());
+        detailorder1.setDomessage(detailorder.getDomessage());
+        detailOrderService.updateDetailOrder(detailorder1);
+        return "redirect:getStoresBySellId.html";
+    }
 
     @RequestMapping("/getAllDetailOrderBack")
     public String getAllDetailOrderBack(Map<String,Object> map ,HttpServletRequest request){

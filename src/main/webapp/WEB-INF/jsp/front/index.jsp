@@ -16,7 +16,7 @@
 <html>
 <head>
     <meta charset="utf-8" />
-    <title>DeathGhost</title>
+    <title>020订餐系统</title>
     <meta name="keywords" content="DeathGhost,DeathGhost.cn,web前端设,移动WebApp开发" />
     <meta name="description" content="DeathGhost.cn::H5 WEB前端设计开发!" />
     <meta name="author" content="DeathGhost"/>
@@ -58,6 +58,7 @@
         <div class="Logo">
             <img src="<%=path %>/images/logo.jpg" title="DeathGhost" alt="模板">
             <i></i>
+            <span>${cityNow}</span>
         </div>
         <div class="Search">
             <form method="get" id="main_a_serach" onsubmit="return check_search(this)">
@@ -157,21 +158,6 @@
             <div id="Indexcontent">
                 <ul style="display:block;">
                     <li>
-                        <p class="seekarea">
-                            <a href="#">碑林区</a>
-                            <a href="#">新城区</a>
-                            <a href="#">未央区</a>
-                            <a href="#">雁塔区</a>
-                            <a href="#">莲湖区</a>
-                            <a href="#">高新区</a>
-                            <a href="#">灞桥区</a>
-                            <a href="#">高陵区</a>
-                            <a href="#">阎良区</a>
-                            <a href="#">临潼区</a>
-                            <a href="#">长安区</a>
-                            <a href="#">周至县</a>
-                            <a href="#">蓝田县 </a>
-                        </p>
                         <div class="SCcontent">
                             <c:forEach items="${foodsListByCollection}" var="foodsListByCollection">
                                 <a href="<%=basePath%>getFoodById.html?fid=${foodsListByCollection.fid}" target="_blank" title="菜品名称">
@@ -216,21 +202,6 @@
                 </ul>
                 <ul>
                     <li>
-                        <p class="seekarea">
-                            <a href="#">碑林区</a>
-                            <a href="#">新城区</a>
-                            <a href="#">未央区</a>
-                            <a href="#">雁塔区</a>
-                            <a href="#">莲湖区</a>
-                            <a href="#">高新区</a>
-                            <a href="#">灞桥区</a>
-                            <a href="#">高陵区</a>
-                            <a href="#">阎良区</a>
-                            <a href="#">临潼区</a>
-                            <a href="#">长安区</a>
-                            <a href="#">周至县</a>
-                            <a href="#">蓝田县 </a>
-                        </p>
                         <div class="DCcontent">
                             <c:forEach items="${storesListIndex}" var="storesListIndex">
                                 <a href="<%=basePath%>userBuyToStores.html?stid=${storesListIndex.stid }" target="_blank" title="TITLE:店名">

@@ -54,4 +54,9 @@ public class UserSellServiceImpl implements UserSellService {
     public UserSell findStoresByUserSell(Integer usid) throws Exception {
         return userMapper.findStoresByUserSell(usid);
     }
+
+    @Override
+    public Integer updateUserSell(UserSell userSell) throws Exception {
+        return userMapper.updateByPrimaryKeySelective(userSell);
+    }
 }

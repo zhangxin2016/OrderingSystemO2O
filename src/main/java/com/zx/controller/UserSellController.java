@@ -182,4 +182,41 @@ public class UserSellController {
         request.setAttribute("storesListByUserSell",userSell);
         return "back/usersell/findstoresByUs";
     }
+
+    /*
+    * 转到商家修改信息页面
+    */
+    @RequestMapping("/toEditUserSellInStores")
+    public String toEditUserSellInStores(Integer usid,HttpServletRequest request) throws Exception {
+        UserSell userSell = userService.findStoresByUserSell(usid);
+        request.setAttribute("userSellEdit",userSell);
+        return "front/stores/userselledit";
+    }
+    /*
+     * 前端商家修改信息
+     */
+    @RequestMapping("/frontEditUserSellByStores")
+    public String frontEditUserSellByStores(Map<String,Object> map,HttpSession session,
+                                HttpServletRequest request) throws Exception {
+        Integer usid = Integer.parseInt(request.getParameter("usid"));
+        String usname = request.getParameter("usname");
+        String ustruename = request.getParameter("ustruename");
+        String uspassword = request.getParameter("uspassword");
+        String usidcard = request.getParameter("usidcard");
+        String usphone = request.getParameter("usphone");
+        String usaddress = request.getParameter("usaddress");
+        UserSell userSell = new UserSell();
+        userSell.setUsaddress(usaddress);
+        userSell.setUsdel(0);
+        userSell.setUsid(usid);
+        userSell.setUsidcard(usidcard);
+        userSell.setUsname(usname);
+        userSell.setUstruename(ustruename);
+        userSell.setUsphone(usphone);
+        userSell.setUspassword(uspassword);
+        userService.updateUserSell(userSell);
+        map.put("close", "close");
+        return "front/stores/userselledit";
+    }
+
 }

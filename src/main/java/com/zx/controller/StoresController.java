@@ -40,6 +40,8 @@ public class StoresController {
     private DetailOrderService detailOrderService;
     @Autowired
     private EvaluateService evaluateService;
+    @Autowired
+    private UserSellService userSellService;
     private String IPADDRESS = "http://ip.chemdrug.com/";
     @RequestMapping("/getStoresBySellId")
     public String getStoresBySellId(Map<String,Object> map,HttpSession session, HttpServletRequest request) throws Exception {
@@ -96,6 +98,9 @@ public class StoresController {
             System.out.println("foodsListByDetailOrder=====" + foodList);
             System.out.println("detailorderList====" + detailorderList1);
             request.setAttribute("detailorderList", detailorderList1);
+            //商家信息
+            UserSell userSell1 = userSellService.findStoresByUserSell(userSell.getUsid());
+            request.setAttribute("userSellInformation",userSell1);
             return "front/stores/mystores";
         }else{
             return "front/stores/storeslogin";
@@ -207,13 +212,7 @@ public class StoresController {
     @RequestMapping("/frontSearchStoresByName")
     public String frontSearchFood(String fname,HttpSession session,
                                   HttpServletRequest request) throws Exception {
-        GetIp fetcher=new GetIp(IPADDRESS);
-        AddressPort addressPort = new AddressPort();
-        String result = addressPort.addressByIp(fetcher.getMyExternalIpAddress());
-        JSONObject jsStr = JSONObject.parseObject(result);
-        Unicode unicode = new Unicode();
-        String city = unicode.decodeUnicode(jsStr.getString("city"));
-        System.out.println("city:"+city);
+        String city = getCity();
         List<Stores> storesList = storesService.getStoresByAddress(city);
         List<Stores> storesListByNameAndStid = new ArrayList<Stores>();
         for(Stores stores : storesList){
@@ -311,5 +310,17 @@ public class StoresController {
         Stores stores = storesService.findStoresByStid(stid);
         request.setAttribute("findstores",stores);
         return "back/Stores/findstores";
+    }
+
+    public String getCity() throws Exception{
+        GetIp fetcher=new GetIp(IPADDRESS);
+        System.out.println(fetcher.getMyExternalIpAddress());
+        AddressPort addressPort = new AddressPort();
+        String result = addressPort.addressByIp(fetcher.getMyExternalIpAddress());
+        JSONObject jsStr = JSONObject.parseObject(result);
+        Unicode unicode = new Unicode();
+        String province = unicode.decodeUnicode(jsStr.getString("province"));
+        String city = unicode.decodeUnicode(jsStr.getString("city"));
+        return city;
     }
 }

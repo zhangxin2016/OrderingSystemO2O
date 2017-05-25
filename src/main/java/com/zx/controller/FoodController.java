@@ -4,8 +4,12 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.zx.model.Detailorder;
+import com.zx.model.Evaluate;
 import com.zx.model.Food;
 import com.zx.model.Stores;
+import com.zx.service.DetailOrderService;
+import com.zx.service.EvaluateService;
 import com.zx.service.FoodService;
 import com.zx.service.StoresService;
 import com.zx.util.AddressPort;
@@ -39,6 +43,10 @@ public class FoodController {
     private FoodService foodService;
     @Autowired
     private StoresService storesService;
+    @Autowired
+    private DetailOrderService detailOrderService;
+    @Autowired
+    private EvaluateService evaluateService;
 
     private String IPADDRESS = "http://ip.chemdrug.com/";
     Jedis jedis = new Jedis("120.76.114.25",6379,30000);
@@ -92,6 +100,7 @@ public class FoodController {
             Food food = JSON.parseObject(foodString,Food.class);
             System.out.println("redisfood======"+food);
             request.setAttribute("food", food);
+            detailFood(request,food);
         }else{
             Food food = foodService.findFoodById(fid);
             System.out.println("mysqlfood======"+food);
@@ -99,9 +108,46 @@ public class FoodController {
             JSONObject json = (JSONObject) JSONObject.toJSON(food);
             String jsonString =json.toString();
             jedis.set("foodid"+food.getFid(),jsonString);
+            detailFood(request,food);
         }
         //Food food = foodService.findFoodById(fid);
         return "/front/food/detailFood";
+    }
+    public void detailFood(HttpServletRequest request,Food food) throws Exception{
+        List<Evaluate> evaluateList = new ArrayList<Evaluate>();
+        List<Detailorder> detailorderList = detailOrderService.findDetailListByFid(food.getFid());
+        for (Detailorder detailorder : detailorderList) {
+            Evaluate evaluate = evaluateService.findEvaluateByDoid(detailorder.getDoid());
+            if (evaluate != null) {
+                evaluateList.add(evaluate);
+            }
+        }
+        request.setAttribute("foodDetailEvaluateList",evaluateList);
+        String city = getCity();
+        List<Stores> storesList = storesService.getStoresByAddress(city);
+        List<Food> foodList1 = new ArrayList<Food>();
+        int x = 0;
+        for(Stores stores:storesList){
+            List<Food> foodList = foodService.findAllByStid(stores.getStid());
+            for (Food food1:foodList){
+                if (x<2){
+                    foodList1.add(food1);
+                }
+                x++;
+            }
+        }
+        request.setAttribute("foodListLook",foodList1);
+    }
+    public String getCity() throws Exception{
+        GetIp fetcher=new GetIp(IPADDRESS);
+        System.out.println(fetcher.getMyExternalIpAddress());
+        AddressPort addressPort = new AddressPort();
+        String result = addressPort.addressByIp(fetcher.getMyExternalIpAddress());
+        JSONObject jsStr = JSONObject.parseObject(result);
+        Unicode unicode = new Unicode();
+        String province = unicode.decodeUnicode(jsStr.getString("province"));
+        String city = unicode.decodeUnicode(jsStr.getString("city"));
+        return city;
     }
     /*
     * 转到添加菜品页面

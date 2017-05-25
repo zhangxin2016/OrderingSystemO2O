@@ -129,8 +129,8 @@
 								<td class="hidden-xs1">${evaluateListBack.doid}</td>
 								<td class="hidden-xs2">${evaluateListBack.ebuycontent}</td>
 								<td class="hidden-xs3">${evaluateListBack.esellcontent}</td>
-								<td class="hidden-xs4">${evaluateListBack.ebuydate}</td>
-								<td class="hidden-xs4">${evaluateListBack.eselldate}</td>
+								<td class="hidden-xs4"><fmt:formatDate value="${evaluateListBack.ebuydate}" type="both"/></td>
+								<td class="hidden-xs4"><fmt:formatDate value="${evaluateListBack.eselldate}" type="both"/></td>
 								<%--<td>${arr.authority}</td>--%>
 								<td class="td-manage">
 									<a title="查看订单信息" href="javascript:;"

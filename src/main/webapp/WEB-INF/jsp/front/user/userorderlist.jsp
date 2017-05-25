@@ -63,7 +63,7 @@
         <div class="Logo">
             <img src="images/logo.jpg" title="DeathGhost" alt="模板">
             <i></i>
-            <span>西安市 [ <a href="#">莲湖区</a> ]</span>
+            <span>${cityNow}</span>
         </div>
         <div class="Search">
             <form method="get" id="main_a_serach" onsubmit="return check_search(this)">
@@ -119,12 +119,12 @@
                 <c:forEach items="${detailorderList}" var="detailorderList">
                 <tr>
                         <td class="FontW"><a href="user_order.html">${detailorderList.food.fname}</a></td>
-                        <td>${detailorderList.dodate}</td>
+                        <td><fmt:formatDate value="${detailorderList.dodate}" type="both"/></td>
                         <td>${detailorderList.donum}</td>
                         <td>${detailorderList.dopri}</td>
                         <c:if test="${detailorderList.dostatus == 0}">
                             <td>等待商家接单</td>
-                            <td>等待商家接单</td>
+                            <td><a href="<%=basePath%>userBuyExitOrder.html?doid=${detailorderList.doid}" >取消订单</a></td>
                         </c:if>
                         <c:if test="${detailorderList.dostatus == 1}">
                             <td>商家已接单，美食正在来的路上</td>
@@ -137,6 +137,14 @@
                         <c:if test="${detailorderList.dostatus == 3}">
                             <td>已留言评价</td>
                             <td>已留言评价</td>
+                        </c:if>
+                        <c:if test="${detailorderList.dostatus == 4}">
+                            <td>已经取消订单</td>
+                            <td>继续看看</td>
+                        </c:if>
+                        <c:if test="${detailorderList.dostatus == 5}">
+                            <td>商家退回订单</td>
+                            <td>去别家看看</td>
                         </c:if>
 
                 </tr>

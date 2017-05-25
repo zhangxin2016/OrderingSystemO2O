@@ -30,4 +30,6 @@ public interface UserSellService {
     Map<String,Object> findAllUserSellBack(Integer currentPage, Integer lineSize, String keyWord) throws Exception;
 
     UserSell findStoresByUserSell(Integer usid) throws Exception;
+    //修改商家信息
+    Integer updateUserSell(UserSell userSell)throws Exception;
 }

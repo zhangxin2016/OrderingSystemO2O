@@ -127,7 +127,7 @@
 								<td class="hidden-xs4">l￥${listDetaiorder.food.fprice}</td>
 								<td class="hidden-xs4">${listDetailorder.donum}</td>
 								<td class="hidden-xs4">${listDetailorder.dopri}</td>
-								<td class="hidden-xs4">${listDetailorder.dodate}</td>
+								<td class="hidden-xs4"><fmt:formatDate value="${listDetailorder.dodate}" type="both"/></td>
 								<td class="hidden-xs4">${listDetailorder.domessage}</td>
 								<td class="hidden-xs4">${listDetailorder.dostatus}</td>
 								<td class="hidden-xs4">${listDetailorder.address.adcon}</td>
