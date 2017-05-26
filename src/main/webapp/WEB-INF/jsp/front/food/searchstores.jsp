@@ -14,8 +14,8 @@
     <meta name="description" content="DeathGhost.cn::H5 WEB前端设计开发!"/>
     <meta name="author" content="DeathGhost"/>
     <link href="style/style.css" rel="stylesheet" type="text/css"/>
-     <script type="text/javascript" src="js/public.js"></script>
-       <script type="text/javascript" src="js/jqpublic.js"></script>
+    <script type="text/javascript" src="js/public.js"></script>
+    <script type="text/javascript" src="js/jqpublic.js"></script>
     <script type="text/javascript" src="js/jquery.js"></script>
     <!--
     Author: DeathGhost
@@ -56,14 +56,11 @@
                 <div class="Search_area">
                     <input type="hidden" value="<%=basePath%>frontSearchFoodByName.html" id="urlsearchFoodByName">
                     <input type="hidden" value="<%=basePath%>frontSearchStoresByName.html" id="urlsearchStoresByName">
-                    <input type="search" id="fnamesearch" name="fname" placeholder="请输入您所需查找的餐厅名称或食物名称..." class="searchbox" />
-                    <input type="submit" class="searchbutton" value="搜 索" />
+                    <input type="search" id="fnamesearch" name="fname" placeholder="请输入您所需查找的餐厅名称或食物名称..."
+                           class="searchbox"/>
+                    <input type="submit" class="searchbutton" value="搜 索"/>
                 </div>
             </form>
-            <p class="hotkeywords"><a href="#" title="酸辣土豆丝">酸辣土豆丝</a><a href="#" title="这里是产品名称">螃蟹炒年糕</a><a href="#"
-                                                                                                              title="这里是产品名称">牛奶炖蛋</a><a
-                    href="#" title="这里是产品名称">芝麻酱凉面</a><a href="#" title="这里是产品名称">滑蛋虾仁</a><a href="#" title="这里是产品名称">蒜汁茄子</a>
-            </p>
         </div>
     </div>
     <nav class="menu_bg">
@@ -79,43 +76,12 @@
 <section class="Psection">
     <section class="fslist_navtree">
     </section>
-    <section class="Fslmenu">
-        <a href="#" title="默认排序">
-            <span>
-                <span>默认排序</span>
-                <span></span>
-            </span>
-        </a>
-        <a href="#" title="评价">
-          <span>
-              <span>评价</span>
-              <span class="s-up"></span>
-          </span>
-        </a>
-        <a href="#" title="销量">
-          <span>
-              <span>销量</span>
-              <span class="s-up"></span>
-          </span>
-        </a>
-        <a href="#" title="价格排序">
-          <span>
-              <span>价格</span>
-              <span class="s-down"></span>
-          </span>
-        </a>
-        <a href="#" title="发布时间排序">
-          <span>
-              <span>发布时间</span>
-              <span class="s-up"></span>
-          </span>
-        </a>
-    </section>
     <section class="Fsl">
         <ul>
             <c:forEach items="${storesListByNameAndStid }" var="storesListByNameAndStid">
                 <li>
-                    <a href="<%=basePath%>userBuyToStores.html?stid=${storesListByNameAndStid.stid }" target="_blank" title="调用产品名/店铺名"><img
+                    <a href="<%=basePath%>userBuyToStores.html?stid=${storesListByNameAndStid.stid }" target="_blank"
+                       title="调用产品名/店铺名"><img
                             src="/pic/${storesListByNameAndStid.stdesc }"></a>
                     <hgroup>
                         <h3>店铺名字：${storesListByNameAndStid.stname}</h3>
@@ -124,50 +90,21 @@
                     <p>${storesListByNameAndStid.staddress}</p>
                 </li>
             </c:forEach>
-
         </ul>
         <aside>
             <div class="title">热门商家</div>
-            <div class="C-list">
-                <a href="shop.html" target="_blank" title="店铺名称"><img src="upload/cc.jpg"></a>
-                <p><a href="shop.html" target="_blank">[大雁塔]店铺名称</a></p>
-                <p>
-                    <span>人均：20~50元</span>
-                    <span style=" float:right">
-    <img src="images/star-on.png">
-    <img src="images/star-on.png">
-    <img src="images/star-on.png">
-    <img src="images/star-on.png">
-    <img src="images/star-off.png">
-    <span class="ALscore">4.8</span>
-   </span>
-                </p>
-            </div>
-            <div class="C-list">
-                <a href="shop.html" target="_blank" title="店铺名称"><img src="upload/cc.jpg"></a>
-                <p><a href="shop.html" target="_blank">[大雁塔]店铺名称</a></p>
-                <p>
-                    <span>人均：20~50元</span>
-                    <span style=" float:right">
-    <img src="images/star-on.png">
-    <img src="images/star-on.png">
-    <img src="images/star-on.png">
-    <img src="images/star-on.png">
-    <img src="images/star-off.png">
-    <span class="ALscore">4.8</span>
-   </span>
-                </p>
-            </div>
+            <c:forEach items="${storesListTwo }" var="storesListTwo">
+                <div class="C-list">
+                    <a href="shop.html" target="_blank" title="店铺名称"><img src="/pic/${storesListTwo.stdesc }"></a>
+                    <p><a href="shop.html" target="_blank">${storesListTwo.stname }</a></p>
+                    <p>
+                        <span>地址：${storesListTwo.staddress }</span>
+                    </p>
+                </div>
+            </c:forEach>
         </aside>
         <div class="TurnPage">
-            <a href="#">
-                <span class="Prev"><i></i>首页</span>
-            </a>
-            <a href="#"><span class="PNumber">1</span></a>
-            <a href="#"><span class="PNumber">2</span></a>
-            <a href="#">
-                <span class="Next">最后一页<i></i></span>
-            </a>
+
         </div>
     </section>
 </section>

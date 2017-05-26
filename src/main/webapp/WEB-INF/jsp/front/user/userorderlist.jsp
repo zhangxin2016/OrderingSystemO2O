@@ -72,15 +72,13 @@
                     <a href="javascript:;" onClick="selectsearch(this,'food_name')">食物名</a>
                 </div>
                 <div class="Search_area">
-                    <input type="search" id="fkeyword" name="keyword" placeholder="请输入您所需查找的餐厅名称或食物名称..."
+                    <input type="hidden" value="<%=basePath%>frontSearchFoodByName.html" id="urlsearchFoodByName">
+                    <input type="hidden" value="<%=basePath%>frontSearchStoresByName.html" id="urlsearchStoresByName">
+                    <input type="search" id="fnamesearch" name="fname" placeholder="请输入您所需查找的餐厅名称或食物名称..."
                            class="searchbox"/>
                     <input type="submit" class="searchbutton" value="搜 索"/>
                 </div>
             </form>
-            <p class="hotkeywords"><a href="#" title="酸辣土豆丝">酸辣土豆丝</a><a href="#" title="这里是产品名称">螃蟹炒年糕</a><a href="#"
-                                                                                                              title="这里是产品名称">牛奶炖蛋</a><a
-                    href="#" title="这里是产品名称">芝麻酱凉面</a><a href="#" title="这里是产品名称">滑蛋虾仁</a><a href="#" title="这里是产品名称">蒜汁茄子</a>
-            </p>
         </div>
     </div>
     <nav class="menu_bg">
@@ -136,7 +134,7 @@
                         </c:if>
                         <c:if test="${detailorderList.dostatus == 3}">
                             <td>已留言评价</td>
-                            <td>已留言评价</td>
+                            <td><a href="<%=basePath%>userBuyDeleteOrder.html?doid=${detailorderList.doid}" >删除</a></td>
                         </c:if>
                         <c:if test="${detailorderList.dostatus == 4}">
                             <td>已经取消订单</td>

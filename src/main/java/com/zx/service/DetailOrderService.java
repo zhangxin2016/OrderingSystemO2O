@@ -25,7 +25,7 @@ public interface DetailOrderService {
     Detailorder findDetailOrderByDoid(Integer doid);
     Integer updateDetailOrder(Detailorder detailorder);
     List<Detailorder> findDetailListByFid(Integer fid);
-
+    List<Detailorder> finddetailOrderListFrontIndex() throws Exception;
     List<Detailorder> getAllDetailOrderBack(Page page);
 
     Integer getAllDetailOrderCounts();

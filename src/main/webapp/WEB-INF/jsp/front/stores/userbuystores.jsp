@@ -166,8 +166,13 @@
                         } ,
                     success:function(data)
                     {
-                        $("#cartUserCount").html(data);
-                        layer.msg('加入购物车成功', {icon: 1,time: 1000});
+                        var con = data.con;
+                        if (con=="nologin"){
+                            layer.msg('请先登录', {icon: 1,time: 1000})
+                        }else {
+                            $("#cartUserCount").html(data);
+                            layer.msg('加入购物车成功', {icon: 1, time: 1000});
+                        }
                         return;
                     }
                 });
@@ -203,6 +208,18 @@
                 });
 
         }
+        $(function() {
+            $.ajax({
+                type: "POST",
+                url: "<%=path%>countCartStores.html",
+                cache: false,
+                async: false,
+                dataType: "json",
+                success: function (data) {
+                    $("#cartUserCount").html(data);
+                }
+            });
+        });
 
     </script>
 
@@ -239,12 +256,14 @@
                     <a href="javascript:;" onClick="selectsearch(this,'food_name')">食物名</a>
                 </div>
                 <div class="Search_area">
-                    <input type="search" id="fkeyword" name="keyword" placeholder="请输入您所需查找的餐厅名称或食物名称..." class="searchbox" />
-                    <input type="submit" class="searchbutton" value="搜 索" />
+                    <input type="hidden" value="<%=basePath%>frontSearchFoodByName.html" id="urlsearchFoodByName">
+                    <input type="hidden" value="<%=basePath%>frontSearchStoresByName.html" id="urlsearchStoresByName">
+                    <input type="search" id="fnamesearch" name="fname" placeholder="请输入您所需查找的餐厅名称或食物名称..."
+                           class="searchbox"/>
+                    <input type="submit" class="searchbutton" value="搜 索"/>
                 </div>
             </form>
-            <p class="hotkeywords"><a href="#" title="酸辣土豆丝">酸辣土豆丝</a><a href="#" title="这里是产品名称">螃蟹炒年糕</a><a href="#" title="这里是产品名称">牛奶炖蛋</a><a href="#" title="这里是产品名称">芝麻酱凉面</a><a href="#" title="这里是产品名称">滑蛋虾仁</a><a href="#" title="这里是产品名称">蒜汁茄子</a></p>
-        </div>
+         </div>
     </div>
     <nav class="menu_bg">
         <ul class="menu">
@@ -393,14 +412,14 @@
             <span class="Ctitle Block FontW Font14"><a href="cart.html" target="_blank">我的购物车</a></span>
             <table id="cartcontent" fitColumns="true">
                 <thead>
-                <tr>
+                <%--<tr>
                     <th width="33%" align="center" field="name">商品</th>
                     <th width="33%" align="center" field="quantity">数量</th>
                     <th width="33%" align="center" field="price">价格</th>
-                </tr>
+                </tr>--%>
                 </thead>
             </table>
-            <p class="Ptc"><span class="Cbutton"><a href="cart.html" target="进入购物车">进入购物车</a></span><span class="total" >购物车菜品种类: <span id="cartUserCount"></span>种菜品</span></p>
+            <p class="Ptc"><span class="Cbutton"><a href="<%=basePath%>getUserAllCartList.html" target="进入购物车">进入购物车</a></span><span class="total" >购物车菜品数量: <span id="cartUserCount"></span></span></p>
         </div>
 
         <div class="Nearshop">

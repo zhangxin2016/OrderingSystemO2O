@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
@@ -190,4 +191,59 @@ public class DetailOrderController {
         return "back/evaluate/finddetailorder";
     }
 
+    public void  selectdetailOrderListFrontIndex(HttpServletResponse response,HttpServletRequest request) throws Exception {
+        List<Detailorder> detailorderListIndex = detailOrderService.finddetailOrderListFrontIndex();
+        List<Detailorder> detailorderListFrontIndex = new ArrayList<Detailorder>();
+        detailorderListFrontIndex = detailorderListIndex.subList(1, 3);
+        response.getWriter().print(detailorderListFrontIndex);
+        System.out.println("detailorderListFrontIndex======"+detailorderListFrontIndex);
+    }
+
+    //买家删除订单
+    @RequestMapping("userBuyDeleteOrder")
+    public String userBuyDeleteOrder(HttpServletResponse response,HttpServletRequest request,
+                                     Integer doid,HttpSession session){
+        if (session.getAttribute("user")!=null) {
+            Detailorder detailorder = detailOrderService.findDetailOrderByDoid(doid);
+            Detailorder detailorder1 = new Detailorder();
+            detailorder1.setDoid(doid);
+            detailorder1.setAdid(detailorder.getAdid());
+            detailorder1.setDonum(detailorder.getDonum());
+            detailorder1.setDopri(detailorder.getDopri());
+            detailorder1.setDostatus(detailorder.getDostatus());
+            detailorder1.setFid(detailorder.getFid());
+            detailorder1.setOid(detailorder.getOid());
+            detailorder1.setDodate(detailorder.getDodate());
+            detailorder1.setDodelete(2);
+            detailorder1.setDomessage(detailorder.getDomessage());
+            detailOrderService.updateDetailOrder(detailorder1);
+            return "redirect:listOrderDetailByFront.html";
+        }else {
+            return "front/login";
+        }
+    }
+    //卖家删除订单
+    @RequestMapping("userSellDeleteOrder")
+    public String userSellDeleteOrder(HttpServletResponse response,HttpServletRequest request,
+                                     Integer doid,HttpSession session){
+        if (session.getAttribute("userSell")!=null) {
+            Detailorder detailorder = detailOrderService.findDetailOrderByDoid(doid);
+            Detailorder detailorder1 = new Detailorder();
+            detailorder1.setDoid(doid);
+            detailorder1.setAdid(detailorder.getAdid());
+            detailorder1.setDonum(detailorder.getDonum());
+            detailorder1.setDopri(detailorder.getDopri());
+            detailorder1.setDostatus(detailorder.getDostatus());
+            detailorder1.setFid(detailorder.getFid());
+            detailorder1.setOid(detailorder.getOid());
+            detailorder1.setDodate(detailorder.getDodate());
+            detailorder1.setDodelete(3);
+            detailorder1.setDomessage(detailorder.getDomessage());
+            detailOrderService.updateDetailOrder(detailorder1);
+            return "redirect:getStoresBySellId.html";
+        }else {
+
+            return "redirect:userSellToLogin.html";
+        }
+    }
 }

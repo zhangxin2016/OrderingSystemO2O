@@ -7,30 +7,23 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt"  prefix="fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%
     String path = request.getContextPath();
-    String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+    String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path + "/";
 %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <meta charset="utf-8" />
+    <meta charset="utf-8"/>
     <title>020订餐系统</title>
-    <meta name="keywords" content="DeathGhost,DeathGhost.cn,web前端设,移动WebApp开发" />
-    <meta name="description" content="DeathGhost.cn::H5 WEB前端设计开发!" />
+    <meta name="keywords" content="DeathGhost,DeathGhost.cn,web前端设,移动WebApp开发"/>
+    <meta name="description" content="DeathGhost.cn::H5 WEB前端设计开发!"/>
     <meta name="author" content="DeathGhost"/>
-    <link href="<%=path %>/style/style.css" rel="stylesheet" type="text/css" />
+    <link href="<%=path %>/style/style.css" rel="stylesheet" type="text/css"/>
     <script type="text/javascript" src="<%=path %>/js/public.js"></script>
     <script type="text/javascript" src="<%=path %>/js/jquery1.js"></script>
     <script type="text/javascript" src="<%=path %>/js/jqpublic.js"></script>
-    <!--
-    Author: DeathGhost
-    Author URI: http://www.deathghost.cn
-    -->
-    <script>
-
-    </script>
 </head>
 
 <body>
@@ -69,8 +62,9 @@
                 <div class="Search_area">
                     <input type="hidden" value="<%=basePath%>frontSearchFoodByName.html" id="urlsearchFoodByName">
                     <input type="hidden" value="<%=basePath%>frontSearchStoresByName.html" id="urlsearchStoresByName">
-                    <input type="search" id="fnamesearch" name="fname" placeholder="请输入您所需查找的餐厅名称或食物名称..." class="searchbox" />
-                    <input type="submit" class="searchbutton" value="搜 索" />
+                    <input type="search" id="fnamesearch" name="fname" placeholder="请输入您所需查找的餐厅名称或食物名称..."
+                           class="searchbox"/>
+                    <input type="submit" class="searchbutton" value="搜 索"/>
                 </div>
             </form>
         </div>
@@ -87,7 +81,11 @@
 <!--Start content-->
 <section class="Cfn">
     <aside class="C-left">
-        <div class="S-time">服务时间：周一~周六<time>09:00</time>-<time>23:00</time></div>
+        <div class="S-time">服务时间：周一~周六
+            <time>09:00</time>
+            -
+            <time>23:00</time>
+        </div>
         <div class="C-time">
             <img src="<%=path %>/upload/dc.jpg"/>
         </div>
@@ -106,41 +104,52 @@
         <div class="N-title">订餐系统 <i>020</i></div>
         <ul class="Newslist">
             <li><i></i><a target="_blank" title="这里调用新闻标题...">欢迎访问订餐系统.</a></li>
-            <li><i></i><a target="_blank" title="这里调用新闻标题...">吃饭，我们是认真的</a></li>
+            <li><i></i><a target="_blank" title="这里调用新闻标题...">点餐，我们是认真的</a></li>
         </ul>
         <ul class="Orderlist" id="UpRoll">
-            <li>
-                <p>订单编号：2014090912973</p>
-                <p>收件人：王先生</p>
-                <p>订单状态：<i class="State01">已发货</i></p>
-            </li>
-            <li>
-                <p>订单编号：2014090912978</p>
-                <p>收件人：张小姐</p>
-                <p>订单状态：<i class="State02">已签收</i><i class="State03">已点评</i></p>
-            </li>
-            <li>
-                <p>订单编号：2014090912988</p>
-                <p>收件人：龚先生</p>
-                <p>订单状态：<i class="State02">已签收</i><i class="State03">已点评</i></p>
-            </li>
+            <c:forEach items="${detailorderListFrontIndex}" var="detailorderListFrontIndex">
+                <li>
+                    <p>订单编号：${detailorderListFrontIndex.doid}</p>
+                    <p>菜品姓名：${detailorderListFrontIndex.food.fname}</p>
+                    <p>订单状态：
+                        <c:if test="${detailorderListFrontIndex.dostatus == 0}">
+                            <i class="State02">等待商家接单</i>
+                        </c:if>
+                        <c:if test="${detailorderListFrontIndex.dostatus == 1}">
+                            <i class="State01">已发货</i>
+                        </c:if>
+                        <c:if test="${detailorderListFrontIndex.dostatus == 2}">
+                            <i class="State02">已签收</i>
+                        </c:if>
+                        <c:if test="${detailorderListFrontIndex.dostatus == 3}">
+                            <i class="State03">已点评</i>
+                        </c:if>
+                        <c:if test="${detailorderListFrontIndex.dostatus == 4}">
+                            <i class="State01">用户取消订单</i>
+                        </c:if>
+                        <c:if test="${detailorderListFrontIndex.dostatus == 5}">
+                            <i class="State03">商家取消订单</i>
+                        </c:if>
+                    </p>
+                </li>
+            </c:forEach>
         </ul>
         <script>
             var UpRoll = document.getElementById('UpRoll');
             var lis = UpRoll.getElementsByTagName('li');
             var ml = 0;
-            var timer1 = setInterval(function(){
+            var timer1 = setInterval(function () {
                 var liHeight = lis[0].offsetHeight;
-                var timer2 = setInterval(function(){
+                var timer2 = setInterval(function () {
                     UpRoll.scrollTop = (++ml);
-                    if(ml ==1){
+                    if (ml == 1) {
                         clearInterval(timer2);
                         UpRoll.scrollTop = 0;
                         ml = 0;
                         lis[0].parentNode.appendChild(lis[0]);
                     }
-                },10);
-            },5000);
+                }, 10);
+            }, 5000);
         </script>
     </aside>
 </section>
@@ -152,7 +161,8 @@
                 <li>餐馆</li>
                 <p class="class_B">
                     <span></span>
-                    <span><a href="<%=basePath%>frontFindAllFoodFenye.html" target="_blank" style="float: right">more ></a></span>
+                    <span><a href="<%=basePath%>frontFindAllFoodFenye.html" target="_blank"
+                             style="float: right">more ></a></span>
                 </p>
             </ul>
             <div id="Indexcontent">
@@ -160,7 +170,8 @@
                     <li>
                         <div class="SCcontent">
                             <c:forEach items="${foodsListByCollection}" var="foodsListByCollection">
-                                <a href="<%=basePath%>getFoodById.html?fid=${foodsListByCollection.fid}" target="_blank" title="菜品名称">
+                                <a href="<%=basePath%>getFoodById.html?fid=${foodsListByCollection.fid}" target="_blank"
+                                   title="菜品名称">
                                     <figure>
                                         <img src="/pic/${foodsListByCollection.fpic }">
                                         <figcaption>
@@ -172,12 +183,12 @@
                             </c:forEach>
                         </div>
                         <div class="bestshop">
-                            <a  target="_blank" title="店铺名称">
+                            <a target="_blank" title="店铺名称">
                                 <figure>
                                     <img src="<%=path %>/upload/wpjnewlogo.jpg">
                                 </figure>
                             </a>
-                            <a  target="_blank" title="店铺名称">
+                            <a target="_blank" title="店铺名称">
                                 <figure>
                                     <img src="<%=path %>/upload/weijia.jpg">
                                 </figure>
@@ -204,7 +215,8 @@
                     <li>
                         <div class="DCcontent">
                             <c:forEach items="${storesListIndex}" var="storesListIndex">
-                                <a href="<%=basePath%>userBuyToStores.html?stid=${storesListIndex.stid }" target="_blank" title="TITLE:店名">
+                                <a href="<%=basePath%>userBuyToStores.html?stid=${storesListIndex.stid }"
+                                   target="_blank" title="TITLE:店名">
                                     <figure>
                                         <img src="/pic/${storesListIndex.stdesc }">
                                         <figcaption>
@@ -223,17 +235,24 @@
     <aside class="A-infor">
         <img src="<%=path %>/upload/2014911.jpg">
         <div class="usercomment">
-            <span>用户菜品点评</span>
-            <ul>
-                <li>
-                    <img src="<%=path %>/upload/01.jpg">
-                    用户“DeathGhost”对[ 老李川菜馆 ]“酸辣土豆丝”评说：味道挺不错，送餐速度挺快...
-                </li>
-                <li>
-                    <img src="<%=path %>/upload/02.jpg">
-                    用户“DeathGhost”对[ 魏家凉皮 ]“酸辣土豆丝”评说：味道挺不错，送餐速度挺快...
-                </li>
-            </ul>
+            <span>点击联系我们</span>
+            <a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=1158726684&site=qq&menu=yes">
+                <img border="0" width="93px" height="153px" src="http://wpa.qq.com/pa?p=2:1158726684:53" alt="点击这里给我发消息" title="点击这里给我发消息"/>
+            </a>
+            <a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=1158726684&site=qq&menu=yes">
+                <img border="0"
+                   width="93px"
+                   height="153px"
+                   src="http://wpa.qq.com/pa?p=2:1158726684:53"
+                   alt="点击这里给我发消息"
+                   title="点击这里给我发消息"/></a>
+            <a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=1158726684&site=qq&menu=yes">
+                <img border="0"
+                   width="93px"
+                   height="153px"
+                   src="http://wpa.qq.com/pa?p=2:1158726684:53"
+                   alt="点击这里给我发消息"
+                   title="点击这里给我发消息"/></a>
         </div>
     </aside>
 </section>
@@ -256,7 +275,11 @@
                 <p>客服热线</p>
                 <p><i>1830927**73</i></p>
                 <p>配送时间</p>
-                <p><time>09：00</time>~<time>22:00</time></p>
+                <p>
+                    <time>09：00</time>
+                    ~
+                    <time>22:00</time>
+                </p>
                 <p>网站公告</p>
             </div>
         </aside>
@@ -290,7 +313,8 @@
             </div>
         </section>
     </section>
-    <div class="copyright">© 版权所有 2016 DeathGhost 技术支持：<a href="http://www.deathghost.cn" title="DeathGhost">DeathGhost</a></div>
+    <div class="copyright">© 版权所有 2016 DeathGhost 技术支持：<a href="http://www.deathghost.cn"
+                                                          title="DeathGhost">DeathGhost</a></div>
 </footer>
 </body>
 </html>

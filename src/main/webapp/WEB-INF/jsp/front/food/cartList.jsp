@@ -209,15 +209,13 @@
                     <a href="javascript:;" onClick="selectsearch(this,'food_name')">食物名</a>
                 </div>
                 <div class="Search_area">
-                    <input type="search" id="fkeyword" name="keyword" placeholder="请输入您所需查找的餐厅名称或食物名称..."
+                    <input type="hidden" value="<%=basePath%>frontSearchFoodByName.html" id="urlsearchFoodByName">
+                    <input type="hidden" value="<%=basePath%>frontSearchStoresByName.html" id="urlsearchStoresByName">
+                    <input type="search" id="fnamesearch" name="fname" placeholder="请输入您所需查找的餐厅名称或食物名称..."
                            class="searchbox"/>
                     <input type="submit" class="searchbutton" value="搜 索"/>
                 </div>
             </form>
-            <p class="hotkeywords"><a href="#" title="酸辣土豆丝">酸辣土豆丝</a><a href="#" title="这里是产品名称">螃蟹炒年糕</a><a href="#"
-                                                                                                              title="这里是产品名称">牛奶炖蛋</a><a
-                    href="#" title="这里是产品名称">芝麻酱凉面</a><a href="#" title="这里是产品名称">滑蛋虾仁</a><a href="#" title="这里是产品名称">蒜汁茄子</a>
-            </p>
         </div>
     </div>
     <nav class="menu_bg">
@@ -250,16 +248,12 @@
                 <td class="tb1_td3">商品</td>
                 <td class="tb1_td4">原价</td>
                 <td class="tb1_td5">数量</td>
-                <td class="tb1_td6">单价</td>
+                <td class="tb1_td6">总价</td>
                 <td class="tb1_td7">操作</td>
             </tr>
         </table>
         <c:forEach items="${cartList }" var="cart">
             <table cellpadding="0" cellspacing="0" class="gwc_tb2" id="table1">
-
-                <tr>
-                    <td colspan="7" class="shopname Font14 FontW">店铺：好味来快餐店</td>
-                </tr>
                 <tr>
                     <td class="tb2_td1">
                         <div class="cart-checkbox">
@@ -267,8 +261,8 @@
                         <input type="hidden" name="to${cart.cid }" value="${cart.ctotal}" />
                         </div>
                     </td>
-                    <td class="tb2_td2"><a href="detailsp.html" target="_blank"><img src="upload/01.jpg"/></a></td>
-                    <td class="tb2_td3"><a href="detailsp.html" target="_blank">${cart.foods.fname }</a></td>
+                    <td class="tb2_td2"><a href="<%=basePath%>getFoodById.html?fid=${cart.foods.fid}" target="_blank"><img src="upload/01.jpg"/></a></td>
+                    <td class="tb2_td3"><a href="<%=basePath%>getFoodById.html?fid=${cart.foods.fid}" target="_blank">${cart.foods.fname }</a></td>
                     <td class="tb1_td4"><s>￥${cart.foods.fprice }</s></td>
                     <td class="tb1_td5">
 
@@ -280,7 +274,7 @@
                     <td class="tb1_td6">
                         <em tabindex="0" id="dangejine${cart.cid }" class="number" style="color:#ff5500;font-size:14px; font-weight:bold;">${cart.ctotal}</em>
                     </td>
-                    <td class="tb1_td7"><a href="#" id="delcart1">删除</a></td>
+                    <td class="tb1_td7"><a href="<%=basePath%>deleteCart.html?cid=${cart.cid }" id="delcart1">删除</a></td>
                 </tr>
             </table>
         </c:forEach>
@@ -292,7 +286,7 @@
                 <td class="tb3_td1" >
                     <input type="button" class="invert" value="反选"/>
                 </td>
-                <td class="tb3_td2 GoBack_Buy Font14"><a href="#" target="_blank">继续购物</a></td>
+                <td class="tb3_td2 GoBack_Buy Font14"><a href="<%=basePath%>frontFindAllFoodFenye.html" target="_blank">继续购物</a></td>
                 <td class="tb3_td2">已选商品
                     <label id="shuliang" style="color:#ff5500;font-size:14px; font-weight:bold;">0</label>
                     件

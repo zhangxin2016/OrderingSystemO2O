@@ -368,16 +368,20 @@
                                         订单状态：待确认收货
                                     </c:if>
                                     <c:if test="${detailorderList.dostatus == 2}">
-                                        订单状态：买家未评价
+                                        订单状态：买家未评价|
+                                        <a href="<%=basePath%>userSellDeleteOrder.html?doid=${detailorderList.doid}">删除</a>
                                     </c:if>
                                     <c:if test="${detailorderList.dostatus == 3}">
-                                        订单状态：买家已评价
+                                        订单状态：买家已评价|
+                                        <a href="<%=basePath%>userSellDeleteOrder.html?doid=${detailorderList.doid}">删除</a>
                                     </c:if>
                                     <c:if test="${detailorderList.dostatus == 4}">
-                                        订单状态：买家已取消订单
+                                        订单状态：买家已取消订单|
+                                        <a href="<%=basePath%>userSellDeleteOrder.html?doid=${detailorderList.doid}">删除</a>
                                     </c:if>
                                     <c:if test="${detailorderList.dostatus == 5}">
-                                        订单状态：商家退回订单
+                                        订单状态：商家退回订单|
+                                        <a href="<%=basePath%>userSellDeleteOrder.html?doid=${detailorderList.doid}">删除</a>
                                     </c:if>
                                 </div>
                             </div>

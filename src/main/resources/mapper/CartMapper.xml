@@ -261,7 +261,7 @@
     and cart.fid=#{cart.fid}
   </select>
   <select id="countCart" parameterType="Integer" resultType="Integer">
-    SELECT COUNT(1) FROM cart WHERE cdelete=0 AND uid=#{uid}
+    SELECT SUM(num) FROM cart WHERE cdelete=0 AND uid=#{uid}
   </select>
   <!-- 查询用户购物车信息 -->
   <select id="findCartListByUid" resultMap="CartFoodResultMap">

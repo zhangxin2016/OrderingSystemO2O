@@ -52,7 +52,9 @@
                     <a href="javascript:;" onClick="selectsearch(this,'food_name')">食物名</a>
                 </div>
                 <div class="Search_area">
-                    <input type="search" id="fkeyword" name="keyword" placeholder="请输入您所需查找的餐厅名称或食物名称..."
+                    <input type="hidden" value="<%=basePath%>frontSearchFoodByName.html" id="urlsearchFoodByName">
+                    <input type="hidden" value="<%=basePath%>frontSearchStoresByName.html" id="urlsearchStoresByName">
+                    <input type="search" id="fnamesearch" name="fname" placeholder="请输入您所需查找的餐厅名称或食物名称..."
                            class="searchbox"/>
                     <input type="submit" class="searchbutton" value="搜 索"/>
                 </div>
@@ -127,30 +129,15 @@
         <div class="Hot_shop">
             <span class="Hshoptile Font14 FontW Block">热门商家</span>
             <ul>
-                <li>
-                    <a href="shop.html" target="_blank" title="好味来快餐连锁店"><img src="upload/cc.jpg"></a>
-                    <p class="Font14 FontW Overflow Lineheight35"><a href="shop.html" target="_blank" title="好味来快餐连锁店">好味来快餐连锁店</a>
-                    </p>
-                    <p class="Lineheight35 Overflow"><span title="通过动态控制地址的字符数量...">地址：西安市莲湖区土门新市场斜对面...</span></p>
-                </li>
-                <li>
-                    <a href="shop.html" target="_blank" title="好味来快餐连锁店"><img src="upload/dd.jpg"></a>
-                    <p class="Font14 FontW Overflow Lineheight35"><a href="shop.html" target="_blank" title="好味来快餐连锁店">好味来快餐连锁店</a>
-                    </p>
-                    <p class="Lineheight35 Overflow"><span title="通过动态控制地址的字符数量...">地址：西安市莲湖区土门新市场斜对面...</span></p>
-                </li>
-                <li>
-                    <a href="shop.html" target="_blank" title="好味来快餐连锁店"><img src="upload/ee.jpg"></a>
-                    <p class="Font14 FontW Overflow Lineheight35"><a href="shop.html" target="_blank" title="好味来快餐连锁店">好味来快餐连锁店</a>
-                    </p>
-                    <p class="Lineheight35 Overflow"><span title="通过动态控制地址的字符数量...">地址：西安市莲湖区土门新市场斜对面...</span></p>
-                </li>
-                <li>
-                    <a href="shop.html" target="_blank" title="好味来快餐连锁店"><img src="upload/cc.jpg"></a>
-                    <p class="Font14 FontW Overflow Lineheight35"><a href="shop.html" target="_blank" title="好味来快餐连锁店">好味来快餐连锁店</a>
-                    </p>
-                    <p class="Lineheight35 Overflow"><span title="通过动态控制地址的字符数量...">地址：西安市莲湖区土门新市场斜对面...</span></p>
-                </li>
+                <c:forEach items="${storesListFour }" var="storesListFour">
+                    <li>
+                        <a href="<%=basePath%>userBuyToStores.html?stid=${storesListFour.stid }" target="_blank" title=""><img src="/pic/${storesListFour.stdesc }"></a>
+                        <p class="Font14 FontW Overflow Lineheight35"><a href="shop.html" target="_blank"
+                                                                         title="">${storesListFour.stname }</a>
+                        </p>
+                        <p class="Lineheight35 Overflow"><span title="通过动态控制地址的字符数量...">地址：${storesListFour.staddress }</span></p>
+                    </li>
+                </c:forEach>
             </ul>
         </div>
     </aside>

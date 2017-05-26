@@ -227,6 +227,17 @@ public class StoresController {
                 storesListByNameAndStid.add(stores2);
             }
         }
+        //热门商家
+        List<Stores> storesList1 = storesService.findStoresByAddressOrderByUcollDesc(city);
+        List<Stores> storesListTwo = new ArrayList<Stores>();
+        int t = 0;
+        for (Stores stores:storesList1){
+            if (t<2){
+                storesListTwo.add(stores);
+            }
+            t++;
+        }
+        request.setAttribute("storesListTwo",storesListTwo);
         System.out.println("storesListByNameAndStid======"+storesListByNameAndStid);
         request.setAttribute("storesListByNameAndStid",storesListByNameAndStid);
         return "front/food/searchstores";

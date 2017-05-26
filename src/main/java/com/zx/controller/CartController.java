@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -85,6 +86,14 @@ public class CartController {
             return "front/login";
         }
     }
+    @RequestMapping("/countCartStores")
+    public void countCartStores(HttpServletResponse response,HttpSession session) throws IOException {
+        if (session.getAttribute("user")!=null) {
+            UserBuy user = (UserBuy) session.getAttribute("user");
+            int count = cartService.findCountCart(user.getUid());
+            response.getWriter().print(count);
+        }
+    }
     @RequestMapping("/cartAddCount")
     public void cartAddCount(HttpServletResponse response,@RequestParam("cartId") int cartId,@RequestParam("outcarnum") int num) throws Exception{
         Cart cart = cartService.findCartByCid(cartId);
@@ -117,6 +126,7 @@ public class CartController {
         Integer count1 = cart.getCtotal();
         response.getWriter().print(count1);
     }
+    //结算购物车
     @RequestMapping("/deleteCartLotSize")
     public String deleteCartLotSize(HttpSession session,HttpServletRequest request)throws Exception{
         if (session.getAttribute("user")!=null) {
@@ -143,6 +153,16 @@ public class CartController {
 		/*request.removeAttribute("cartList");*/
             System.out.println("cartListByLot>>>>>>>>>>>>>" + cartListByLot);
             return "/front/food/cartOrder";
+        }else{
+            return "front/login";
+        }
+    }
+    //删除购物车
+    @RequestMapping("/deleteCart")
+    public String deleteCart(Integer cid,HttpSession session,HttpServletRequest request)throws Exception{
+        if (session.getAttribute("user")!=null) {
+            cartService.deleteCart(cid);
+            return "redirect:getUserAllCartList.html";
         }else{
             return "front/login";
         }

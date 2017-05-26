@@ -1,8 +1,10 @@
 package com.zx.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import com.zx.model.Detailorder;
 import com.zx.model.Food;
 import com.zx.model.Stores;
+import com.zx.service.DetailOrderService;
 import com.zx.service.FoodService;
 import com.zx.service.StoresService;
 import com.zx.util.*;
@@ -24,6 +26,8 @@ public class UserCotroller {
 	private FoodService foodService;
 	@Autowired
 	private StoresService storesService;
+	@Autowired
+	private DetailOrderService detailOrderService;
 	private String IPADDRESS = "http://ip.chemdrug.com/";
 	@RequestMapping("/back.html")
 	public String test(){
@@ -83,6 +87,11 @@ public class UserCotroller {
 		modelMap.put("foodsListByStid", foodsListByStid);
 		modelMap.put("foodsListBySalesvolume", foodsListBySalesvolume);
 		modelMap.put("foodsListByCollection", foodsListByCollection);
+		//首页订单滚动显示
+		List<Detailorder> detailorderListIndex = detailOrderService.finddetailOrderListFrontIndex();
+		List<Detailorder> detailorderListFrontIndex = new ArrayList<Detailorder>();
+		detailorderListFrontIndex = detailorderListIndex.subList(detailorderListIndex.size()-5, detailorderListIndex.size());
+		modelMap.put("detailorderListFrontIndex",detailorderListFrontIndex);
 		session.setAttribute("cityNow",city);
 		return "front/index";
 	}

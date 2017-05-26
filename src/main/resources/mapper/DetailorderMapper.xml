@@ -342,19 +342,20 @@
   <!--未发货数量-->
   <select id="countByNoSend" parameterType="Integer" resultType="java.lang.Integer">
     select count(*) from detailorder
-    WHERE dostatus=0 AND dodelete=0 AND oid=#{oid}
+    WHERE dostatus=0 AND (dodelete=0 OR dodelete=3) AND oid=#{oid}
   </select>
   <!--未签收数量-->
   <select id="countByNoSigh" parameterType="Integer" resultType="java.lang.Integer" >
     select count(*) from detailorder
-    WHERE dostatus=1 AND dodelete=0 AND oid=#{oid}
+    WHERE dostatus=1 AND (dodelete=0 OR dodelete=3) AND oid=#{oid}
   </select>
   <!--未评价数量-->
   <select id="countByNoEvaluate" parameterType="Integer" resultType="java.lang.Integer" >
     select count(*) from detailorder
-    WHERE dostatus=2 AND dodelete=0 AND oid=#{oid}
+    WHERE dostatus=2 AND (dodelete=0 OR dodelete=3) AND oid=#{oid}
   </select>
   <!--根据订单ID获取订单明细列表-->
+  <!--买家-->
   <select id="selectdetailOrderList" parameterType="Integer" resultMap="DetailOrderResultMap" >
     select orders.*, detailorder.*, food.*,address.*,user_buy.*
       from detailorder,orders,food,address,user_buy
@@ -362,9 +363,12 @@
       AND detailorder.oid=orders.oid
       AND detailorder.adid=address.adid
       AND orders.uid = user_buy.uid
-    AND detailorder.dodelete=0 AND detailorder.oid=#{oid}
+      AND (detailorder.dodelete=0 OR detailorder.dodelete=3)
+      AND detailorder.oid=#{oid}
   </select>
+
   <!--根据食物ID获取订单明细列表-->
+  <!--卖家-->
   <select id="selectdetailOrderListByFid" parameterType="Integer" resultMap="DetailOrderResultMap" >
       select orders.*, detailorder.*, food.*,address.*,user_buy.*
       from detailorder,orders,food,address,user_buy
@@ -372,8 +376,17 @@
       AND detailorder.oid=orders.oid
       AND detailorder.adid=address.adid
       AND orders.uid = user_buy.uid
-      /*AND detailorder.dodelete=0*/
+      AND (detailorder.dodelete=0 OR detailorder.dodelete=2)
       AND detailorder.fid=#{fid}
+  </select>
+  <!--前天滚动展示订单-->
+  <select id="selectdetailOrderListFrontIndex"  resultMap="DetailOrderResultMap" >
+    select orders.*, detailorder.*, food.*,address.*,user_buy.*
+    from detailorder,orders,food,address,user_buy
+    WHERE detailorder.fid=food.fid
+    AND detailorder.oid=orders.oid
+    AND detailorder.adid=address.adid
+    AND orders.uid = user_buy.uid
   </select>
 
   <select id="getAllDetailOrderBack" parameterType="com.zx.util.Page" resultMap="DetailOrderResultMap">
@@ -396,7 +409,6 @@
     AND detailorder.oid=orders.oid
     AND detailorder.adid=address.adid
     AND orders.uid = user_buy.uid
-    AND detailorder.dodelete=0
     AND detailorder.doid=#{doid}
   </select>
 

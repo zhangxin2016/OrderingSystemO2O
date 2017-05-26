@@ -75,6 +75,11 @@ public class DetailOrderServiceImpl implements DetailOrderService {
     }
 
     @Override
+    public List<Detailorder> finddetailOrderListFrontIndex() throws Exception {
+        return detailOrderMapper.selectdetailOrderListFrontIndex();
+    }
+
+    @Override
     public List<Detailorder> getAllDetailOrderBack(Page page) {
         return detailOrderMapper.getAllDetailOrderBack(page);
     }

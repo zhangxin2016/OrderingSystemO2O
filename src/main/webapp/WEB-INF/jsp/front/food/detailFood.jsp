@@ -155,12 +155,13 @@
                     <a href="javascript:;" onClick="selectsearch(this,'food_name')">食物名</a>
                 </div>
                 <div class="Search_area">
-                    <input type="search" id="fkeyword" name="keyword" placeholder="请输入您所需查找的餐厅名称或食物名称..."
+                    <input type="hidden" value="<%=basePath%>frontSearchFoodByName.html" id="urlsearchFoodByName">
+                    <input type="hidden" value="<%=basePath%>frontSearchStoresByName.html" id="urlsearchStoresByName">
+                    <input type="search" id="fnamesearch" name="fname" placeholder="请输入您所需查找的餐厅名称或食物名称..."
                            class="searchbox"/>
                     <input type="submit" class="searchbutton" value="搜 索"/>
                 </div>
             </form>
-
         </div>
     </div>
     <nav class="menu_bg">
@@ -178,13 +179,13 @@
         <div class="foodpic">
             <img src="/pic/${food.fpic }" id="showimg">
             <ul class="smallpic">
-                <li><span onclick="addcollection(${food.fid })"><button class="btn btn-default" type="submit"style="width: 100px; background-color: #f3ab26 " >收藏菜品</button></span></li>
+                <li><span onclick="addcollection(${food.fid })"><button class="btn btn-default" type="submit"style="width: 150px; height: 40px; background-color: #FF6600 " >收藏菜品</button></span></li>
             </ul>
         </div>
         <div class="foodtext">
             <div class="foodname_a">
                 <h1>${food.fname }</h1>
-                <p>西安市丈八路220号</p>
+                <p>&nbsp;</p>
             </div>
             <div class="price_a">
                 <p class="price01">价格：￥<span>${food.fprice }</span></p>

@@ -311,4 +311,9 @@ public class UserBuyController {
         }
         return mv  ;
     }
+
+    public String userBuyManagement(){
+        return "";
+    }
+
 }

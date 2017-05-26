@@ -73,8 +73,8 @@ code::selection {background:#dddddd;}
 .Logo_search .Search .Search_area .searchbutton{background:#00661c;color:#fff;font-weight:bold;font-size:14px;padding:10px 15px;float:left;}
 
 /*menu*/
-.menu_bg{width:100%;margin:0 auto;height:80px;box-shadow:0 10px 20px #d3d3d3;border-top:3px #00670c solid;line-height:90px;}
-.menu_bg .menu{width:1200px;height:80px;line-height:80px;margin:0 auto;font-size:16px;font-weight:bold;display:box;display:-webkit-box;}
+.menu_bg{width:100%;margin:0 auto;height:30px;box-shadow:0 10px 20px #d3d3d3;border-top:3px #00670c solid;line-height:90px;}
+.menu_bg .menu{width:1200px;height:30px;line-height:80px;margin:0 auto;font-size:16px;font-weight:bold;display:box;display:-webkit-box;}
 .menu_bg .menu li{box-flex:1;-webkit-box-flex:1;-moz-box-flex:1;text-align:center;border-right:1px #f5f5f5 dotted;float:left;width:288px;}
 .menu_bg .menu li:last-child{border:none;}
 .menu_bg .menu li a{display:block;}
@@ -158,7 +158,7 @@ code::selection {background:#dddddd;}
 .Sfainfor .Sflist #Indexcontent ul .bestshop figure{width:166px;height:117px; float:left;overflow:hidden;border:1px #d1cdce solid;padding:1px;margin:0 5px 8px 5px;}
 .Sfainfor .Sflist #Indexcontent ul .bestshop figure img{width:166px;height:117px;}
 .Sfainfor .A-infor{width:293px;float:left;height:auto;margin-left:5px;}
-.Sfainfor .A-infor .usercomment{width:auto;height:226px;border:1px #cccccc solid;}
+.Sfainfor .A-infor .usercomment{width:auto;height:190px;border:1px #cccccc solid;}
 .Sfainfor .A-infor .usercomment span{height:35px;line-height:35px;background:#ececec;font-size:14px;font-weight:bold;padding-left:10px;display:block;border-bottom:1px #cccccc solid;color:#026320;}
 .Sfainfor .A-infor .usercomment li{padding:5px;height:84px;border-bottom:1px #cccccc dotted;line-height:25px;}
 .Sfainfor .A-infor .usercomment li img{width:75px;height:75px;padding:2px;border:1px #cccccc solid; border-radius:50%; float:left;margin-right:5px;}

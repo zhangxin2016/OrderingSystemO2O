@@ -271,13 +271,18 @@ public class FoodController {
     @RequestMapping("/frontSearchFoodByName")
     public String frontSearchFood(String fname,HttpSession session,
                                   HttpServletRequest request) throws Exception {
-        GetIp fetcher=new GetIp(IPADDRESS);
-        AddressPort addressPort = new AddressPort();
-        String result = addressPort.addressByIp(fetcher.getMyExternalIpAddress());
-        JSONObject jsStr = JSONObject.parseObject(result);
-        Unicode unicode = new Unicode();
-        String city = unicode.decodeUnicode(jsStr.getString("city"));
-        System.out.println("city:"+city);
+        String city = getCity();
+        //热门商家
+        List<Stores> storesList1 = storesService.findStoresByAddressOrderByUcollDesc(city);
+        List<Stores> storesListFour = new ArrayList<Stores>();
+        int t = 0;
+        for (Stores stores:storesList1){
+            if (t<4){
+                storesListFour.add(stores);
+            }
+            t++;
+        }
+        request.setAttribute("storesListFour",storesListFour);
         List<Stores> storesList = storesService.getStoresByAddress(city);
         List<Food> foodListByNameAndStid = new ArrayList<Food>();
         for(Stores stores : storesList){
@@ -323,16 +328,21 @@ public class FoodController {
      */
     @RequestMapping("/frontFindAllFoodFenye")
     public String frontFindAllFoodFenye(Map<String,Object> map ,HttpServletRequest request) throws Exception {
-        GetIp fetcher=new GetIp(IPADDRESS);
-        AddressPort addressPort = new AddressPort();
-        String result = addressPort.addressByIp(fetcher.getMyExternalIpAddress());
-        JSONObject jsStr = JSONObject.parseObject(result);
-        Unicode unicode = new Unicode();
-        String city = unicode.decodeUnicode(jsStr.getString("city"));
-        System.out.println("city:"+city);
+        String city = getCity();
         String currentPage=request.getParameter("currentPage");
         int i = 0;
         Page page = new Page(city,foodService.findFoodByStoresCount(city), 6);
+        //热门商家
+        List<Stores> storesList = storesService.findStoresByAddressOrderByUcollDesc(city);
+        List<Stores> storesListFour = new ArrayList<Stores>();
+        int t = 0;
+        for (Stores stores:storesList){
+            if (t<4){
+                storesListFour.add(stores);
+            }
+            t++;
+        }
+        request.setAttribute("storesListFour",storesListFour);
         if(currentPage == null){
             List<Food> foodslistFront = foodService.findFoodByStores(page);
             map.put("foodslistFront", foodslistFront);

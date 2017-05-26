@@ -42,6 +42,8 @@ public interface DetailorderMapper {
 
     List<Detailorder> selectdetailOrderListByFid(Integer fid);
 
+    List<Detailorder> selectdetailOrderListFrontIndex();
+
     List<Detailorder> getAllDetailOrderBack(Page page);
 
     Integer getAllDetailOrderCounts();
