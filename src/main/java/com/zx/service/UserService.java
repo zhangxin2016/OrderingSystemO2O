@@ -25,6 +25,8 @@ public interface UserService {
      */
     UserBuy checkRegister(String name);
 
+    UserBuy checkRegisterByUidcard(String uidcard);
+
     /**
      * @title :updateDetail
      * @description :更新用户基本信息（用户名、性别、生日）

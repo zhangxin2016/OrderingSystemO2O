@@ -393,8 +393,7 @@
                         <div class="shopdetails">
 
                             <div class="shopdetailsT">
-
-                                <p><span onclick="toEditUserSell('修改商家信息','<%=basePath%>toEditUserSellInStores.html?usid=${userSellInformation.usid}',800,700)">操作--->>修改信息</span></p>
+                                <p>操作--->><a onclick="toEditUserSell('修改商家信息','<%=basePath%>toEditUserSellInStores.html?usid=${userSellInformation.usid}',800,700)">修改信息</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="<%=basePath%>deleteStoresByUserSell.html?stid=${inMyStores.stid}"  onclick="if(confirm('确认注销吗？')==false)return false;">注销店铺</a></p>
                                 <input type="hidden" id="" value=""/>
                                 <p><span>姓名：${userSellInformation.usname}</span></p>
                                 <p><span>真实姓名：</span>${userSellInformation.ustruename}</p>
@@ -413,45 +412,30 @@
         </div>
     </article>
     <aside>
-        <div class="cart" id="Topcart">
-            <span class="Ctitle Block FontW Font14"><a href="cart.html" target="_blank">我的购物车</a></span>
-            <table id="cartcontent" fitColumns="true">
-                <thead>
-                <tr>
-                    <th width="33%" align="center" field="name">商品</th>
-                    <th width="33%" align="center" field="quantity">数量</th>
-                    <th width="33%" align="center" field="price">价格</th>
-                </tr>
-                </thead>
-            </table>
-            <p class="Ptc"><span class="Cbutton"><a href="cart.html" target="进入购物车">进入购物车</a></span><span class="total">共计金额: ￥0</span></p>
-        </div>
 
         <div class="Nearshop">
-            <span class="Nstitle">附近其他店铺</span>
+            <span class="Nstitle">我的信息</span>
             <ul>
                 <li>
-                    <img src="upload/cc.jpg">
                     <p>
-                        <span class="shopname" title="动态调用完整标题"><a href="detailsp.html" target="_blank" title="肯德基">肯德基</a></span>
-                        <span class="Discolor">距离：1.2KM</span>
-                        <span title="完整地址title">地址：西安市雁塔区2000号...</span>
+                        <span class="shopname" title="动态调用完整标题"><a target="_blank" title="${userSellInformation.usname}">${userSellInformation.usname}</a></span>
+                        <span class="Discolor">电话:${userSellInformation.usphone}</span>
+                        <span title="完整地址title">地址:${userSellInformation.usaddress}</span>
                     </p>
                 </li>
             </ul>
         </div>
 
         <div class="History">
-            <span class="Htitle">浏览历史</span>
+            <span class="Htitle">我的店铺</span>
             <ul>
                 <li>
-                    <a href="detailsp.html" target="_blank" title="清真川菜馆"><img src="upload/cc.jpg"></a>
+                    <a target="_blank" title="我的店铺"> <img src="/pic/${inMyStores.stdesc }"></a>
                     <p>
-                        <span class="shopname" title="动态调用完整标题"><a href="detailsp.html" target="_blank" title="正宗陕北小吃城">正宗陕北小吃城</a></span>
-                        <span>西安市莲湖区土门十西安市莲湖区土门十字西安市莲湖区土门十字.</span>
+                        <span class="shopname" title="动态调用完整标题"><a target="_blank" title="${inMyStores.stname}">${inMyStores.stname}</a></span>
+                        <span>地址：${inMyStores.staddress}</span>
                     </p>
                 </li>
-                <span>[ <a href="#">清空历史记录</a> ]</span>
             </ul>
         </div>
     </aside>

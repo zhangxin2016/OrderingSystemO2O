@@ -195,7 +195,7 @@
             <tr>
                 <td width="40%" align="right"></td>
 
-                <td><input type="button" name="" value="登 录" class="log_btn" id="checkLogin">( 还不是会员，<a href="<%=basePath%>user/userBuyRegister.html" class="BlueA">请注册</a> )</td>
+                <td><input type="button" name="" value="登 录" class="log_btn" id="checkLogin">( 还不是会员，<a href="<%=basePath%>user/userBuyRegister.html" class="BlueA">请注册</a>| <a href="<%=basePath%>toUserBuyPaaword.html" class="BlueA">忘记密码</a>)</td>
             </tr>
         </table>
     </form>

@@ -78,4 +78,9 @@ public class StoresServiceImpl implements StoresService {
         return storesMapper.selectStoresByAddressOrderByUcollDesc(staddress);
     }
 
+    @Override
+    public Integer deleteStoresByUserSell(Stores stores) {
+        return storesMapper.updateByPrimaryKeySelective(stores);
+    }
+
 }

@@ -214,7 +214,8 @@ public class DetailOrderController {
             detailorder1.setFid(detailorder.getFid());
             detailorder1.setOid(detailorder.getOid());
             detailorder1.setDodate(detailorder.getDodate());
-            detailorder1.setDodelete(2);
+            detailorder1.setDodelete(1);
+            detailorder1.setUsdelete(detailorder.getUsdelete());
             detailorder1.setDomessage(detailorder.getDomessage());
             detailOrderService.updateDetailOrder(detailorder1);
             return "redirect:listOrderDetailByFront.html";
@@ -237,7 +238,8 @@ public class DetailOrderController {
             detailorder1.setFid(detailorder.getFid());
             detailorder1.setOid(detailorder.getOid());
             detailorder1.setDodate(detailorder.getDodate());
-            detailorder1.setDodelete(3);
+            detailorder1.setDodelete(detailorder.getDodelete());
+            detailorder1.setUsdelete(1);
             detailorder1.setDomessage(detailorder.getDomessage());
             detailOrderService.updateDetailOrder(detailorder1);
             return "redirect:getStoresBySellId.html";

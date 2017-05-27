@@ -32,9 +32,12 @@ public class Detailorder {
 
     private String domessage;
 
+    private Integer usdelete;
+
     private Order order;
 
     private Food food;
 
     private Address address;
+
 }

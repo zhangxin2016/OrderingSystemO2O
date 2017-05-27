@@ -28,6 +28,7 @@
       <result column="dostatus" property="dostatus" jdbcType="INTEGER" />
       <result column="adid" property="adid" jdbcType="INTEGER" />
       <result column="dodelete" property="dodelete" jdbcType="INTEGER" />
+      <result column="usdelete" property="usdelete" jdbcType="INTEGER" />
       <result column="domessage" property="domessage" jdbcType="VARCHAR" />
       <collection property="food" ofType="com.zx.model.Food">
         <id column="fid" property="fid" jdbcType="INTEGER" />

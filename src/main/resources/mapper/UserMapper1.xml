@@ -31,6 +31,14 @@
 			uname=#{uname}
 		</where>
 	</select>
+
+	<!-- 验证身份证注册信息 -->
+	<select id="checkRegisterByUidcard" parameterType="String" resultType="com.zx.model.UserBuy">
+		select * from user_buy
+		<where>
+			uidcard=#{uidcard}
+		</where>
+	</select>
 	
 	<!-- 更新用户基本信息 -->
 	<update id="updateDetail" parameterType="com.zx.model.UserBuy">

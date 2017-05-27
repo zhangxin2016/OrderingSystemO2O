@@ -95,7 +95,7 @@ public class UserSellController {
     public String logout(HttpSession session){
         //清空session
         session.invalidate();
-        return "redirect:user/testJson.html";
+        return "redirect:user/frontindex.html";
     }
 
     /**
@@ -217,6 +217,11 @@ public class UserSellController {
         userService.updateUserSell(userSell);
         map.put("close", "close");
         return "front/stores/userselledit";
+    }
+    //卖家忘记密码
+    @RequestMapping("toUserSellPaaword")
+    public String toUserSellPaaword(){
+        return "front/forgetpassword/forgetpass";
     }
 
 }

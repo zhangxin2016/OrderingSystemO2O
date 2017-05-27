@@ -29,5 +29,7 @@ public interface StoresService {
 
     //根据IP地址查看店铺信息 (stcoll 排序)
     List<Stores> findStoresByAddressOrderByUcollDesc(String staddress);
+    //注销店铺
+    Integer deleteStoresByUserSell(Stores stores);
 
 }

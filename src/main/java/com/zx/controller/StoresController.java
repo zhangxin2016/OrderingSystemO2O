@@ -70,34 +70,36 @@ public class StoresController {
                 }
                 map.put("page", page);
                 map.put("i", i); // 将键和值放在Map中
-            }
-            //评论
-            for (Food food : foodList) {
-                List<Detailorder> detailorderList = detailOrderService.findDetailListByFid(food.getFid());
-                for (Detailorder detailorder : detailorderList) {
-                    Evaluate evaluate = evaluateService.findEvaluateByDoid(detailorder.getDoid());
-                    if (evaluate != null) {
-                        evaluatesListByDoid.add(evaluate);
+
+                //评论
+                for (Food food : foodList) {
+                    List<Detailorder> detailorderList = detailOrderService.findDetailListByFid(food.getFid());
+                    for (Detailorder detailorder : detailorderList) {
+                        Evaluate evaluate = evaluateService.findEvaluateByDoid(detailorder.getDoid());
+                        if (evaluate != null) {
+                            evaluatesListByDoid.add(evaluate);
+                        }
                     }
                 }
-            }
-            request.setAttribute("evaluatesListByDoid", evaluatesListByDoid);
-            //System.out.println("evaluatesListByDoid============="+evaluatesListByDoid);
-            //订单状态（商家发货）
-            List<Detailorder> detailorderList1 = new ArrayList<Detailorder>();
-            List<Food> foodsListByDetailOrder = new ArrayList<Food>();
-            foodsListByDetailOrder = foodService.findAllByStid(stores.getStid());
-            for (Food food : foodsListByDetailOrder) {
-                List<Detailorder> detailorderListByFid = detailOrderService.findDetailListByFid(food.getFid());
-                if (detailorderListByFid != null) {
-                    for (Detailorder detailorder : detailorderListByFid) {
-                        detailorderList1.add(detailorder);
+                request.setAttribute("evaluatesListByDoid", evaluatesListByDoid);
+                //System.out.println("evaluatesListByDoid============="+evaluatesListByDoid);
+                //订单状态（商家发货）
+                List<Detailorder> detailorderList1 = new ArrayList<Detailorder>();
+                List<Food> foodsListByDetailOrder = new ArrayList<Food>();
+                foodsListByDetailOrder = foodService.findAllByStid(stores.getStid());
+                for (Food food : foodsListByDetailOrder) {
+                    List<Detailorder> detailorderListByFid = detailOrderService.findDetailListByFid(food.getFid());
+                    if (detailorderListByFid != null) {
+                        for (Detailorder detailorder : detailorderListByFid) {
+                            detailorderList1.add(detailorder);
+                        }
                     }
                 }
+                System.out.println("foodsListByDetailOrder=====" + foodList);
+                System.out.println("detailorderList====" + detailorderList1);
+                request.setAttribute("detailorderList", detailorderList1);
             }
-            System.out.println("foodsListByDetailOrder=====" + foodList);
-            System.out.println("detailorderList====" + detailorderList1);
-            request.setAttribute("detailorderList", detailorderList1);
+
             //商家信息
             UserSell userSell1 = userSellService.findStoresByUserSell(userSell.getUsid());
             request.setAttribute("userSellInformation",userSell1);
@@ -321,6 +323,22 @@ public class StoresController {
         Stores stores = storesService.findStoresByStid(stid);
         request.setAttribute("findstores",stores);
         return "back/Stores/findstores";
+    }
+    /*
+     * 商家注销店铺
+     */
+    @RequestMapping("/deleteStoresByUserSell")
+    public String deleteStoresByUserSell(Integer stid,HttpSession session, HttpServletRequest request) throws Exception {
+        System.out.println("stid======"+stid);
+        Stores stores = new Stores();
+        stores.setStid(stid);
+        stores.setStdelete(1);
+        storesService.deleteStoresByUserSell(stores);
+        List<Food> foodList = foodService.findAllByStid(stid);
+        for(Food food1 : foodList){
+            foodService.deleteFoodByFid(food1.getFid());
+        }
+        return "redirect:getStoresBySellId.html";
     }
 
     public String getCity() throws Exception{

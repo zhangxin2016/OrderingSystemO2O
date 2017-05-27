@@ -205,6 +205,33 @@ public class UserBuyController {
     }
 
     /**
+     * @title :checkRegister
+     * @description :验证身份证是否已经注册
+     */
+    @RequestMapping("/checkRegisterByUidcard.html")
+    public void checkRegisterByUidcard(String uidcard,HttpServletRequest request,HttpServletResponse response) throws IOException{
+        //接收页面json用户输入的用户名
+        //String uidcard = request.getParameter("uidcard");
+        //查找数据库中有没有该用户
+        UserBuy user = userService.checkRegisterByUidcard(uidcard);
+        System.out.println("uidcard====="+uidcard);
+        JSONObject json = new JSONObject();
+        //有该用户返回json为0
+        int result = 0;
+        //没有该用户返回json为1
+        if(user==null){
+            result = 1;
+        }
+        //放入json
+        json.put("result", result);
+        System.out.println("result==="+result);
+        //传到前台
+        response.getWriter().print(json);
+        response.getWriter().flush();
+        response.getWriter().close();
+    }
+
+    /**
      * @title :sendMessage
      * @description :向目标手机发送手机验证码
      */
@@ -316,4 +343,26 @@ public class UserBuyController {
         return "";
     }
 
+    @RequestMapping("toUserBuyPaaword")
+    public String toUserBuyPaaword(){
+        return "front/forgetpassword/forgetpass";
+    }
+    @RequestMapping("userBuyPassword")
+    public String userBuyPassword(HttpServletRequest request){
+        String uname = request.getParameter("uname");
+        UserBuy user = userService.checkRegister(uname);
+        request.setAttribute("userBuyUname",uname);
+        return "front/forgetpassword/updatepass";
+    }
+
+    @RequestMapping("userBuyUpdatePassword")
+    public String userBuyUpdatePassword(HttpServletRequest request,String uname){
+        String upassword = request.getParameter("upassword");
+        UserBuy user = userService.checkRegister(uname);
+        UserBuy userBuy = new UserBuy();
+        userBuy.setUid(user.getUid());
+        userBuy.setUpassword(upassword);
+        userService.updatePass(userBuy);
+        return "redirect:user/userBuylogin.html";
+    }
 }

@@ -55,31 +55,7 @@
     });
 
     $(function () {
-        //用户名验证（非空、长度、重名）
-        $("#uname").blur(function(){
-            if($("#uname").val()==null || $("#uname").val()==""){
-                $("#nameCheck").html("<font color='red'>用户名不能为空！</font>");
-            }else if($("#uname").val().length<1 || $("#uname").val().length>16){
-                $("#nameCheck").html("<font color='red'>用户名介于1~16位！</font>");
-            }else{
-                $.ajax({
-                    url:"<%=basePath%>CheckRegister.html",
-                    type:"post",
-                    dataType:"json",
-                    data:{
-                        name:$("#uname").val()
-                    },
-                    success:function(data){
-                        if(data.result == 1){
-                            $("#nameCheck").html("");
-                        }else if(data.result == 0){
-                            $("#nameCheck").html("<font color='red'>抱歉！用户</font>"+$("#uname").val()+"<font color='red'>已存在！</font>");
-                        }
-                    }
-                });
-                $("#nameCheck").html("");
-            }
-        });
+
         //密码验证（非空、长度）
         $("#upassword").blur(function(){
             if($("#upassword").val()==null || $("#upassword").val()==""){
@@ -102,139 +78,23 @@
                 $("#repassCheck").html("");
             }
         });
-        //手机号码验证
-        $("#uphone").blur(function(){
-            if($("#uphone").val()==null || $("#uphone").val()==""){
-                $("#phoneCheck").html("<font color='red'>手机号码不能为空！</font>");
-            }else if(!(/^1[3|4|5|8][0-9]\d{4,8}$/.test($("#uphone").val()))){
-                $("#phoneCheck").html("<font color='red'>请输入规范的手机号码！</font>");
-            }else{
-                $("#phoneCheck").html("");
-            }
-        });
-        //邮箱验证
-        $("#umail").blur(function(){
-            if($("#umail").val()==null || $("#umail").val()==""){
-                $("#emailCheck").html("");
-            }else if(!(/^(\w-*\.*)+@(\w-?)+(\.\w{2,})+$/.test($("#umail").val()))){
-                $("#emailCheck").html("<font color='red'>请输入正确的邮箱！</font>");
-            }else{
-                $("#emailCheck").html("");
-            }
-        });
-        //身份证验证
-        $("#uidcard").blur(function(){
-            if($("#uidcard").val()==null || $("#uidcard").val()==""){
-                $("#uidcardCheck").html("<font color='red'>身份证不能为空！</font>");
-            }else if($("#uidcard").val().length<18 || $("#uidcard").val().length>18){
-                $("#uidcardCheck").html("<font color='red'>身份证格式错误！</font>");
-            }else{
-                $.ajax({
-                    url:"<%=basePath%>checkRegisterByUidcard.html",
-                    type:"post",
-                    dataType:"json",
-                    data:{
-                        uidcard:$("#uidcard").val()
-                    },
-                    success:function(data){
-                        if(data.result == 1){
-                            $("#uidcardCheck").html("");
-                        }else if(data.result == 0){
-                            $("#uidcardCheck").html("<font color='red'>抱歉！这个身份</font>"+$("#uidcard").val()+"<font color='red'>已存在！</font>");
-                        }
-                    }
-                });
-                $("#uidcardCheck").html("");
-            }
-        });
-
-        var code2 = null;
-        //手机验证码
-        $("#btn").mousedown(function(){
-            $.ajax({
-                url:"<%=basePath%>SendMessage.html",
-                type:"post",
-                dataType:"json",
-                data:{
-                    phone:$("#uphone").val()
-                },
-                success:function(data){
-                    if(data.code==2){
-                        layer.msg('短信已发送，请注意查收', {icon: 1,time: 1000});
-                        code2 = data.phoneCode;
-                        //alert(code2);
-                        $("#codeCheck").html("");
-                    }else{
-                        layer.msg('短信发送失败，请60秒后重试', {icon: 2,time: 1000});
-                    }
-                }
-            });
-        });
-
-        //验证码验证
-        $("#code").blur(function(){
-
-            if($("#code").val()==null || $("#code").val()==""){
-                $("#codeCheck").html("<font color='red'>请输入验证码！</font>");
-            }else if(code2 != $("#code").val()){
-
-                $("#codeCheck").html("<font color='red'>验证码不正确，请60秒后重试！</font>");
-            }else if(code2 == $("#code").val()){
-                $("#codeCheck").html("<font color='red'>验证码正确</font>");
-            }
-
-
-        });
 
         //提交表单进行注册
         $("#sub").click(function(){
-            if($("#nameChack").html()!=null || $("#uname").val()==""){
-                layer.msg('用户名不规范', {icon: 2,time: 1000});
-                return;
-            }else if($("#passChack").html()!=null || $("#upassword").val()==""){
+            if($("#passChack").html()!=null || $("#upassword").val()==""){
                 layer.msg('密码不规范', {icon: 2,time: 1000});
                 return;
             }else if($("#repassChack").html()!=null || $("#repass").val()==""){
                 layer.msg('确认密码不规范', {icon: 2,time: 1000});
                 return;
-            }else if($("#emailChack").html()!=null|| $("#umail").val()==""){
-                layer.msg('邮箱不规范', {icon: 2,time: 1000});
-                return;
-            }else if($("#uidcardCheck").html()=="身份证格式错误！"|| $("#uidcard").val()==""){
-                layer.msg('身份证号不规范', {icon: 2,time: 1000});
-                return;
-            }
-            else if($("#uphone").val()==""){
-                layer.msg('手机号码不规范', {icon: 2,time: 1000});
-                return;
-            }else if(code2 != $("#code").val()){
-                layer.msg('验证码不正确，请60秒后重试', {icon: 2,time: 1000});
-                return;
             }else{
                 document.getElementById("registerForm").submit();
+                layer.msg('修改密码成功', {icon: 1,time: 1000});
             }
 
         });
 
     });
-
-    //验证码倒计时
-    var countdown=60;
-    function settime(obj) {
-        if (countdown == 0) {
-            obj.removeAttribute("disabled");
-            obj.value="免费获取验证码";
-            countdown = 60;
-            return;
-        } else {
-            obj.setAttribute("disabled", true);
-            obj.value="重新发送(" + countdown + ")";
-            countdown--;
-        }
-        setTimeout(function() {
-            settime(obj);
-        },1000);
-    }
 
 </script>
 <body>
@@ -289,11 +149,11 @@
 </header>
 <!--Start content-->
 <section class="Psection MT20">
-    <form action="<%=basePath%>Register.html" method="post" id="registerForm">
+    <form action="<%=basePath%>userBuyUpdatePassword.html?uname=${userBuyUname}" method="post" id="registerForm">
         <table class="Register">
             <tr>
                 <td width="40%" align="right" class="FontW"><span>*  </span>用户名：</td>
-                <td><input type="text" id="uname" name="uname" required autofocus><span id="nameCheck"></span></td>
+                <td>${userBuyUname}</td>
             </tr>
             <tr>
                 <td width="40%" align="right" class="FontW"><span>*  </span>密码：</td>
@@ -304,40 +164,8 @@
                 <td><input type="password" name="password" id="repass" required><span id="repassCheck"></span></td>
             </tr>
             <tr>
-                <td width="40%" align="right" class="FontW"><span>*  </span>真实姓名：</td>
-                <td><input type="text" name="utruename" id="utruename" required></td>
-            </tr>
-            <tr>
-                <td width="40%" align="right" class="FontW"><span>*  </span>身份证号：</td>
-                <td><input type="text" name="uidcard" id="uidcard" required><span id="uidcardCheck"></span></td>
-            </tr>
-            <tr>
-                <td width="40%" align="right" class="FontW">性别：</td>
-                <td><input type="radio" value="男" style="width:30px; height: 20px;" id="usex" name="usex">男
-                    <input type="radio" value="女" style="width:30px; height: 20px;" id="usex1" name="usex">女
-                <div id="div4" ></div></td>
-            </tr>
-            <tr>
-                <td width="40%" align="right" class="FontW">年龄：</td>
-                <td><input type="text" name="uage" id="uage" required></td>
-            </tr>
-            <tr>
-                <td width="40%" align="right" class="FontW">电子邮件：</td>
-                <td><input type="email" name="umail" id="umail" required><span id="emailCheck"></span></td>
-            </tr>
-            <tr>
-                <td width="40%" align="right" class="FontW"><span>*  </span>手机号码：</td>
-                <td><input type="text" name="uphone" id="uphone" required pattern="[0-9]{11}"><span id="phoneCheck"></span></td>
-            </tr>
-            <tr>
-                <td width="40%" align="right" class="FontW"><span>*  </span>手机校验码：</td>
-                <td><input type="text" name="code" id="code" required pattern="[0-9]{6}">
-                    <input type="button" id="btn" value="获取验证码" class="Submit_b" onclick="settime(this)"/><br><span id="codeCheck"></span>
-                </td>
-            </tr>
-            <tr>
                 <td width="40%" align="right"></td>
-                <td><input type="button" name="" id="sub" class="Submit_b" value="注 册">( 已经是会员，<a href="<%=basePath%>user/userBuylogin.html" class="BlueA">请登录</a> )</td>
+                <td><input type="button" name="" id="sub" class="Submit_b" value="修 改">( 已经是会员，<a href="<%=basePath%>user/userBuylogin.html" class="BlueA">请登录</a> )</td>
             </tr>
         </table>
     </form>

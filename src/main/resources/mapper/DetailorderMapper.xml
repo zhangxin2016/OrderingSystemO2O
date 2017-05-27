@@ -11,6 +11,7 @@
     <result column="dostatus" property="dostatus" jdbcType="INTEGER" />
     <result column="adid" property="adid" jdbcType="INTEGER" />
     <result column="dodelete" property="dodelete" jdbcType="INTEGER" />
+    <result column="usdelete" property="usdelete" jdbcType="INTEGER" />
     <result column="domessage" property="domessage" jdbcType="VARCHAR" />
   </resultMap>
   <resultMap type="com.zx.model.Detailorder" id="DetailOrderResultMap">
@@ -124,7 +125,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    doid, oid, fid, donum, dopri, dodate, dostatus, adid, dodelete, domessage
+    doid, oid, fid, donum, dopri, dodate, dostatus, adid, dodelete, domessage,usdelete
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.zx.model.DetailorderExample" >
     select
@@ -160,11 +161,11 @@
     insert into detailorder (doid, oid, fid,
       donum, dopri, dodate,
       dostatus, adid, dodelete,
-      domessage)
+      domessage,usdelete)
     values (#{doid,jdbcType=INTEGER}, #{oid,jdbcType=INTEGER}, #{fid,jdbcType=INTEGER},
       #{donum,jdbcType=INTEGER}, #{dopri,jdbcType=INTEGER}, CURRENT_TIMESTAMP,
       #{dostatus,jdbcType=INTEGER}, #{adid,jdbcType=INTEGER}, #{dodelete,jdbcType=INTEGER},
-      #{domessage,jdbcType=VARCHAR})
+      #{domessage,jdbcType=VARCHAR},#{usdelete,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.zx.model.Detailorder" >
     insert into detailorder
@@ -199,6 +200,9 @@
       <if test="domessage != null" >
         domessage,
       </if>
+      <if test="usdelete != null" >
+        usdelete,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="doid != null" >
@@ -230,6 +234,9 @@
       </if>
       <if test="domessage != null" >
         #{domessage,jdbcType=VARCHAR},
+      </if>
+      <if test="usdelete != null" >
+        #{usdelete,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -272,6 +279,9 @@
       <if test="record.domessage != null" >
         domessage = #{record.domessage,jdbcType=VARCHAR},
       </if>
+      <if test="record.usdelete != null" >
+      usdelete = #{record.usdelete,jdbcType=INTEGER},
+      </if>
     </set>
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -289,6 +299,7 @@
       adid = #{record.adid,jdbcType=INTEGER},
       dodelete = #{record.dodelete,jdbcType=INTEGER},
       domessage = #{record.domessage,jdbcType=VARCHAR}
+      usdelete = #{record.usdelete,jdbcType=INTEGER},
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -323,6 +334,9 @@
       <if test="domessage != null" >
         domessage = #{domessage,jdbcType=VARCHAR},
       </if>
+      <if test="usdelete != null" >
+        usdelete = #{usdelete,jdbcType=INTEGER},
+      </if>
     </set>
     where doid = #{doid,jdbcType=INTEGER}
   </update>
@@ -336,23 +350,24 @@
       dostatus = #{dostatus,jdbcType=INTEGER},
       adid = #{adid,jdbcType=INTEGER},
       dodelete = #{dodelete,jdbcType=INTEGER},
+      usdelete = #{usdelete,jdbcType=INTEGER},
       domessage = #{domessage,jdbcType=VARCHAR}
     where doid = #{doid,jdbcType=INTEGER}
   </update>
   <!--未发货数量-->
   <select id="countByNoSend" parameterType="Integer" resultType="java.lang.Integer">
     select count(*) from detailorder
-    WHERE dostatus=0 AND (dodelete=0 OR dodelete=3) AND oid=#{oid}
+    WHERE dostatus=0 AND dodelete=0 AND oid=#{oid}
   </select>
   <!--未签收数量-->
   <select id="countByNoSigh" parameterType="Integer" resultType="java.lang.Integer" >
     select count(*) from detailorder
-    WHERE dostatus=1 AND (dodelete=0 OR dodelete=3) AND oid=#{oid}
+    WHERE dostatus=1 AND dodelete=0 AND oid=#{oid}
   </select>
   <!--未评价数量-->
   <select id="countByNoEvaluate" parameterType="Integer" resultType="java.lang.Integer" >
     select count(*) from detailorder
-    WHERE dostatus=2 AND (dodelete=0 OR dodelete=3) AND oid=#{oid}
+    WHERE dostatus=2 AND dodelete=0 AND oid=#{oid}
   </select>
   <!--根据订单ID获取订单明细列表-->
   <!--买家-->
@@ -363,7 +378,7 @@
       AND detailorder.oid=orders.oid
       AND detailorder.adid=address.adid
       AND orders.uid = user_buy.uid
-      AND (detailorder.dodelete=0 OR detailorder.dodelete=3)
+      AND detailorder.dodelete=0
       AND detailorder.oid=#{oid}
   </select>
 
@@ -376,7 +391,7 @@
       AND detailorder.oid=orders.oid
       AND detailorder.adid=address.adid
       AND orders.uid = user_buy.uid
-      AND (detailorder.dodelete=0 OR detailorder.dodelete=2)
+      AND detailorder.usdelete=0
       AND detailorder.fid=#{fid}
   </select>
   <!--前天滚动展示订单-->

@@ -52,6 +52,11 @@ public class UserServiceImpl implements UserService {
 		return mapper.checkRegister(name);
 	}
 
+	@Override
+	public UserBuy checkRegisterByUidcard(String uidcard) {
+		return mapper.checkRegisterByUidcard(uidcard);
+	}
+
 
 	@Override
 	public UserBuy selectByPrimaryKey(Integer uid) {

@@ -16,6 +16,8 @@ public interface UserMapper1{
 	 * @description :注册验证
 	 */
 	UserBuy checkRegister(String name);
+
+	UserBuy checkRegisterByUidcard(String uidcard);
 	
 	/**
 	 * @title :updateDetail
