@@ -9,7 +9,7 @@
 <html>
 <head>
     <meta charset="utf-8"/>
-    <title>DeathGhost-我的购物车</title>
+    <title>我的购物车</title>
     <meta name="keywords" content="DeathGhost,DeathGhost.cn,web前端设,移动WebApp开发"/>
     <meta name="description" content="DeathGhost.cn::H5 WEB前端设计开发!"/>
     <meta name="author" content="DeathGhost"/>
@@ -30,7 +30,7 @@
                     window.location.href='<%=basePath %>deleteCartLotSize.html?prid='+ids;
                 }
             }else{
-                alert("请至少选择一行！");
+                alert("请选择一种菜品！");
             }
         }
         //选中id,组成的字符串
@@ -275,7 +275,7 @@
                     <td class="tb1_td6">
                         <em tabindex="0" id="dangejine${cart.cid }" class="number" style="color:#ff5500;font-size:14px; font-weight:bold;">${cart.ctotal}</em>
                     </td>
-                    <td class="tb1_td7"><a href="<%=basePath%>deleteCart.html?cid=${cart.cid }" id="delcart1">删除</a></td>
+                    <td class="tb1_td7"><a href="<%=basePath%>deleteCart.html?cid=${cart.cid }" id="delcart1" onclick="if(confirm('确认删除吗？')==false)return false;">删除</a></td>
                 </tr>
             </table>
         </c:forEach>
