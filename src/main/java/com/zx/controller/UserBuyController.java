@@ -343,6 +343,9 @@ public class UserBuyController {
         return "";
     }
 
+    /*
+     *   买家忘记密码
+     */
     @RequestMapping("toUserBuyPaaword")
     public String toUserBuyPaaword(){
         return "front/forgetpassword/forgetpass";
@@ -365,4 +368,13 @@ public class UserBuyController {
         userService.updatePass(userBuy);
         return "redirect:user/userBuylogin.html";
     }
+    /*
+     *  管理员删除买家
+     */
+    @RequestMapping("deleteUserBuyByAdmin")
+    public String deleteUserBuyByAdmin(HttpServletRequest request,Integer uid) throws Exception {
+        userService.deleteUserBuyByAdmin(uid);
+        return "redirect:findAllUserBuyBack.html";
+    }
 }
+

@@ -139,7 +139,7 @@
 									</a>
 									<a title="删除"
 									   href="<%=basePath%>deleteEvaluate.html?eid=${evaluateListBack.eid }"
-									   onclick="javascript:if (confirm('确定删除吗？')) { 'return true';}else{'return false';};" class="ml-5"
+									   onclick="if(confirm('确认删除吗？')==false)return false;" class="ml-5"
 									   style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i>
 									</a>
 								</td>

@@ -36,6 +36,7 @@
             <div class="RightNav">
                 <a href="<%=basePath%>indexToUserCenter.html">用户中心</a>
                 <a href="<%=basePath%>getUserAllCartList.html">购物车</a>
+                <a href="<%=basePath%>user/frontindex.html">返回首页</a>
             </div>
         </div>
     </section>
@@ -75,38 +76,7 @@
         <ul class="select">
         </ul>
     </section>
-    <section class="Fslmenu">
-        <a href="#" title="默认排序">
-            <span>
-                <span>默认排序</span>
-                <span></span>
-            </span>
-        </a>
-        <a href="#" title="评价">
-          <span>
-              <span>评价</span>
-              <span class="s-up"></span>
-          </span>
-        </a>
-        <a href="#" title="销量">
-          <span>
-              <span>销量</span>
-              <span class="s-up"></span>
-          </span>
-        </a>
-        <a href="#" title="价格排序">
-          <span>
-              <span>价格</span>
-              <span class="s-down"></span>
-          </span>
-        </a>
-        <a href="#" title="发布时间排序">
-          <span>
-              <span>发布时间</span>
-              <span class="s-up"></span>
-          </span>
-        </a>
-    </section>
+
     <section class="CateL Overflow" id="foodListTable" >
         <div class="panel-body">
             <div id="example" class="table table-bordered table-striped table-hover">
@@ -152,10 +122,12 @@
 <!--End content-->
 <div class="F-link">
     <span>友情链接：</span>
-    <a href="http://www.deathghost.cn" target="_blank" title="DeathGhost">DeathGhost</a>
-    <a href="http://www.17sucai.com/pins/15966.html" target="_blank" title="免费后台管理模板">绿色清爽版通用型后台管理模板免费下载</a>
-    <a href="http://www.17sucai.com/pins/17567.html" target="_blank" title="果蔬菜类模板源码">HTML5果蔬菜类模板源码</a>
-    <a href="http://www.17sucai.com/pins/14931.html" target="_blank" title="黑色的cms商城网站后台管理模板">黑色的cms商城网站后台管理模板</a>
+    <a href="http://www.baidu.com" target="_blank" title="百度">百度</a>
+    <a href="https://www.ele.me/" target="_blank" title="饿了么">饿了么</a>
+    <a href="http://bj.meituan.com/" target="_blank" title="美团">美团</a>
+    <a href="http://www.baidu.com" target="_blank" title="美团">百度外卖</a>
+    <a href="http://bj.meituan.com/" target="_blank" title="美团">美团外卖</a>
+    <a href="https://www.ele.me/" target="_blank" title="美团">饿了么</a>
 </div>
 <footer>
     <section class="Otherlink">

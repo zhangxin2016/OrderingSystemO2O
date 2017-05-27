@@ -113,6 +113,7 @@
             <div class="RightNav">
                 <a href="<%=basePath%>indexToUserCenter.html">用户中心</a>
                 <a href="<%=basePath%>getUserAllCartList.html">购物车</a>
+                <a href="<%=basePath%>user/frontindex.html">返回首页</a>
             </div>
         </div>
     </section>

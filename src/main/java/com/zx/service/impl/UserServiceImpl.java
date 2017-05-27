@@ -139,4 +139,9 @@ public class UserServiceImpl implements UserService {
 		map.put("pageInfo", pageInfo);
 		return map;
 	}
+
+	@Override
+	public Integer deleteUserBuyByAdmin(Integer uid) throws Exception {
+		return userMapper.deleteUserBuyByAdmin(uid);
+	}
 }

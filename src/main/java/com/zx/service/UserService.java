@@ -82,5 +82,5 @@ public interface UserService {
 
     Map<String,Object> findAllUserBuyBack(Integer currentPage, Integer lineSize, String keyWord) throws Exception;
 
-
+    Integer deleteUserBuyByAdmin(Integer uid) throws Exception;
 }

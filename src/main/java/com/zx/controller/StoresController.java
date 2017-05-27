@@ -247,6 +247,7 @@ public class StoresController {
     //根据食物ID 进入店铺
     @RequestMapping("/userBuyToStores")
     public String userBuyToStores(Map<String,Object> map,HttpSession session, HttpServletRequest request,Integer fid,Integer stid) throws Exception {
+        String city = getCity();
         Food food = foodService.findFoodById(fid);
         Stores stores = new Stores();
         if(food!=null){
@@ -286,6 +287,17 @@ public class StoresController {
                 }
             }
         }
+        //热门商家
+        List<Stores> storesList1 = storesService.findStoresByAddressOrderByUcollDesc(city);
+        List<Stores> storesListTwo = new ArrayList<Stores>();
+        int t = 0;
+        for (Stores stores1:storesList1){
+            if (t<2){
+                storesListTwo.add(stores1);
+            }
+            t++;
+        }
+        request.setAttribute("storesListTwo",storesListTwo);
         request.setAttribute("evaluatesListFromUser",evaluatesListByDoid);
         return "front/stores/userbuystores";
     }

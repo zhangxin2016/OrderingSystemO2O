@@ -168,7 +168,7 @@
                     {
                         var con = data.con;
                         if (con=="nologin"){
-                            layer.msg('请先登录', {icon: 1,time: 1000})
+                            layer.msg('请先登录', {icon: 2,time: 1000})
                         }else {
                             $("#cartUserCount").html(data);
                             layer.msg('加入购物车成功', {icon: 1, time: 1000});
@@ -197,11 +197,11 @@
                             layer.msg('收藏成功', {icon: 1,time: 1000});
                             return;
                         }else if(data==1){
-                            layer.msg('您已经收藏过该店铺了', {icon: 1,time: 1000});
+                            layer.msg('您已经收藏过该店铺了', {icon: 2,time: 1000});
                             return;
                         }
                         else if(data==2){
-                            layer.msg('您还没有登录呢！', {icon: 1,time: 1000});
+                            layer.msg('您还没有登录呢！', {icon: 2,time: 1000});
                             return;
                         }
                     }
@@ -236,10 +236,11 @@
                 <c:if test="${user.uname!=null}">
                     欢迎您，${user.uname }<a href="<%=basePath%>Logout.html">退出</a>
                 </c:if>
-            <a href="#">QQ客服</a><a href="#">微信客服</a><a href="#">手机客户端</a>
         </div>
             <div class="RightNav">
-                <a href="user_center.html">用户中心</a> <a href="user_orderlist.html" target="_blank" title="我的订单">我的订单</a> <a href="cart.html">购物车（0）</a> <a href="user_favorites.html" target="_blank" title="我的收藏">我的收藏</a> <a href="#">商家入驻</a>
+                <a href="<%=basePath%>indexToUserCenter.html">用户中心</a>
+                <a href="<%=basePath%>getUserAllCartList.html">购物车</a>
+                <a href="<%=basePath%>user/frontindex.html">返回首页</a>
             </div>
         </div>
     </section>
@@ -423,30 +424,21 @@
         </div>
 
         <div class="Nearshop">
-            <span class="Nstitle">附近其他店铺</span>
+            <span class="Nstitle">附近热门店铺</span>
             <ul>
-                <li>
-                    <img src="upload/cc.jpg">
-                    <p>
-                        <span class="shopname" title="动态调用完整标题"><a href="detailsp.html" target="_blank" title="肯德基">肯德基</a></span>
-                        <span class="Discolor">距离：1.2KM</span>
-                        <span title="完整地址title">地址：西安市雁塔区2000号...</span>
-                    </p>
-                </li>
-            </ul>
-        </div>
+                <c:forEach items="${storesListTwo }" var="storesListTwo">
 
-        <div class="History">
-            <span class="Htitle">浏览历史</span>
-            <ul>
-                <li>
-                    <a href="detailsp.html" target="_blank" title="清真川菜馆"><img src="upload/cc.jpg"></a>
-                    <p>
-                        <span class="shopname" title="动态调用完整标题"><a href="detailsp.html" target="_blank" title="正宗陕北小吃城">正宗陕北小吃城</a></span>
-                        <span>西安市莲湖区土门十西安市莲湖区土门十字西安市莲湖区土门十字.</span>
-                    </p>
-                </li>
-                <span>[ <a href="#">清空历史记录</a> ]</span>
+                    <li>
+                        <a href="<%=basePath%>userBuyToStores.html?stid=${storesListTwo.stid }">
+                            <img src="/pic/${storesListTwo.stdesc }">
+                            <p>
+                                <span class="shopname" title="动态调用完整标题"><a href="detailsp.html" target="_blank"
+                                                                           title="${storesListTwo.stname }">${storesListTwo.stname }</a></span>
+                                <span title="完整地址title">地址：${storesListTwo.staddress }</span>
+                            </p>
+                        </a>
+                    </li>
+                </c:forEach>
             </ul>
         </div>
     </aside>
@@ -455,10 +447,12 @@
 <!--End content-->
 <div class="F-link">
     <span>友情链接：</span>
-    <a href="http://www.deathghost.cn" target="_blank" title="DeathGhost">DeathGhost</a>
-    <a href="http://www.17sucai.com/pins/15966.html" target="_blank" title="免费后台管理模板">绿色清爽版通用型后台管理模板免费下载</a>
-    <a href="http://www.17sucai.com/pins/17567.html" target="_blank" title="果蔬菜类模板源码">HTML5果蔬菜类模板源码</a>
-    <a href="http://www.17sucai.com/pins/14931.html" target="_blank" title="黑色的cms商城网站后台管理模板">黑色的cms商城网站后台管理模板</a>
+    <a href="http://www.baidu.com" target="_blank" title="百度">百度</a>
+    <a href="https://www.ele.me/" target="_blank" title="饿了么">饿了么</a>
+    <a href="http://bj.meituan.com/" target="_blank" title="美团">美团</a>
+    <a href="http://www.baidu.com" target="_blank" title="美团">百度外卖</a>
+    <a href="http://bj.meituan.com/" target="_blank" title="美团">美团外卖</a>
+    <a href="https://www.ele.me/" target="_blank" title="美团">饿了么</a>
 </div>
 <footer>
     <section class="Otherlink">

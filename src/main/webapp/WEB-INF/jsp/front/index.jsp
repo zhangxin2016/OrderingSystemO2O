@@ -262,6 +262,9 @@
     <a href="http://www.baidu.com" target="_blank" title="百度">百度</a>
     <a href="https://www.ele.me/" target="_blank" title="饿了么">饿了么</a>
     <a href="http://bj.meituan.com/" target="_blank" title="美团">美团</a>
+    <a href="http://www.baidu.com" target="_blank" title="美团">百度外卖</a>
+    <a href="http://bj.meituan.com/" target="_blank" title="美团">美团外卖</a>
+    <a href="https://www.ele.me/" target="_blank" title="美团">饿了么</a>
 </div>
 <footer>
     <section class="Otherlink">

@@ -43,4 +43,6 @@ public interface UserBuyMapper {
 
     List<OrderChart> chartUserByDate();
 
+    int deleteUserBuyByAdmin(Integer uid) throws Exception;;
+
 }

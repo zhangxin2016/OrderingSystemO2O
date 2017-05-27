@@ -123,7 +123,7 @@
 							<th width="100" class="hidden-xs4">用户性别</th>
 							<th width="100" class="hidden-xs4">用户年龄</th>
 							<%--<th width="150">权限</th>--%>
-							<%--<th width="150">操作</th>--%>
+							<th width="150">操作</th>
 
 						</tr>
 
@@ -141,6 +141,10 @@
 								<td class="hidden-xs4">${userBuysList.umail}</td>
 								<td class="hidden-xs4">${userBuysList.usex}</td>
 								<td class="hidden-xs4">${userBuysList.uage}</td>
+								<td class="td-manage"><a title="删除" href="<%=basePath%>deleteUserBuyByAdmin.html?uid=${userBuysList.uid}"
+														 onclick="if(confirm('确认删除吗？')==false)return false;" class="ml-5"
+									style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a>
+								</td>
 								<%--<td>${arr.authority}</td>--%>
 								<%--<td class="td-manage"><a title="查看店铺信息"
 									href="javascript:;"

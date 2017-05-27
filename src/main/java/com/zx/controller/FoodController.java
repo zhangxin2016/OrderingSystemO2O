@@ -357,4 +357,13 @@ public class FoodController {
         map.put("i", i); // 将键和值放在Map中
         return "front/food/foodlist";
     }
+
+    /*
+     * 后端管理员删除菜品
+     */
+    @RequestMapping("deleteFoodByAdmin")
+    public String deleteFoodByAdmin(HttpServletRequest request,Integer fid) throws Exception {
+        foodService.deleteFoodByFid(fid);
+        return "redirect:getAllFoodFront.html";
+    }
 }

@@ -38,6 +38,7 @@
             <div class="RightNav">
                 <a href="<%=basePath%>indexToUserCenter.html">用户中心</a>
                 <a href="<%=basePath%>getUserAllCartList.html">购物车</a>
+                <a href="<%=basePath%>user/frontindex.html">返回首页</a>
             </div>
         </div>
     </section>
@@ -83,8 +84,8 @@
         </p>
         <p class="Font14 Lineheight35 FontW">共计金额：￥<span class="CorRed">${pays}</span></p>
         <p>
-            <button type="button" class="Lineheight35"><a href="#" target="_blank">已买到的宝贝</a></button>
-            <button type="button" class="Lineheight35"><a href="user_center.html">返回首页</a></button>
+            <button type="button" class="Lineheight35"><a href="<%=basePath%>listOrderDetailByFront.html">查看我的订单</a></button>
+            <button type="button" class="Lineheight35"><a href="<%=basePath%>user/frontindex.html">返回首页</a></button>
         </p>
 
     </div>

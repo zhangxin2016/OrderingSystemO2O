@@ -365,4 +365,9 @@
     GROUP BY DATE_FORMAT(udate,'%y-%m-%d')
     ORDER BY DATE_FORMAT(udate,'%y-%m-%d') DESC
   </select>
+  <!--管理员删除用户-->
+  <update id="deleteUserBuyByAdmin" parameterType="java.lang.Integer">
+    UPDATE user_buy SET udel = 1
+    WHERE uid = #{uid}
+  </update>
 </mapper>

@@ -145,7 +145,7 @@ public class GeetestLib {
 		String md5Str1 = md5Encode(rnd1 + "");
 		String md5Str2 = md5Encode(rnd2 + "");
 		String challenge = md5Str1 + md5Str2.substring(0, 2);
-		
+
 		JSONObject jsonObject = new JSONObject();
 		try {
 			

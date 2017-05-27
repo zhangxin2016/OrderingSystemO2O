@@ -136,6 +136,9 @@
 									href="javascript:;"
 									onclick="findStoresByFood('店铺信息','<%=basePath%>getStoresByFood.html?fid=${foods.fid }','500','300')"
 									class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i> </a>
+									<a title="删除" href="<%=basePath%>deleteFoodByAdmin.html?fid=${foods.fid}"
+									   onclick="if(confirm('确认删除吗？')==false)return false;" class="ml-5"
+									   style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a>
 									</td>
 							</tr>
 						</c:forEach>
