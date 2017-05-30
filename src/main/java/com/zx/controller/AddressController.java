@@ -41,6 +41,13 @@ public class AddressController {
         return "front/user/useraddaddress";
     }
     /*
+   * 转到用户添加地址
+   */
+    @RequestMapping("/toUserAddAddressInOrder")
+    public String toUserAddAddressInOrder(HttpServletRequest request) throws Exception {
+        return "front/food/addaddressInOrder";
+    }
+    /*
     * 用户添加地址
     */
     @RequestMapping("/userAddAddress")

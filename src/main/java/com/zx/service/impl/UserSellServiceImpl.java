@@ -7,6 +7,7 @@ import com.zx.model.UserSell;
 import com.zx.service.UserSellService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import scala.Int;
 
 import java.util.HashMap;
 import java.util.List;
@@ -58,5 +59,10 @@ public class UserSellServiceImpl implements UserSellService {
     @Override
     public Integer updateUserSell(UserSell userSell) throws Exception {
         return userMapper.updateByPrimaryKeySelective(userSell);
+    }
+
+    @Override
+    public UserSell findUserSellByUsid(Integer usid) throws Exception {
+        return userMapper.selectByPrimaryKey(usid);
     }
 }

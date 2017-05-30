@@ -32,4 +32,6 @@ public interface UserSellService {
     UserSell findStoresByUserSell(Integer usid) throws Exception;
     //修改商家信息
     Integer updateUserSell(UserSell userSell)throws Exception;
+
+    UserSell findUserSellByUsid(Integer usid) throws Exception;
 }

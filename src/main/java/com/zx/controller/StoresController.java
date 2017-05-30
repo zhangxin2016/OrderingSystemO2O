@@ -51,7 +51,18 @@ public class StoresController {
             UserSell userSell = (UserSell) session.getAttribute("userSell");
             //System.out.println("userSell:==="+userSell);
             Stores stores = storesService.getStoresByUsid(userSell.getUsid());
+            System.out.printf("usid======="+userSell.getUsid());
+            //商家信息
+            UserSell userSell1 = new UserSell();
+            System.out.printf("us======="+userSell1);
+            //店铺信息
             request.setAttribute("inMyStores", stores);
+            if (null==stores){
+                userSell1 = userSellService.findUserSellByUsid(userSell.getUsid());
+            }else{
+                userSell1 = userSellService.findStoresByUserSell(userSell.getUsid());
+            }
+            request.setAttribute("userSellInformation",userSell1);
             //System.out.println("inMyStores===="+stores);
             String currentPage = request.getParameter("currentPage");
             int i = 0;
@@ -99,10 +110,6 @@ public class StoresController {
                 System.out.println("detailorderList====" + detailorderList1);
                 request.setAttribute("detailorderList", detailorderList1);
             }
-
-            //商家信息
-            UserSell userSell1 = userSellService.findStoresByUserSell(userSell.getUsid());
-            request.setAttribute("userSellInformation",userSell1);
             return "front/stores/mystores";
         }else{
             return "front/stores/storeslogin";

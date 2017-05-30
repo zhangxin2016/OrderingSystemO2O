@@ -1,4 +1,4 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page language="java" import="java.util.*" pageEncoding="UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%
@@ -9,7 +9,7 @@
 <html>
 <head>
     <meta charset="utf-8"/>
-    <title>用户中心-收藏店铺</title>
+    <title>用户中心</title>
     <meta name="keywords" content="DeathGhost,DeathGhost.cn,web前端设,移动WebApp开发"/>
     <meta name="description" content="DeathGhost.cn::H5 WEB前端设计开发!"/>
     <meta name="author" content="DeathGhost"/>
@@ -17,10 +17,12 @@
     <script type="text/javascript" src="js/public.js"></script>
     <script type="text/javascript" src="js/jquery.js"></script>
     <script type="text/javascript" src="js/jqpublic.js"></script>
-
+    <!--
+    Author: DeathGhost
+    Author URI: http://www.deathghost.cn
+    -->
 </head>
 <body>
-<!--Start header-->
 <header>
     <section class="Topmenubg">
         <div class="Topnav">
@@ -44,7 +46,7 @@
         <div class="Logo">
             <img src="images/logo.jpg" title="DeathGhost" alt="模板">
             <i></i>
-            <span>${cityNow}</span>
+            <span>西安市 [ <a href="#">莲湖区</a> ]</span>
         </div>
         <div class="Search">
             <form method="get" id="main_a_serach" onsubmit="return check_search(this)">
@@ -53,13 +55,15 @@
                     <a href="javascript:;" onClick="selectsearch(this,'food_name')">食物名</a>
                 </div>
                 <div class="Search_area">
-                    <input type="hidden" value="<%=basePath%>frontSearchFoodByName.html" id="urlsearchFoodByName">
-                    <input type="hidden" value="<%=basePath%>frontSearchStoresByName.html" id="urlsearchStoresByName">
-                    <input type="search" id="fnamesearch" name="fname" placeholder="请输入您所需查找的餐厅名称或食物名称..."
+                    <input type="search" id="fkeyword" name="keyword" placeholder="请输入您所需查找的餐厅名称或食物名称..."
                            class="searchbox"/>
                     <input type="submit" class="searchbutton" value="搜 索"/>
                 </div>
             </form>
+            <p class="hotkeywords"><a href="#" title="酸辣土豆丝">酸辣土豆丝</a><a href="#" title="这里是产品名称">螃蟹炒年糕</a><a href="#"
+                                                                                                              title="这里是产品名称">牛奶炖蛋</a><a
+                    href="#" title="这里是产品名称">芝麻酱凉面</a><a href="#" title="这里是产品名称">滑蛋虾仁</a><a href="#" title="这里是产品名称">蒜汁茄子</a>
+            </p>
         </div>
     </div>
     <nav class="menu_bg">
@@ -86,19 +90,19 @@
         </ul>
     </nav>
     <article class="U-article Overflow">
-        <!--user Favorites-->
-        <section class="ShopFav Overflow">
-            <span class="ShopFavtitle Block Font14 FontW Lineheight35">我的收藏</span>
-            <ul>
-                <a href="shop.html" target="_blank">
-                    <c:forEach items="${collectionStoresList }" var="collectionStoresList">
-                        <li>
-                            <a href="<%=basePath%>userBuyToStores.html?stid=${collectionStoresList.stores.stid}" ><img src="/pic/${collectionStoresList.stores.stdesc }"></a>
-                            <p>${collectionStoresList.stores.stname } <a href="<%=basePath%>deleteCollectionStores.html?collid=${collectionStoresList.collid}">( 删除 )</a></p>
-                        </li>
-                    </c:forEach>
-                </a>
-            </ul>
+        <!--user Account-->
+        <section class="AccManage Overflow">
+            <span class="AMTitle Block Font14 FontW Lineheight35">账户管理</span>
+            <p>用户名：${userBuyAccont.uname} </p>
+            <p>真实姓名：${userBuyAccont.utruename} </p>
+            <p>密码：${userBuyAccont.upassword} </p>
+            <p>买家身份证号码：${userBuyAccont.uidcard} </p>
+            <p>登陆邮箱：${userBuyAccont.umail} </p>
+            <p>性别：${userBuyAccont.usex}</p>
+            <p>年龄：${userBuyAccont.uage}</p>
+            <p>注册时间：<fmt:formatDate value="${userBuyAccont.udate}" type="both"/></p>
+            <p><a href="<%=basePath%>toUserBuyUpdateManagement.html?uid=${userBuyAccont.uid}" target="_blank">修改身份信息</a>
+            </p>
         </section>
     </article>
 </section>

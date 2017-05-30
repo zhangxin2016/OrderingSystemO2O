@@ -101,7 +101,7 @@
             <li><i></i><a href="<%=basePath%>userFindMyEvaluate.html">我的留言</a></li>
             <li><i></i><a href="<%=basePath%>findCollectionStoresListByUid.html">收藏的店铺</a></li>
             <li><i></i><a href="<%=basePath%>findCollectionListByUid.html">收藏的菜品</a></li>
-            <li><i></i><a href="user_account.html">账户管理</a></li>
+            <li><i></i><a href="<%=basePath%>userBuyManagement.html?uid=${user.uid}">账户管理</a></li>
             <li><i></i><a href="<%=basePath%>Logout.html">安全退出</a></li>
         </ul>
     </nav>
@@ -157,10 +157,12 @@
 <!--End content-->
 <div class="F-link">
     <span>友情链接：</span>
-    <a href="http://www.deathghost.cn" target="_blank" title="DeathGhost">DeathGhost</a>
-    <a href="http://www.17sucai.com/pins/15966.html" target="_blank" title="免费后台管理模板">绿色清爽版通用型后台管理模板免费下载</a>
-    <a href="http://www.17sucai.com/pins/17567.html" target="_blank" title="果蔬菜类模板源码">HTML5果蔬菜类模板源码</a>
-    <a href="http://www.17sucai.com/pins/14931.html" target="_blank" title="黑色的cms商城网站后台管理模板">黑色的cms商城网站后台管理模板</a>
+    <a href="http://www.baidu.com" target="_blank" title="百度">百度</a>
+    <a href="https://www.ele.me/" target="_blank" title="饿了么">饿了么</a>
+    <a href="http://bj.meituan.com/" target="_blank" title="美团">美团</a>
+    <a href="http://www.baidu.com" target="_blank" title="美团">百度外卖</a>
+    <a href="http://bj.meituan.com/" target="_blank" title="美团">美团外卖</a>
+    <a href="https://www.ele.me/" target="_blank" title="美团">饿了么</a>
 </div>
 <footer>
     <section class="Otherlink">

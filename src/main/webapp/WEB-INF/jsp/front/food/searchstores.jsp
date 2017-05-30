@@ -96,7 +96,7 @@
             <div class="title">热门商家</div>
             <c:forEach items="${storesListTwo }" var="storesListTwo">
                 <div class="C-list">
-                    <a href="shop.html" target="_blank" title="店铺名称"><img src="/pic/${storesListTwo.stdesc }"></a>
+                    <a href="shop.html" target="_blank" title="店铺名称"><img src="/pic/${storesListTwo.stdesc }" width="284px" height="200px"></a>
                     <p><a href="shop.html" target="_blank">${storesListTwo.stname }</a></p>
                     <p>
                         <span>地址：${storesListTwo.staddress }</span>

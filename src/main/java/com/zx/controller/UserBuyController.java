@@ -339,8 +339,56 @@ public class UserBuyController {
         return mv  ;
     }
 
-    public String userBuyManagement(){
-        return "";
+    /*
+     * 买家用户中心账号管理
+     */
+    @RequestMapping("userBuyManagement")
+    public String userBuyManagement(Integer uid,HttpSession session, HttpServletRequest request){
+        if(session.getAttribute("user")!=null){
+            UserBuy user = userService.selectByPrimaryKey(uid);
+            request.setAttribute("userBuyAccont",user);
+            return "front/user/useraccount";
+        }else{
+            return "front/login";
+        }
+    }
+    @RequestMapping("toUserBuyUpdateManagement")
+    public String toUserBuyUpdateManagement(Integer uid,HttpSession session, HttpServletRequest request){
+        if(session.getAttribute("user")!=null){
+            UserBuy userBuy = userService.selectByPrimaryKey(uid);
+            request.setAttribute("userBuyUpdate",userBuy);
+            return "front/user/userUpdateAccount";
+        }else{
+            return "front/login";
+        }
+    }
+    @RequestMapping("userBuyUpdateManagement")
+    public String userBuyUpdateManagement(HttpSession session, HttpServletRequest request){
+        if(session.getAttribute("user")!=null){
+            Integer uid = Integer.parseInt(request.getParameter("uid"));
+            String username = request.getParameter("uname");
+            String password = request.getParameter("upassword");
+            String registerTel = request.getParameter("uphone");
+            Integer uage = Integer.parseInt(request.getParameter("uage"));
+            String utruename = request.getParameter("utruename");
+            String uidcard = request.getParameter("uidcard");
+            String usex = request.getParameter("usex");
+            String umail = request.getParameter("umail");
+            UserBuy user = new UserBuy();
+            user.setUid(uid);
+            user.setUname(username);
+            user.setUpassword(password);
+            user.setUphone(registerTel);
+            user.setUage(uage);
+            user.setUidcard(uidcard);
+            user.setUtruename(utruename);
+            user.setUsex(usex);
+            user.setUmail(umail);
+            userService.updateUserBuy(user);
+            return "redirect:userBuyManagement.html?uid="+uid;
+        }else{
+            return "front/login";
+        }
     }
 
     /*

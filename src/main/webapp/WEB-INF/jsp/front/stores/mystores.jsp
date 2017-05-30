@@ -412,7 +412,21 @@
         </div>
     </article>
     <aside>
-
+        <c:if test="${inMyStores==null}">
+            <div class="Nearshop">
+                <span class="Nstitle">我的信息</span>
+                <ul>
+                    <li>
+                        <p>
+                            <span class="shopname" title="动态调用完整标题"><a target="_blank" title="${userSellInformation.usname}">${userSellInformation.usname}</a></span>
+                            <span class="Discolor">电话:${userSellInformation.usphone}</span>
+                            <span title="完整地址title">地址:${userSellInformation.usaddress}</span>
+                        </p>
+                    </li>
+                </ul>
+            </div>
+        </c:if>
+        <c:if test="${inMyStores!=null}">
         <div class="Nearshop">
             <span class="Nstitle">我的信息</span>
             <ul>
@@ -425,7 +439,6 @@
                 </li>
             </ul>
         </div>
-
         <div class="History">
             <span class="Htitle">我的店铺</span>
             <ul>
@@ -438,6 +451,7 @@
                 </li>
             </ul>
         </div>
+        </c:if>
     </aside>
 
 </section>

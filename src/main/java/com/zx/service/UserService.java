@@ -53,7 +53,7 @@ public interface UserService {
 
     //修改个人信息
     public int updateUser(UserBuy ue);
-
+    int updateUserBuy(UserBuy userBuy);
     UserBuy selectByPrimaryKey(Integer uid);
 
     List<Integer> selectByFindStrs(String username);

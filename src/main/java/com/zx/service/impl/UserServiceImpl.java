@@ -125,6 +125,11 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
+	public int updateUserBuy(UserBuy userBuy) {
+		return userMapper.updateByPrimaryKeySelective(userBuy);
+	}
+
+	@Override
 	public Map<String, Object> findAllUserBuyBack(Integer currentPage, Integer lineSize, String keyWord) throws Exception {
 		Map<String,Object> map=new HashMap<String, Object>();    //map集合保存分页信息和数据
 		PageHelper.startPage(currentPage, lineSize);     //设置分页参数

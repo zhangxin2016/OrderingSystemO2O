@@ -384,9 +384,9 @@ code::selection {background:#dddddd;}
 .Shop-index aside .Nearshop{width:278px;height:auto;border:1px #dddddd solid;padding:5px;}
 .Shop-index aside .Nearshop .Nstitle{height:35px;line-height:35px;padding-left:10px;font-size:14px;font-weight:bold;display:block;border-bottom:1px #dddddd solid;}
 .Shop-index aside .Nearshop ul{margin-top:10px;}
-.Shop-index aside .Nearshop li{height:90px;border-bottom:1px #dddddd dotted;overflow:hidden;margin-bottom:8px;}
-.Shop-index aside .Nearshop li img{width:80px;height:80px;float:left;margin-right:5px;border-radius:50%;}
-.Shop-index aside .Nearshop li p{width:192px;height:80px;font-size:12px;float:left;line-height:25px;}
+.Shop-index aside .Nearshop li{height:110px;border-bottom:1px #dddddd dotted;overflow:hidden;margin-bottom:8px;}
+.Shop-index aside .Nearshop li img{width:80px;height:100px;float:left;margin-right:5px;border-radius:50%;}
+.Shop-index aside .Nearshop li p{width:192px;height:100px;font-size:12px;float:left;line-height:25px;}
 .Shop-index aside .Nearshop li p span{display:block;}
 .Shop-index aside .Nearshop li p span.shopname{font-weight:bold;}
 .Shop-index aside .Nearshop li p span.Discolor{color:#01ac42;}

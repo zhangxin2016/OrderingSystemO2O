@@ -14,10 +14,9 @@
     <meta name="description" content="DeathGhost.cn::H5 WEB前端设计开发!"/>
     <meta name="author" content="DeathGhost"/>
     <link href="style/style.css" rel="stylesheet" type="text/css"/>
-    <script type="text/javascript" src="js/public.js"></script>
     <script type="text/javascript" src="js/jquery.js"></script>
-    <script type="text/javascript" src="js/jqpublic.js"></script>
     <script type="text/javascript" src="<%=path%>js/jquery-3.0.0.js"></script>
+    <script type="text/javascript" src="<%=basePath%>lib/layer/2.1/layer.js"></script>
     <script>
         $(document).ready(function(){
             var conts = 0;
@@ -28,6 +27,23 @@
             $("#J_ActualFee").text((conts).toFixed(2));
             $("#paysuccess").val((conts).toFixed(2));
         });
+        function toAddAddress(title,url,w,h){
+            layer.open({
+                type: 2,
+                area: [w+'px', h +'px'],
+                //fix: false, //不固定
+                maxmin: true,
+                shade:0.2,
+                shadeClose: true,
+                title: title,
+                move: false,
+                content: [url,'no']
+            });
+        }
+        function addAddress_callback(){
+            window.location.reload();
+            layer.msg("添加成功！");
+        }
     </script>
 </head>
 <body>
@@ -90,9 +106,12 @@
     <!--配送方式及支付，则显示如下-->
     <!--check order or add other information-->
     <div class="pay_delivery">
+        <a><span onclick="toAddAddress('添加地址','<%=basePath%>toUserAddAddress.html',800,1000)"><img src="images/newaddress.png"/></span></a>
     </div>
+
     <form action="${pageContext.request.contextPath }/addFoodOrders.html" method="post">
         <input type="hidden" id="paysuccess" name="pays" />
+
         <div class="confirm_addr_f">
             <span class="flow_title">收货地址：</span>
             <!--已保存的地址列表-->
@@ -102,6 +121,7 @@
                             ${listAddressOrder.adcon }（${listAddressOrder.adname }收）<span class="fontcolor">联系方式：${listAddressOrder.adtel }</span></li>
                 </ul>
             </c:forEach>
+
         </div>
 
         <div class="inforlist">

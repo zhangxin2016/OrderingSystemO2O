@@ -81,7 +81,7 @@
             <li><i></i><a href="<%=basePath%>userFindMyEvaluate.html">我的留言</a></li>
             <li><i></i><a href="<%=basePath%>findCollectionStoresListByUid.html">收藏的店铺</a></li>
             <li><i></i><a href="<%=basePath%>findCollectionListByUid.html">收藏的菜品</a></li>
-            <li><i></i><a href="user_account.html">账户管理</a></li>
+            <li><i></i><a href="<%=basePath%>userBuyManagement.html?uid=${user.uid}">账户管理</a></li>
             <li><i></i><a href="<%=basePath%>Logout.html">安全退出</a></li>
         </ul>
     </nav>

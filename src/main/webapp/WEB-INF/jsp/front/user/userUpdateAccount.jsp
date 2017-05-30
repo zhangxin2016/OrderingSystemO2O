@@ -9,18 +9,23 @@
 <html>
 <head>
     <meta charset="utf-8"/>
-    <title>用户中心-收藏店铺</title>
+    <title>修改用户信息</title>
     <meta name="keywords" content="DeathGhost,DeathGhost.cn,web前端设,移动WebApp开发"/>
     <meta name="description" content="DeathGhost.cn::H5 WEB前端设计开发!"/>
     <meta name="author" content="DeathGhost"/>
     <link href="style/style.css" rel="stylesheet" type="text/css"/>
-    <script type="text/javascript" src="js/public.js"></script>
-    <script type="text/javascript" src="js/jquery.js"></script>
-    <script type="text/javascript" src="js/jqpublic.js"></script>
 
+    <script type="text/javascript" src="js/jquery1.js"></script>
+    <script type="text/javascript" src="js/jquery.js"></script>
+    <script>
+        $(function () {
+            $("#sub1").click(function(){
+                document.getElementById("updateForm").submit();
+            });
+        });
+    </script>
 </head>
 <body>
-<!--Start header-->
 <header>
     <section class="Topmenubg">
         <div class="Topnav">
@@ -44,7 +49,7 @@
         <div class="Logo">
             <img src="images/logo.jpg" title="DeathGhost" alt="模板">
             <i></i>
-            <span>${cityNow}</span>
+            <span>西安市 [ <a href="#">莲湖区</a> ]</span>
         </div>
         <div class="Search">
             <form method="get" id="main_a_serach" onsubmit="return check_search(this)">
@@ -53,13 +58,15 @@
                     <a href="javascript:;" onClick="selectsearch(this,'food_name')">食物名</a>
                 </div>
                 <div class="Search_area">
-                    <input type="hidden" value="<%=basePath%>frontSearchFoodByName.html" id="urlsearchFoodByName">
-                    <input type="hidden" value="<%=basePath%>frontSearchStoresByName.html" id="urlsearchStoresByName">
-                    <input type="search" id="fnamesearch" name="fname" placeholder="请输入您所需查找的餐厅名称或食物名称..."
+                    <input type="search" id="fkeyword" name="keyword" placeholder="请输入您所需查找的餐厅名称或食物名称..."
                            class="searchbox"/>
                     <input type="submit" class="searchbutton" value="搜 索"/>
                 </div>
             </form>
+            <p class="hotkeywords"><a href="#" title="酸辣土豆丝">酸辣土豆丝</a><a href="#" title="这里是产品名称">螃蟹炒年糕</a><a href="#"
+                                                                                                              title="这里是产品名称">牛奶炖蛋</a><a
+                    href="#" title="这里是产品名称">芝麻酱凉面</a><a href="#" title="这里是产品名称">滑蛋虾仁</a><a href="#" title="这里是产品名称">蒜汁茄子</a>
+            </p>
         </div>
     </div>
     <nav class="menu_bg">
@@ -86,19 +93,49 @@
         </ul>
     </nav>
     <article class="U-article Overflow">
-        <!--user Favorites-->
-        <section class="ShopFav Overflow">
-            <span class="ShopFavtitle Block Font14 FontW Lineheight35">我的收藏</span>
-            <ul>
-                <a href="shop.html" target="_blank">
-                    <c:forEach items="${collectionStoresList }" var="collectionStoresList">
-                        <li>
-                            <a href="<%=basePath%>userBuyToStores.html?stid=${collectionStoresList.stores.stid}" ><img src="/pic/${collectionStoresList.stores.stdesc }"></a>
-                            <p>${collectionStoresList.stores.stname } <a href="<%=basePath%>deleteCollectionStores.html?collid=${collectionStoresList.collid}">( 删除 )</a></p>
-                        </li>
-                    </c:forEach>
-                </a>
-            </ul>
+        <!--user Account-->
+        <section class="AccManage Overflow">
+            <span class="AMTitle Block Font14 FontW Lineheight35">账户修改</span>
+            <form action="<%=basePath%>userBuyUpdateManagement.html" method="post" id="updateForm">
+                <table>
+                    <tr>
+                        <td width="30%" align="right">用户名：</td>
+                        <td><input type="text" name="uname" value="${userBuyUpdate.uname}"></td>
+                    </tr>
+                    <tr>
+                        <td width="30%" align="right">真实姓名：</td>
+                        <td><input type="email" name="utruename" value="${userBuyUpdate.utruename}"></td>
+                    </tr>
+                    <tr>
+                        <td width="30%" align="right">密码：</td>
+                        <td><input type="tel" name="upassword" value="${userBuyUpdate.upassword}"></td>
+                    </tr>
+                    <tr>
+                        <td width="30%" align="right">身份证号码：</td>
+                        <td><input type="text" name="uidcard" value="${userBuyUpdate.uidcard}"></td>
+                    </tr>
+                    <tr>
+                        <td width="30%" align="right">电话号码：</td>
+                        <td><input type="text" name="uphone" value="${userBuyUpdate.uphone}"></td>
+                    </tr>
+                    <tr>
+                        <td width="30%" align="right">电子邮箱：</td>
+                        <td><input type="text" name="umail" value="${userBuyUpdate.umail}"></td>
+                    </tr>
+                    <tr>
+                        <td width="30%" align="right">性别：</td>
+                        <td><input type="text" name="usex" value="${userBuyUpdate.usex}"></td>
+                    </tr>
+                    <tr>
+                        <td width="30%" align="right">年龄：</td>
+                        <td><input type="text" name="uage" value="${userBuyUpdate.uage}"></td>
+                    </tr>
+                    <tr>
+                        <td><input type="hidden" name="uid" value="${userBuyUpdate.uid}"></td>
+                        <td><input type="button" name="" id="sub1" class="Submit_b" value="保 存"></td>
+                    </tr>
+                </table>
+            </form>
         </section>
     </article>
 </section>
