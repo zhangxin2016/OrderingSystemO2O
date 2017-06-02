@@ -133,8 +133,13 @@
         <div class="N-title">订餐系统 <i>图片搜索</i></div>
         <ul class="Newslist">
             <form id="form11" action="<%=basePath %>searchForByPic.html" method="post" enctype="multipart/form-data" >
-                <input type="file" class="file" name="items_pic" id="items_pic" value="选择文件">
-                <input type="submit" class="file" value="搜 索"/>
+
+                <a href="javascript:;" class="file">选择文件
+                    <input type="file" class="file" name="items_pic" id="items_pic" >
+                </a>
+                <a href="javascript:;" class="file">搜索
+                    <input type="submit" class="file" value="搜 索"/>
+                </a>
             </form>
         </ul>
         <ul class="Orderlist" id="UpRoll">
