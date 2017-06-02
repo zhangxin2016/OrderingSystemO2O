@@ -54,4 +54,6 @@ public interface FoodMapper {
     Food findStoresByFood(Integer fid);
 
     List<FoodChart> chartByFood();
+    //根据图片获取所有菜品
+    List<Food> findFoodByFpic(String fpic) throws Exception;
 }

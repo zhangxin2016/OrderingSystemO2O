@@ -24,6 +24,34 @@
     <script type="text/javascript" src="<%=path %>/js/public.js"></script>
     <script type="text/javascript" src="<%=path %>/js/jquery1.js"></script>
     <script type="text/javascript" src="<%=path %>/js/jqpublic.js"></script>
+    <style type="text/css">
+        .file {
+            position: relative;
+            display: inline-block;
+            background: #D0EEFF;
+            border: 1px solid #99D3F5;
+            border-radius: 4px;
+            padding: 4px 12px;
+            overflow: hidden;
+            color: #1E88C7;
+            text-decoration: none;
+            text-indent: 0;
+            line-height: 20px;
+        }
+        .file input {
+            position: absolute;
+            font-size: 100px;
+            right: 0;
+            top: 0;
+            opacity: 0;
+        }
+        .file:hover {
+            background: #AADFFD;
+            border-color: #78C3F3;
+            color: #004974;
+            text-decoration: none;
+        }
+    </style>
 </head>
 
 <body>
@@ -31,7 +59,6 @@
     <section class="Topmenubg">
         <div class="Topnav">
             <div class="LeftNav">
-
                 <c:if test="${user.uname==null}">
                     <a href="<%=basePath%>user/userBuyRegister.html">注册</a>
                     |<a href="<%=basePath%>user/userBuylogin.html">登录</a>
@@ -68,7 +95,9 @@
                 </div>
             </form>
         </div>
+
     </div>
+
     <nav class="menu_bg">
         <ul class="menu">
             <li><a href="index.html">首页</a></li>
@@ -101,10 +130,12 @@
     </div>
 
     <aside class="N-right">
-        <div class="N-title">订餐系统 <i>020</i></div>
+        <div class="N-title">订餐系统 <i>图片搜索</i></div>
         <ul class="Newslist">
-            <li><i></i><a target="_blank" title="这里调用新闻标题...">欢迎访问订餐系统.</a></li>
-            <li><i></i><a target="_blank" title="这里调用新闻标题...">点餐，我们是认真的</a></li>
+            <form id="form11" action="<%=basePath %>searchForByPic.html" method="post" enctype="multipart/form-data" >
+                <input type="file" class="file" name="items_pic" id="items_pic" value="选择文件">
+                <input type="submit" class="file" value="搜 索"/>
+            </form>
         </ul>
         <ul class="Orderlist" id="UpRoll">
             <c:forEach items="${detailorderListFrontIndex}" var="detailorderListFrontIndex">

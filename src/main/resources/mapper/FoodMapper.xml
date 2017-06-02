@@ -362,4 +362,9 @@
     AND food.fdelete = 0
     AND stores.staddress LIKE concat(concat('%',#{staddress}),'%')
   </select>
+  <select id="findFoodByFpic"  parameterType="java.lang.String" resultType="com.zx.model.Food">
+    SELECT * FROM food
+    WHERE fdelete = 0
+    AND fpic = #{fpic}
+  </select>
 </mapper>

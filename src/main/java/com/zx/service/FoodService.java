@@ -39,4 +39,6 @@ public interface FoodService {
     List<Food> findFoodByStores(Page page) throws Exception;
     Integer findFoodByStoresCount(String staddress);
     Food findStoresByFood(Integer fid) throws Exception;
+
+    List<Food> findFoodByFpic(String fpic) throws Exception;
 }

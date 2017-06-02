@@ -106,5 +106,10 @@ public class FoodServiceImpl implements FoodService {
         return foodMapper.findStoresByFood(fid);
     }
 
+    @Override
+    public List<Food> findFoodByFpic(String fpic) throws Exception {
+        return foodMapper.findFoodByFpic(fpic);
+    }
+
 
 }
