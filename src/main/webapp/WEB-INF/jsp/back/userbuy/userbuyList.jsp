@@ -113,7 +113,7 @@
 					<thead>
 						<tr class="text-c">
 
-							<th width="80" class="hidden-xs1">用户头像</th>
+							<%--<th width="80" class="hidden-xs1">用户头像</th>--%>
 							<th width="100" class="hidden-xs2">用户名</th>
 							<th width="100" class="hidden-xs3">用户真实姓名</th>
 							<th width="100" class="hidden-xs3">密码</th>
@@ -132,7 +132,7 @@
 						<c:forEach items="${userBuysList}" var="userBuysList">
 							<tr class="text-c">
 
-								<td class="hidden-xs3"><%--<img src="/pic/${userBuysList.fpic}" width="100px" height="60px">--%></td>
+								<%--<td class="hidden-xs3">&lt;%&ndash;<img src="/pic/${userBuysList.fpic}" width="100px" height="60px">&ndash;%&gt;</td>--%>
 								<td class="hidden-xs1">${userBuysList.uname}</td>
 								<td class="hidden-xs2">${userBuysList.utruename}</td>
 								<td class="hidden-xs4">${userBuysList.upassword}</td>
