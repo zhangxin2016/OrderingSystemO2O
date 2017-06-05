@@ -101,9 +101,9 @@
     <aside class="CateR">
         <!--广告位或推荐位-->
         <div>
-            <a href="#" target="_blank"><img src="upload/ad.jpg"></a>
+            <a target="_blank"><img src="upload/ad.jpg"></a>
         </div>
-        <div class="Hot_shop">
+        <%--<div class="Hot_shop">
             <span class="Hshoptile Font14 FontW Block">热门商家</span>
             <ul>
                 <c:forEach items="${storesListFour }" var="storesListFour">
@@ -116,7 +116,7 @@
                     </li>
                 </c:forEach>
             </ul>
-        </div>
+        </div>--%>
     </aside>
 </section>
 <!--End content-->
