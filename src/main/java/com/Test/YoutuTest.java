@@ -26,6 +26,7 @@ public class YoutuTest {
             respose = faceYoutu.ImageTag("E:\\CourseDesign\\picture\\c33a07d8-def8-427a-b78e-ffc17378046c.jpg");
             //respose = faceYoutu.FoodDetect("E:\\pic\\timg.jpg");
             //get respose
+            System.out.println(respose);
             JSONArray respose1 = (JSONArray) respose.get("tags");
             List<String> list = new ArrayList<String>();
             for (int i = 0;i<respose1.length();i++){

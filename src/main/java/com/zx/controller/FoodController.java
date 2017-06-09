@@ -49,7 +49,8 @@ public class FoodController {
     private EvaluateService evaluateService;
 
     private String IPADDRESS = "http://ip.chemdrug.com/";
-    Jedis jedis = new Jedis("120.76.114.25",6379,30000);
+    //Jedis jedis = new Jedis("120.76.114.25",6379,30000);
+    Jedis jedis = new Jedis("127.0.0.1",6379,30000);
     //后台全部食品展示
     //分页功能
     @RequestMapping("/getAllFoodFront")

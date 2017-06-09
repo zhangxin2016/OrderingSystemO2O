@@ -49,28 +49,40 @@ public class PictureController {
                 for (int i = 0;i<respose1.length();i++){
                     JSONObject ob = (JSONObject) respose1.get(i);
                     listFileUpload.add(ob.get("tag_name").toString());
-                    //System.out.println("listFileUpload====="+listFileUpload);
                 }
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
-        File file = new File("E:\\CourseDesign\\picture\\");
-        if (file.exists()) {
-            File[] files = file.listFiles();
-            if (files.length == 0) {
-                System.out.println("文件夹是空的!");
-            } else {
-                getPictureList(files,listFileUpload,faceYoutu,pictureList);
-                for (Thread iThread : threads) {
-                    try {
-                        // 等待所有线程执行完毕
-                        iThread.join();
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
+        if(session.getAttribute("allPictureMap")==null){
+            System.out.println("重新查找图片方法查询图片");
+            File file = new File("E:\\CourseDesign\\picture\\");
+            if (file.exists()) {
+                File[] files = file.listFiles();
+                if (files.length == 0) {
+                    System.out.println("文件夹是空的!");
+                } else {
+                    getPictureList(files,listFileUpload,faceYoutu,pictureList);
+                    for (Thread iThread : threads) {
+                        try {
+                            // 等待所有线程执行完毕
+                            iThread.join();
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
                     }
+                    System.out.println("主线执行。");
                 }
-                System.out.println("主线执行。");
+            }
+        }else{
+            System.out.println("session方法查询图片");
+            Map<String,List<String>> pictureListMap = (Map<String, List<String>>) session.getAttribute("allPictureMap");
+            for (Map.Entry<String,List<String>> entry : pictureListMap.entrySet()) {
+                System.out.println("key= " + entry.getKey() + " and value= " + entry.getValue());
+                List<String> result = getSameList(listFileUpload,entry.getValue());
+                if (result.size()>1){
+                    pictureList.add(entry.getKey());
+                }
             }
         }
         System.out.println("pictureList==="+pictureList);
@@ -87,7 +99,6 @@ public class PictureController {
     /*
      *   遍历所有图片
      */
-
     public  List<String> getPictureList(File[] files,List<String> listFileUpload,Youtu faceYoutu,List<String> pictureList){
         for (File file2 : files) {
             Thread iThread = new Thread(

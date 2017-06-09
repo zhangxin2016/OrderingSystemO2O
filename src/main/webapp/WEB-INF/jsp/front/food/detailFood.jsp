@@ -14,8 +14,8 @@
     <meta name="description" content="DeathGhost.cn::H5 WEB前端设计开发!"/>
     <meta name="author" content="DeathGhost"/>
     <link href="<%=path %>style/style.css" rel="stylesheet" type="text/css"/>
-    <%--<script type="text/javascript" src="<%=path %>js/public.js"></script>
-    <script type="text/javascript" src="<%=path %>/js/jqpublic.js"></script>--%>
+    <script type="text/javascript" src="<%=path %>js/public.js"></script>
+    <script type="text/javascript" src="<%=path %>/js/jqpublic.js"></script>
     <script type="text/javascript" src="<%=path %>js/jquery1.js"></script>
 
     <script src="<%=path %>/js/jquery.js"></script>
@@ -75,7 +75,7 @@
                     success:function(data){
                         var con = data.con;
                         if (con=="nologin"){
-                            layer.msg('请先登录', {icon: 1,time: 1000})
+                            layer.msg('请先登录', {icon: 2,time: 1000})
                         }else {
                             $("#cartUserCount").html(data);
                             layer.msg('加入购物车成功', {icon: 1,time: 1000});
@@ -104,10 +104,10 @@
                             layer.msg('收藏成功', {icon: 1,time: 1000});
                             return;
                         }else if(data==1){
-                            layer.msg('您已经收藏过该菜品了', {icon: 1,time: 1000});
+                            layer.msg('您已经收藏过该菜品了', {icon: 2,time: 1000});
                             return;
                         }else if(data==2){
-                            layer.msg('请先登录', {icon: 1,time: 1000});
+                            layer.msg('请先登录', {icon: 2,time: 1000});
                             return;
                         }
                     }

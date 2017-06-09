@@ -1,6 +1,7 @@
 package com.zx.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import com.youtu.Youtu;
 import com.zx.model.Detailorder;
 import com.zx.model.Food;
 import com.zx.model.Stores;
@@ -8,16 +9,18 @@ import com.zx.service.DetailOrderService;
 import com.zx.service.FoodService;
 import com.zx.service.StoresService;
 import com.zx.util.*;
+import org.json.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.io.File;
+import java.util.*;
 
 @Controller
 @RequestMapping("/user")
@@ -93,6 +96,9 @@ public class UserCotroller {
 		detailorderListFrontIndex = detailorderListIndex.subList(detailorderListIndex.size()-5, detailorderListIndex.size());
 		modelMap.put("detailorderListFrontIndex",detailorderListFrontIndex);
 		session.setAttribute("cityNow",city);
+		if(session.getAttribute("allPictureMap")==null){
+			youtu(session);
+		}
 		return "front/index";
 	}
 	@RequestMapping("userBuylogin.html")
@@ -114,4 +120,64 @@ public class UserCotroller {
 			t++;
 		}
 	}
+	public static final String APP_ID = "10081183";
+	public static final String SECRET_ID = "AKIDqZ6ScbCyNaqyueaZkjW7VhldqumTiF8v";
+	public static final String SECRET_KEY = "mRtAF9qLfmgVEk4ECyYv65sTr45va5BA";
+	Vector<Thread> threads = new Vector<Thread>();
+	Map<String,List<String>> pictureListMap = new HashMap<String,List<String>>();
+	public void youtu(HttpSession session){
+		Youtu faceYoutu = new Youtu(APP_ID, SECRET_ID, SECRET_KEY,Youtu.API_YOUTU_END_POINT);
+		File file = new File("E:\\CourseDesign\\picture\\");
+		if (file.exists()) {
+			File[] files = file.listFiles();
+			if (files.length == 0) {
+				System.out.println("文件夹是空的!");
+			} else {
+				getPictureList(files,faceYoutu,session);
+				for (Thread iThread : threads) {
+					try {
+						// 等待所有线程执行完毕
+						iThread.join();
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+				}
+				System.out.println("主线执行。");
+				System.out.println("pictureListMap======="+pictureListMap);
+			}
+		}
+	}
+	public  void getPictureList(File[] files, Youtu faceYoutu,HttpSession session){
+		for (File file2 : files) {
+			Thread iThread = new Thread(
+					new Runnable() {
+						@Override
+						public void run() {
+							org.json.JSONObject respose;
+							if (file2.isDirectory()) {
+								System.out.println("文件夹:" + file2.getAbsolutePath());
+							} else {
+								try {
+									System.out.println("子线程" + Thread.currentThread() + "执行完毕");
+									respose = faceYoutu.ImageTag(file2.getAbsolutePath());
+									JSONArray respose1 = (JSONArray) respose.get("tags");
+									List<String> listFileLocal = new ArrayList<String>();
+									for (int i = 0;i<respose1.length();i++){
+										org.json.JSONObject ob = (org.json.JSONObject) respose1.get(i);
+										listFileLocal.add(ob.get("tag_name").toString());
+									}
+									String[] splitFile=file2.getAbsolutePath().split("\\\\");
+									pictureListMap.put(splitFile[splitFile.length-1],listFileLocal);
+									session.setAttribute("allPictureMap",pictureListMap);
+								} catch (Exception e) {
+									e.printStackTrace();
+								}
+							}
+						}
+					});
+			threads.add(iThread);
+			iThread.start();
+		}
+	}
+
 }

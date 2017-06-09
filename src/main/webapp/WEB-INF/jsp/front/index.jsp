@@ -26,30 +26,16 @@
     <script type="text/javascript" src="<%=path %>/js/jqpublic.js"></script>
     <style type="text/css">
         .file {
-            position: relative;
-            display: inline-block;
             background: #D0EEFF;
             border: 1px solid #99D3F5;
-            border-radius: 4px;
-            padding: 4px 12px;
             overflow: hidden;
             color: #1E88C7;
-            text-decoration: none;
-            text-indent: 0;
             line-height: 20px;
-        }
-        .file input {
-            position: absolute;
-            font-size: 100px;
-            right: 0;
-            top: 0;
-            opacity: 0;
         }
         .file:hover {
             background: #AADFFD;
             border-color: #78C3F3;
             color: #004974;
-            text-decoration: none;
         }
     </style>
 </head>
@@ -131,17 +117,12 @@
 
     <aside class="N-right">
         <div class="N-title">订餐系统 <i>图片搜索</i></div>
-        <ul class="Newslist">
+        <div class="Newslist">
             <form id="form11" action="<%=basePath %>searchForByPic.html" method="post" enctype="multipart/form-data" >
-
-                <a href="javascript:;" class="file">选择文件
                     <input type="file" class="file" name="items_pic" id="items_pic" >
-                </a>
-                <a href="javascript:;" class="file">搜索
-                    <input type="submit" class="file" value="搜 索"/>
-                </a>
+                    <input type="submit" class="file"  value="搜 索"/>
             </form>
-        </ul>
+        </div>
         <ul class="Orderlist" id="UpRoll">
             <c:forEach items="${detailorderListFrontIndex}" var="detailorderListFrontIndex">
                 <li>
