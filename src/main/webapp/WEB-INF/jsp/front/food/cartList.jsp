@@ -262,7 +262,10 @@
                         <input type="hidden" name="to${cart.cid }" value="${cart.ctotal}" />
                         </div>
                     </td>
-                    <td class="tb2_td2"><a href="<%=basePath%>getFoodById.html?fid=${cart.foods.fid}" target="_blank"><img src="upload/01.jpg"/></a></td>
+                    <td class="tb2_td2"><a href="<%=basePath%>getFoodById.html?fid=${cart.foods.fid}" target="_blank">
+
+                        <img src="/pic/${cart.foods.fpic }">
+                    </a></td>
                     <td class="tb2_td3"><a href="<%=basePath%>getFoodById.html?fid=${cart.foods.fid}" target="_blank">${cart.foods.fname }</a></td>
                     <td class="tb1_td4"><s>￥${cart.foods.fprice }</s></td>
                     <td class="tb1_td5">

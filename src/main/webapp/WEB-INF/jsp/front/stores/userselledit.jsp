@@ -57,7 +57,7 @@
 		<legend class="col-xs-12" style="font-size: 16px;padding: 0px;margin-top: 10px;margin-bottom: 0px;">请输入真实姓名:</legend>
 		<input type="text" class="input-text" name="ustruename" value="${userSellEdit.ustruename}" id="ustruename" >
 		<legend class="col-xs-12" style="font-size: 16px;padding: 0px;margin-top: 10px;margin-bottom: 0px;">请输入密码:</legend>
-		<input type="text" class="input-text" name="uspassword" value="${userSellEdit.uspassword}" id="uspassword" >
+		<input type="password" class="input-text" name="uspassword" value="${userSellEdit.uspassword}" id="uspassword" >
 		<legend class="col-xs-12" style="font-size: 16px;padding: 0px;margin-top: 10px;margin-bottom: 0px;">请输入身份证号码:</legend>
 		<input type="text" class="input-text" name="usidcard" value="${userSellEdit.usidcard}" id="usidcard" >
 		<legend class="col-xs-12" style="font-size: 16px;padding: 0px;margin-top: 10px;margin-bottom: 0px;">请输入电话号码:</legend>

@@ -22,12 +22,15 @@
 	<script type="text/javascript" src="http://lib.h-ui.net/respond.min.js"></script>
 	<script type="text/javascript" src="http://lib.h-ui.net/PIE_IE678.js"></script>
 	<![endif]-->
-	<link rel="stylesheet" type="text/css" href="http://static.h-ui.net/h-ui/css/H-ui.min.css" />
-	<link rel="stylesheet" type="text/css" href="http://static.h-ui.net/h-ui/css/H-ui.admin.css" />
-	<link rel="stylesheet" type="text/css" href="http://lib.h-ui.net/Hui-iconfont/1.0.7/iconfont.css" />
+
+	<link rel="stylesheet" type="text/css" href="static/h-ui/css/H-ui.min.css" />
+	<link rel="stylesheet" type="text/css" href="static/h-ui.admin/css/H-ui.admin.css" />
+	<link rel="stylesheet" type="text/css" href="lib/Hui-iconfont/1.0.8/iconfont.css" />
+	<link rel="stylesheet" type="text/css" href="static/h-ui.admin/skin/default/skin.css" id="skin" />
+	<link rel="stylesheet" type="text/css" href="static/h-ui.admin/css/style.css" />
+
 	<link rel="stylesheet" type="text/css" href="http://lib.h-ui.net/icheck/icheck.css" />
-	<link rel="stylesheet" type="text/css" href="http://static.h-ui.net/h-ui/skin/default/skin.css" id="skin" />
-	<link rel="stylesheet" type="text/css" href="http://static.h-ui.net/h-ui/css/style.css" />
+
 	<link rel="stylesheet" href="<%=basePath%>lib/labellauty/css/jquery-labelauty.css">
 	<!--[if IE 6]>
 	<script type="text/javascript" src="http://lib.h-ui.net/DD_belatedPNG_0.0.8a-min.js" ></script>

@@ -42,8 +42,20 @@
         }
         function addAddress_callback(){
             window.location.reload();
-            layer.msg("添加成功！");
+            layer.msg('添加成功！',{icon: 2,time: 2000});
         }
+        //判断地址是否被选中
+        function sureOrder(){
+                var val=$('input:radio[name="addressIn"]:checked').val();
+                if(val!=null){
+                    $("#submitFormSure").submit( );
+                }else{
+                    layer.msg('请选择一个收货地址！', {icon: 2,time: 2000});
+                    setTimeout(function(){
+                        window.location.reload();
+                    },2000);
+                }
+            };
     </script>
 </head>
 <body>
@@ -109,7 +121,7 @@
         <a><span onclick="toAddAddress('添加地址','<%=basePath%>toUserAddAddress.html',800,1000)"><img src="images/newaddress.png"/></span></a>
     </div>
 
-    <form action="${pageContext.request.contextPath }/addFoodOrders.html" method="post">
+    <form action="${pageContext.request.contextPath }/addFoodOrders.html" method="post" id="submitFormSure">
         <input type="hidden" id="paysuccess" name="pays" />
 
         <div class="confirm_addr_f">
@@ -146,7 +158,9 @@
             </div>
             <div class="Sum_infor">
                 <p class="p2">合计：￥<span id="J_ActualFee"></span></p>
-                <input type="submit" value="提交订单" class="p3button"/>
+                <span onclick="sureOrder();">
+                    <input type="button" value="提交订单" class="p3button" />
+                </span>
             </div>
         </div>
     </form>
